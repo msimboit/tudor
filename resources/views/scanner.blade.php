@@ -200,6 +200,8 @@ function showError(error) {
 
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
           scanner.addListener('scan', function (content) {
+            console.log(content);
+            //Conditional Statements for Langata Codes
             if (content == 'TCS000201') {
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
@@ -212,11 +214,77 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 $('#con').val(content);
                 $('#con_name').val('Site Office')
             }
+            if (content == 'TCS000203') {
+                alert('Scanned Block A');
+                document.getElementById("content").innerHTML = 'Block A';
+                $('#con').val(content);
+                $('#con_name').val('Block A')
+            }
+            if (content == 'TCS000204') {
+                alert('Scanned Block A Top');
+                document.getElementById("content").innerHTML = 'Block A Top';
+                $('#con').val(content);
+                $('#con_name').val('Block A Top')
+            }
+            if (content == 'TCS000205') {
+                alert('Scanned Block A Front');
+                document.getElementById("content").innerHTML = 'Block A Front';
+                $('#con').val(content);
+                $('#con_name').val('Block A Front')
+            }
+            if (content == 'TCS000206') {
+                alert('Scanned Block A Back');
+                document.getElementById("content").innerHTML = 'Block A Back';
+                $('#con').val(content);
+                $('#con_name').val('Site Office')
+            }
+            if (content == 'TCS000207') {
+                alert('Scanned Block B');
+                document.getElementById("content").innerHTML = 'Block B';
+                $('#con').val(content);
+                $('#con_name').val('Block B')
+            }
+            if (content == 'TCS000208') {
+                alert('Scanned Block B Top');
+                document.getElementById("content").innerHTML = 'Block B Top';
+                $('#con').val(content);
+                $('#con_name').val('Block B Top')
+            }
+            if (content == 'TCS000209') {
+                alert('Scanned Block B Front');
+                document.getElementById("content").innerHTML = 'Block B Front';
+                $('#con').val(content);
+                $('#con_name').val('Block B Front')
+            }
+            if (content == 'TCS000210') {
+                alert('Scanned Block B Back');
+                document.getElementById("content").innerHTML = 'Block B Back';
+                $('#con').val(content);
+                $('#con_name').val('Block B Back')
+            }
+            if (content == 'TCS000211') {
+                alert('Scanned Block C');
+                document.getElementById("content").innerHTML = 'Block C';
+                $('#con').val(content);
+                $('#con_name').val('Block C')
+            }
             if (content == 'TCS000212') {
                 alert('Scanned Block C-Top');
                 document.getElementById("content").innerHTML = 'Block C-Top';
                 $('#con').val(content);
                 $('#con_name').val('Block C-Top')
+            }
+            if (content == 'TCS000213') {
+                alert('Scanned Block C Front');
+                document.getElementById("content").innerHTML = 'Block C Front';
+                $('#con').val(content);
+                $('#con_name').val('Block C Front')
+            }
+            if (content == 'TCS000214') {
+                alert('Scanned Block C Back');
+                document.getElementById("content").innerHTML = 'Blcok C Back';
+                $('#con').val(content);
+                $('#con_name').val('Block C Back')
             }
             if (content == 'TCS000215') {
                 alert('Scanned Left');
@@ -230,6 +298,12 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 $('#con').val(content);
                 $('#con_name').val('Right')
             }
+            if (content == 'TCS000217') {
+                alert('Scanned Back');
+                document.getElementById("content").innerHTML = 'Back';
+                $('#con').val(content);
+                $('#con_name').val('Back')
+            }
             if (content == 'TCS000218') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
@@ -241,6 +315,44 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 document.getElementById("content").innerHTML = 'Security Office';
                 $('#con').val(content);
                 $('#con_name').val('Security Office')
+            }
+
+            // Conditional Statements for Baraka Codes
+            if (content == 'TCS00101') {
+                alert('Clocking In');
+                document.getElementById("content").innerHTML = 'Clocking In';
+                $('#con').val(content);
+                $('#con_name').val('Clocking In')
+            }
+            if (content == 'TCS00102') {
+                alert('Scanned Security Office');
+                document.getElementById("content").innerHTML = 'Security Office';
+                $('#con').val(content);
+                $('#con_name').val('Security Office')
+            }
+            if (content == 'TCS00103') {
+                alert('Scanned Block 1');
+                document.getElementById("content").innerHTML = 'Block 1';
+                $('#con').val(content);
+                $('#con_name').val('Block 1')
+            }
+            if (content == 'TCS00104') {
+                alert('Scanned Block 2');
+                document.getElementById("content").innerHTML = 'Block 2';
+                $('#con').val(content);
+                $('#con_name').val('Block 2')
+            }
+            if (content == 'TCS00105') {
+                alert('Scanned Open Area');
+                document.getElementById("content").innerHTML = 'Open Area';
+                $('#con').val(content);
+                $('#con_name').val('Open Area')
+            }
+            if (content == 'TCS00106') {
+                alert('Clocking Out');
+                document.getElementById("content").innerHTML = 'Clocking Out';
+                $('#con').val(content);
+                $('#con_name').val('Clocking Out')
             }
             
           });

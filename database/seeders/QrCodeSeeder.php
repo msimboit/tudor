@@ -15,38 +15,128 @@ class QrCodeSeeder extends Seeder
     public function run()
     {
         DB::table('qr_codes')->insert([
-            'name' => 'clock_in',
+            'name' => 'Clock In',
             'code' => 'TCS000201',
         ]);
 
         DB::table('qr_codes')->insert([
-            'name' => 'site_office',
+            'name' => 'Site Office',
             'code' => 'TCS000202',
         ]);
 
         DB::table('qr_codes')->insert([
-            'name' => 'block_c_top',
+            'name' => 'Block A',
+            'code' => 'TCS000203',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block A Top',
+            'code' => 'TCS000204',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block A Front',
+            'code' => 'TCS000205',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block A Back',
+            'code' => 'TCS000206',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block B',
+            'code' => 'TCS000207',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block B Top',
+            'code' => 'TCS000208',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block B Front',
+            'code' => 'TCS000209',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block B Back',
+            'code' => 'TCS000210',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block C',
+            'code' => 'TCS000211',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block C Top',
             'code' => 'TCS000212',
         ]);
 
         DB::table('qr_codes')->insert([
-            'name' => 'left',
+            'name' => 'Block C Front',
+            'code' => 'TCS000213',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block C Back',
+            'code' => 'TCS000214',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Left',
             'code' => 'TCS000215',
         ]);
 
         DB::table('qr_codes')->insert([
-            'name' => 'right',
+            'name' => 'Right',
             'code' => 'TCS000216',
         ]);
 
         DB::table('qr_codes')->insert([
-            'name' => 'clock_out',
+            'name' => 'Back',
+            'code' => 'TCS000217',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out',
             'code' => 'TCS000218',
         ]);
 
         DB::table('qr_codes')->insert([
-            'name' => 'security_office',
+            'name' => 'Security Office',
             'code' => 'TCS000219',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock In - B',
+            'code' => 'TCS00101',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Security Office - B',
+            'code' => 'TCS00102',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block 1 - B',
+            'code' => 'TCS00103',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Block 2 - B',
+            'code' => 'TCS00104',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Open Area - B',
+            'code' => 'TCS00105',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out - B',
+            'code' => 'TCS00106',
         ]);
     }
 }

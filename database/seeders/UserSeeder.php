@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'id'             => 1,
                 'firstname'      => 'Admin',
                 'lastname'       => 'Admin',
                 'id_number'      => '12345678',
@@ -28,6 +27,42 @@ class UserSeeder extends Seeder
                 'created_at'     => '2021-07-19 15:31:45',
                 'updated_at'     => '2021-07-19 15:31:45',
                 'role'           => 'admin',
+            ],
+
+            [
+                'firstname'      => 'John',
+                'lastname'       => 'Doe',
+                'id_number'      => '0011223344',
+                'email'          => 'johndoe@test.com',
+                'password'       => Hash::make('password'),
+                'remember_token' => null,
+                'created_at'     => '2021-07-19 15:31:45',
+                'updated_at'     => '2021-07-19 15:31:45',
+                'role'           => 'guard',
+            ],
+
+            [
+                'firstname'      => 'Jane',
+                'lastname'       => 'Doe',
+                'id_number'      => '1122334455',
+                'email'          => 'janedoe@test.com',
+                'password'       => Hash::make('password'),
+                'remember_token' => null,
+                'created_at'     => '2021-07-19 15:31:45',
+                'updated_at'     => '2021-07-19 15:31:45',
+                'role'           => 'guard',
+            ],
+
+            [
+                'firstname'      => 'Shaka',
+                'lastname'       => 'Voo',
+                'id_number'      => '2233445566',
+                'email'          => 'shakavoo@test.com',
+                'password'       => Hash::make('password'),
+                'remember_token' => null,
+                'created_at'     => '2021-07-19 15:31:45',
+                'updated_at'     => '2021-07-19 15:31:45',
+                'role'           => 'guard',
             ],
         ];
 
