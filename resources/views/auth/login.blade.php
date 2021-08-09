@@ -59,11 +59,11 @@
                             </div>
                         </div>
 
-                        <div class="my-3">
+                        <!-- <div class="form-group row mb-0">
                             <div">
                                 <a href="{{ route('register') }}"> {{ __('New To Tudor? Sign Up') }}</a>
                             </div>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>
