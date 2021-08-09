@@ -192,7 +192,7 @@ function showError(error) {
 }
 
 
-let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
+let scanner = new Instascan.Scanner({ video: {document.getElementById('preview'), facingMode: 'environment'} , mirror: false });
           scanner.addListener('scan', function (content) {
             console.log(content);
             //Conditional Statements for Langata Codes
@@ -352,7 +352,7 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview'),
           });
           Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 0) {
-              scanner.start(cameras[0]);
+              scanner.start(cameras[1]);
             } else {
               console.error('No cameras found.');
             }
