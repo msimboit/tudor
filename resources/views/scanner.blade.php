@@ -119,13 +119,6 @@
             </div>
         </div>
     </div>
-    <footer class="main-footer hidden-print p-2 ml-1" style="position: fixed; bottom: 0;">
-            <strong>Copyright &copy; 2021 <a href="http://msimboit.net/" target="_blank">Msimbo IT</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 1.0.0
-            </div>
-    </footer>
 
 <!--https://developers.google.com/maps/documentation/javascript/get-api-key-->
 <script src="https://maps.google.com/maps/api/js?key=AIzaSyCnGwWFUlm1QJuI8WDZeBVxHzS6Bhzknmo"></script>

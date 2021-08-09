@@ -268,6 +268,7 @@ class ScannerController extends Controller
             $scanned_areas = DB::table('scans')
             ->select('sector_name')
             ->where('guard_id', '=', $user->id_number)
+            
             ->where('sector_name', '!=', 'Clockin Out')
             ->where('sector_name', '!=', 'Clockin Out')
             ->where('created_at', '>', $last_clock_in)
