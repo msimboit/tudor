@@ -67,6 +67,11 @@ class ScannerController extends Controller
         ->where('sector_name', '=', 'Clocking In')
         ->orderBy('created_at', 'desc')
         ->first();
+
+        $last_scanned_site = DB::table('scans')
+            ->where('guard_id', '=', $user->id_number)
+            ->orderBy('created_at', 'desc')
+            ->first();
         
         if($last_clock_in == null){
             $user = Auth::user();
@@ -118,16 +123,16 @@ class ScannerController extends Controller
         $scan->time = $request->scan_time;
         $success = $scan->save();
 
-        if($scan->sector_name == 'Clocking In') {
+        if($scan->sector_name == 'Clocking In' && $last_scanned_site->sector_name != 'Clocking Out') {
             $in = new DateTime($last_clock_in->created_at);
-            $out = new DateTime($scan->created_at);
+            $out = new DateTime($last_scanned_site->created_at);
             $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
 
             $shift = DB::table('shifts')
                     ->where('guard_id', ($user->id_number))
                     ->where('clockin', ($last_clock_in->created_at))
                     ->update([
-                        'clockout' => $scan->created_at,
+                        'clockout' => $last_scanned_site->created_at,
                         'shift_duration' => $duration
                         ]);
 
@@ -268,7 +273,6 @@ class ScannerController extends Controller
             $scanned_areas = DB::table('scans')
             ->select('sector_name')
             ->where('guard_id', '=', $user->id_number)
-            
             ->where('sector_name', '!=', 'Clockin Out')
             ->where('sector_name', '!=', 'Clockin Out')
             ->where('created_at', '>', $last_clock_in)
