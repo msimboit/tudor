@@ -9,11 +9,11 @@
 
                 <div class="card-body">
                     {{__('Shift Info of: ')}}
-                    {{ $guard->guard_name }}
+                    {{ $guard->first_name }}
                     <br />
                     <br />
 
-                    <table class="table-responsive table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                             <th scope="col">Date</th>

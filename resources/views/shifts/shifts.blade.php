@@ -39,7 +39,7 @@
                     {{__('All Registered Guards:')}}
                     <br />
                     <br />
-                    <table class="table-responsive table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                             <th scope="col">ID</th>

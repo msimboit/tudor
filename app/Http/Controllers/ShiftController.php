@@ -77,7 +77,6 @@ class ShiftController extends Controller
                         ->simplePaginate(30);
         
         // echo($guard_details);
-
         return view('shifts.shiftInfo', ['guard' => $guard], ['guard_details' => $guard_details]);
     }
 

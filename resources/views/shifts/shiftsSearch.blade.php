@@ -13,7 +13,7 @@
                     <br />
 
 
-                    <table class="table-responsive table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                             <th scope="col">Guard Name</th>
