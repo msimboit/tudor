@@ -17,7 +17,7 @@
                         {{ __('The following areas have been scanned recently:') }}
                         <br />
                         <br />
-                        <table class="table table-hover">
+                        <table class="table-responsive table-hover">
                             <thead>
                                 <tr>
                                 <th scope="col">Guard</th>
