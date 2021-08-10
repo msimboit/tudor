@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     {{__('Shift Info of: ')}}
-                    {{ $guard->first_name }}
+                    {{ $guard->firstname }}
                     <br />
                     <br />
 
