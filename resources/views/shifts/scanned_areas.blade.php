@@ -23,6 +23,7 @@
                                 <th scope="col">Guard</th>
                                 <th scope="col">Sector</th>
                                 <th scope="col">Time Scanned</th>
+                                <th scope="col">Date Scanned</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,6 +32,7 @@
                                         <td>{{ $scanned_area->guard_name }}</td>
                                         <td>{{ $scanned_area->sector_name }}</td>
                                         <td>{{ $scanned_area->time }}</td>
+                                        <td>{{ Carbon\Carbon::parse($scanned_area->created_at)->format('d-m-Y')}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
