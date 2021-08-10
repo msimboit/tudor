@@ -12,14 +12,32 @@
                     {{ Auth::user()->firstname }}
             
                     @if(!empty($scanned_areas[0]))
-                    <br />
-                    <br />
-                    {{ __('The following areas have been scanned recently:') }}
-                    <br />
-                    <br />
-                    @foreach ($scanned_areas as $scanned_area)
-                        <strong><p>{{ $scanned_area->sector_name }}</p></strong>
-                    @endforeach
+                        <br />
+                        <br />
+                        {{ __('The following areas have been scanned recently:') }}
+                        <br />
+                        <br />
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Guard</th>
+                                <th scope="col">Sector</th>
+                                <th scope="col">Time Scanned</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($scanned_areas as $scanned_area)
+                                    <tr>
+                                        <td>{{ $scanned_area->guard_name }}</td>
+                                        <td>{{ $scanned_area->sector_name }}</td>
+                                        <td>{{ $scanned_area->time }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        {{ $scanned_areas->links() }}
+
                     @else
                     <br />
                     <br />

@@ -93,10 +93,10 @@ class ShiftController extends Controller
         $current_time = Carbon::now();
         
         $scanned_areas = DB::table('scans')
-        ->select('sector_name')
+        ->select('sector_name', 'guard_name', 'time')
         ->where('created_at', '<', $current_time)
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate(5);
         
         return view('shifts.scanned_areas', ['current_time' => $current_time], ['scanned_areas' => $scanned_areas]);
 
