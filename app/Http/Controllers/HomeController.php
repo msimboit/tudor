@@ -29,15 +29,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->id_number;
+        $user = Auth::user()->phone_number;
         $current_time = Carbon\Carbon::now();
 
-        if(Auth::user()->role == 'guard')
+        $roles = ['guard', 'management', 'operations', 'control', 'production'];
+
+        if(in_array( (Auth::user()->role), $roles ))
         {
 
             $last_clock_in = DB::table('scans')
             ->select('created_at')
-            ->where('guard_id', '=', $user)
+            ->where('phone_number', '=', $user)
             ->where('sector_name', '=', 'Clocking In')
             ->orderBy('created_at', 'desc')
             ->first();
@@ -54,12 +56,16 @@ class HomeController extends Controller
 
                     $last_scan = DB::table('scans')
                         ->select('sector_name')
-                        ->where('guard_id', '=', $user)
+                        ->where('phone_number', '=', $user)
                         ->orderBy('created_at', 'desc')
                         ->first();
                     
 
-                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out') {
+                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out' && Auth::user()->role === 'guard') {
+                        return redirect()->route('patrol');
+                    }
+
+                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out' && Auth::user()->role !== 'guard') {
                         return redirect()->route('patrol');
                     }
 

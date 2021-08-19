@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             QrCodeSeeder::class,
             UserSeeder::class,
-            ShiftSeeder::class,
         ]);
     }
 }

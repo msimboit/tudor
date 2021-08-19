@@ -15,8 +15,10 @@ class Shift extends Model
      * @var array
      */
     protected $fillable = [
-        'guard_id',
-        'guard_name',
+        'phone_number',
+        'first_name',
+        'last_name',
+        'role',
         'clockin',
         'clockout',
         'shift_duration',

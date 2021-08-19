@@ -44,6 +44,15 @@
                 </div>
                 @endif
 
+                @if (Auth::check() && Auth::user()->role !== 'admin')
+                <div class="my-3 ml-3">
+                    <h5>Clock In To Work</h5>
+                    <button class="btn btn-secondary">
+                        <a href="{{ route('clockin') }} " style="text-decoration:none; color:#fff">Clock In</a>
+                    </button>
+                </div>
+                @endif
+
             </div>
         </div>
     </div>

@@ -35,6 +35,43 @@
                     @endauth
                 </div>
             @endif
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between"><span>{{ __('Welcome') }}</span>  <span>{{ \Carbon\Carbon::now() }}</span></div>
+
+                            <div class="card-body">
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+
+                                @if (session('success'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                            </div> 
+
+                            <div class="my-3 ml-3">
+                                <button class="btn btn-secondary">
+                                    <a href="{{ route('login') }} " style="text-decoration:none;">Log Back In</a>
+                                </button>
+                            </div>
+
+                            <div class="my-3 ml-3">
+                                <h5>Or Sign Up</h5>
+                                <button class="btn btn-secondary">
+                                    <a href="{{ route('register') }} " style="text-decoration:none;">sign up</a>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

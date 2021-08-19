@@ -42,6 +42,14 @@
                 </div>
                 @endif
 
+                @if( Auth::check() && Auth::user()->role !== 'admin' && Auth::check() && Auth::user()->role !== 'guards')
+                <div class="my-3 ml-3">
+                    <button class="btn btn-secondary">
+                        <a href="{{ route('scan') }} " style="text-decoration:none; color:#fff">Clock Out</a>
+                    </button>
+                </div>
+                @endif
+
             </div>
         </div>
     </div>

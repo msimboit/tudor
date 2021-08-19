@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-16">
             <div class="card">
-                <div class="card-header d-flex justify-content-between"><span>{{ Auth::user()->name }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
+                <div class="card-header d-flex justify-content-between"><span>{{ Auth::user()->firstname }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
 
                 <div class="card-body">
                     {{__('Shift Search Results: ')}}
@@ -16,7 +16,8 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            <th scope="col">Guard Name</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone Number</th>
                             <th scope="col">Clock In</th>
                             <th scope="col">Clock Out</th>
                             <th scope="col">Shift Duration</th>
@@ -26,7 +27,8 @@
                         <tbody>
                             @foreach($shifts as $shift)
                                 <tr>
-                                    <td>{{ $shift->guard_name }}</td>
+                                    <td>{{ $shift->first_name }}</td>
+                                    <td>{{ $shift->phone_number }}</td>
                                     <td>{{ $shift->clockin }}</td>
                                     <td>{{ $shift->clockout }}</td>
                                     <td>{{ $shift->shift_duration }}</td>

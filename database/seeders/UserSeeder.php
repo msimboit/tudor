@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             [
                 'firstname'      => 'Admin',
                 'lastname'       => 'Admin',
-                'id_number'      => '12345678',
+                'phone_number'      => '12345678',
                 'email'          => 'admin@admin.com',
                 'password'       => Hash::make('somesecretpassword'),
                 'remember_token' => null,
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             [
                 'firstname'      => 'John',
                 'lastname'       => 'Doe',
-                'id_number'      => '0011223344',
+                'phone_number'      => '0011223344',
                 'email'          => 'johndoe@test.com',
                 'password'       => Hash::make('password'),
                 'remember_token' => null,
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             [
                 'firstname'      => 'Jane',
                 'lastname'       => 'Doe',
-                'id_number'      => '1122334455',
+                'phone_number'      => '1122334455',
                 'email'          => 'janedoe@test.com',
                 'password'       => Hash::make('password'),
                 'remember_token' => null,
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             [
                 'firstname'      => 'Shaka',
                 'lastname'       => 'Voo',
-                'id_number'      => '2233445566',
+                'phone_number'      => '2233445566',
                 'email'          => 'shakavoo@test.com',
                 'password'       => Hash::make('password'),
                 'remember_token' => null,

@@ -15,11 +15,11 @@ class CreateScansTable extends Migration
     {
         Schema::create('scans', function (Blueprint $table) {
             $table->id();
-            $table->string('guard_id');
-            $table->string('guard_name');
+            $table->string('phone_number');
+            $table->string('first_name');
             $table->string('latitude');
             $table->string('longitude');
-            $table->string('sector');
+            $table->string('sector')->nullable();
             $table->string('sector_name');
             $table->string('time');
             $table->timestamps();

@@ -55,6 +55,7 @@ class ShiftController extends Controller
     {   
         // dd($request->all());
         $shifts = Shift::whereBetween('created_at', [$request->get('from'), $request->get('to')])
+                        ->where('role', 'guard')
                         ->orderBy('created_at', 'desc')                
                         ->get();
 
@@ -72,7 +73,7 @@ class ShiftController extends Controller
     {
         $guard = User::findOrFail($id);
 
-        $guard_details = Shift::where('guard_id', $guard->id_number)
+        $guard_details = Shift::where('phone_number', $guard->phone_number)
                         ->orderBy('created_at', 'desc')
                         ->simplePaginate(30);
         

@@ -15,8 +15,8 @@ class CreateIssuesTable extends Migration
     {
         Schema::create('issues', function (Blueprint $table) {
             $table->id();
-            $table->string('guard_id');
-            $table->string('guard_name');
+            $table->string('phone_number');
+            $table->string('first_name');
             $table->string('title');
             $table->string('issueLocation');
             $table->string('details');

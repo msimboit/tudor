@@ -30,10 +30,16 @@ class ScannerController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role === 'guard')
-        $user = Auth::user();
+        $roles = ['guard', 'management', 'operations', 'control', 'production'];
+        
+        if( in_array( (Auth::user()->role), $roles ) )
+        {
+            $user = Auth::user();
+            return view('scanner', ['user' => $user]);
+        }
+        
+        return redirect()->route('home');
 
-        return view('scanner', ['user' => $user]);
     }
 
     /**
@@ -63,13 +69,13 @@ class ScannerController extends Controller
 
         $last_clock_in = DB::table('scans')
         ->select('created_at')
-        ->where('guard_id', '=', $user->id_number)
+        ->where('phone_number', '=', $user->phone_number)
         ->where('sector_name', '=', 'Clocking In')
         ->orderBy('created_at', 'desc')
         ->first();
 
         $last_scanned_site = DB::table('scans')
-            ->where('guard_id', '=', $user->id_number)
+            ->where('phone_number', '=', $user->phone_number)
             ->orderBy('created_at', 'desc')
             ->first();
         
@@ -78,8 +84,8 @@ class ScannerController extends Controller
             $current_time = Carbon::now();
 
             $scan= new Scan;
-            $scan->guard_id = $user->id_number;
-            $scan->guard_name = $user->firstname;
+            $scan->phone_number = $user->phone_number;
+            $scan->first_name = $user->firstname;
             $scan->latitude = $request->latitude;
             $scan->longitude = $request->longitude;
             $scan->sector = $request->sector;
@@ -88,12 +94,19 @@ class ScannerController extends Controller
             $success = $scan->save();
 
             $shift = new Shift;
-            $shift->guard_id = $user->id_number;
-            $shift->guard_name = $user->firstname;
+            $shift->phone_number = $user->phone_number;
+            $shift->first_name = $user->firstname;
+            $shift->last_name = $user->lastname;
+            $shift->role = $user->role;
             $shift->clockin = $scan->created_at;
             $success2 = $shift->save();
- 
-            return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Scan Successful!');
+            
+            if(Auth::user()->role === 'guard')
+            {
+                return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Scan Successful!');
+            }
+
+            return redirect()->route('home');
         }
 
         $date = new DateTime($last_clock_in->created_at);
@@ -107,15 +120,20 @@ class ScannerController extends Controller
             return redirect()->route('home');
         }
         
-        if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In') {
+        if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In' && Auth::user()->role === 'guard') {
             return redirect()->route('patrol');
         }
+
+        if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In' && Auth::user()->role !== 'guard') {
+            return redirect()->route('welcome');
+        }
+        
 
         $current_time = Carbon::now();
 
         $scan= new Scan;
-        $scan->guard_id = $user->id_number;
-        $scan->guard_name = $user->firstname;
+        $scan->phone_number = $user->phone_number;
+        $scan->first_name = $user->firstname;
         $scan->latitude = $request->latitude;
         $scan->longitude = $request->longitude;
         $scan->sector = $request->sector;
@@ -129,7 +147,7 @@ class ScannerController extends Controller
             $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
 
             $shift = DB::table('shifts')
-                    ->where('guard_id', ($user->id_number))
+                    ->where('phone_number', ($user->phone_number))
                     ->where('clockin', ($last_clock_in->created_at))
                     ->update([
                         'clockout' => $last_scanned_site->created_at,
@@ -137,8 +155,10 @@ class ScannerController extends Controller
                         ]);
 
             $shift = new Shift;
-            $shift->guard_id = $user->id_number;
-            $shift->guard_name = $user->firstname;
+            $shift->phone_number = $user->phone_number;
+            $shift->first_name = $user->firstname;
+            $shift->last_name = $user->lastname;
+            $shift->role = $user->role;
             $shift->clockin = $scan->created_at;
             $success2 = $shift->save();
         }
@@ -149,7 +169,7 @@ class ScannerController extends Controller
             $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
 
             $shift = DB::table('shifts')
-                    ->where('guard_id', ($user->id_number))
+                    ->where('phone_number', ($user->phone_number))
                     ->where('clockin', ($last_clock_in->created_at))
                     ->update([
                         'clockout' => $scan->created_at,
@@ -162,7 +182,11 @@ class ScannerController extends Controller
             return redirect()->route('welcome');
         }
 
+        if(Auth::user()->role === 'guard'){
         return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Scan Successful!');
+        }
+
+        return view('welcome');
     }
 
     /**
@@ -176,7 +200,7 @@ class ScannerController extends Controller
 
         $last_clock_in = DB::table('scans')
         ->select('created_at')
-        ->where('guard_name', '=', $user->firstname)
+        ->where('first_name', '=', $user->firstname)
         ->where('sector_name', '=', 'Clocking In')
         ->orderBy('created_at', 'desc')
         ->first();
@@ -184,19 +208,19 @@ class ScannerController extends Controller
 
         $last_clock_in = DB::table('scans')
         ->select('created_at')
-        ->where('guard_name', '=', $user->firstname)
+        ->where('first_name', '=', $user->firstname)
         ->where('sector_name', '=', 'Clocking In')
         ->orderBy('created_at', 'desc')
         ->first();
 
         $last_scan = DB::table('scans')
             ->select('created_at')
-            ->where('guard_name', '=', $user->firstname)
+            ->where('first_name', '=', $user->firstname)
             ->orderBy('created_at', 'desc')
             ->first();
     
         $last_scanned_site = DB::table('scans')
-            ->where('guard_name', '=', $user->firstname)
+            ->where('first_name', '=', $user->firstname)
             ->orderBy('created_at', 'asc')
             ->first();
 
@@ -216,34 +240,37 @@ class ScannerController extends Controller
      */
     public function clockin()
     {
-        if(Auth::user()->role === 'guard')
-        $user = Auth::user();
-
-        $last_scanned_site = DB::table('scans')
-            ->where('guard_id', '=', $user->id_number)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $roles = ['guard', 'management', 'operations', 'control', 'production'];
         
-        /*First Time User Check */
-        if($last_scanned_site == null) {
-            return view('scanner', ['user' => $user]);
+        if( in_array( (Auth::user()->role), $roles ) )
+        {
+            $user = Auth::user();
+
+            $last_scanned_site = DB::table('scans')
+                ->where('phone_number', '=', $user->phone_number)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            
+            /*First Time User Check */
+            if($last_scanned_site == null) {
+                return view('scanner', ['user' => $user]);
+                }
+            
+            /*Check if the usual user had clocked out before */ 
+            if($last_scanned_site->sector_name != 'Clocking Out') {
+            $scan= new Scan;
+            $scan->phone_number = $user->phone_number;
+            $scan->first_name = $user->firstname;
+            $scan->latitude = $last_scanned_site->latitude;
+            $scan->longitude = $last_scanned_site->longitude;
+            $scan->sector_name = 'Clocking Out';
+            $scan->time = $last_scanned_site->time;
+            $scan->created_at = $last_scanned_site->created_at;
+            $scan->updated_at = $last_scanned_site->updated_at;
+            $scan->save();
             }
-        
-        /*Check if the usual user had clocked out before */ 
-        if($last_scanned_site->sector_name != 'Clocking Out') {
-        $scan= new Scan;
-        $scan->guard_id = $user->id_number;
-        $scan->guard_name = $user->firstname;
-        $scan->latitude = $last_scanned_site->latitude;
-        $scan->longitude = $last_scanned_site->longitude;
-        $scan->sector = 'TCS000218';
-        $scan->sector_name = 'Clocking Out';
-        $scan->time = $last_scanned_site->time;
-        $scan->created_at = $last_scanned_site->created_at;
-        $scan->updated_at = $last_scanned_site->updated_at;
-        $scan->save();
-        }
 
+        }
         return view('scanner', ['user' => $user]);
     }
     
@@ -259,7 +286,7 @@ class ScannerController extends Controller
 
         $last_clock_in = DB::table('scans')
         ->select('created_at')
-        ->where('guard_id', '=', $user->id_number)
+        ->where('phone_number', '=', $user->phone_number)
         ->where('sector_name', '=', 'Clocking In')
         ->orderBy('created_at', 'desc')
         ->first();
@@ -272,7 +299,7 @@ class ScannerController extends Controller
             
             $scanned_areas = DB::table('scans')
             ->select('sector_name')
-            ->where('guard_id', '=', $user->id_number)
+            ->where('phone_number', '=', $user->phone_number)
             ->where('sector_name', '!=', 'Clockin Out')
             ->where('sector_name', '!=', 'Clockin Out')
             ->where('created_at', '>', $last_clock_in)

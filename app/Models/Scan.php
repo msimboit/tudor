@@ -15,8 +15,8 @@ class Scan extends Model
      * @var array
      */
     protected $fillable = [
-        'guard_id',
-        'guard_name',
+        'phone_number',
+        'first_name',
         'latitude',
         'longitude',
         'sector',

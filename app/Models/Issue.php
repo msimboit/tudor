@@ -15,8 +15,8 @@ class Issue extends Model
      * @var array
      */
     protected $fillable = [
-        'guard_id',
-        'guard_name',
+        'phone_number',
+        'first_name',
         'title',
         'issueLocation',
         'details',

@@ -42,8 +42,8 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Phone Number</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
                             <th></th>
@@ -52,8 +52,8 @@
                         <tbody>
                             @foreach($guards as $guard)
                                 <tr>
-                                    <td>{{ $guard->id_number }}</td>
-                                    <td>{{ $guard->firstname }}</td>
+                                    <td>{{ $guard->firstname }} {{ $guard->lastname }}</td>
+                                    <td>{{ $guard->phone_number }}</td>
                                     <td>{{ $guard->email }}</td>
                                     <td>{{ $guard->role }}</td>
                                     <td>
