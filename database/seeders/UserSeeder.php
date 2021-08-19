@@ -256,6 +256,18 @@ class UserSeeder extends Seeder
                 'updated_at'     => '2021-08-19 15:31:45',
                 'role'           => 'operations',
             ],
+
+            [
+                'firstname'      => 'Cynthia',
+                'lastname'       => 'Anjeline',
+                'phone_number'      => '0739155799',
+                'email'          => 'cynthiaanjeline@gmail.com',
+                'password'       => Hash::make('12345678'),
+                'remember_token' => null,
+                'created_at'     => '2021-08-19 15:31:45',
+                'updated_at'     => '2021-08-19 15:31:45',
+                'role'           => 'production',
+            ],
         ];
 
         User::insert($users);

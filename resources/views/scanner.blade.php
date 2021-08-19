@@ -348,6 +348,76 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 $('#con').val(content);
                 $('#con_name').val('Clocking Out')
             }
+
+            if (content == 'ALPGF01CI') {
+                alert('Clocking In');
+                document.getElementById("content").innerHTML = 'Clocking In';
+                $('#con').val(content);
+                $('#con_name').val('Clocking In')
+            }
+
+            if (content == 'ALPGF01CO') {
+                alert('Clocking Out');
+                document.getElementById("content").innerHTML = 'Clocking Out';
+                $('#con').val(content);
+                $('#con_name').val('Clocking Out')
+            }
+
+            if (content == 'ALP2F01CI') {
+                alert('Clocking In');
+                document.getElementById("content").innerHTML = 'Clocking In';
+                $('#con').val(content);
+                $('#con_name').val('Clocking In')
+            }
+
+            if (content == 'ALP2F01CO') {
+                alert('Clocking Out');
+                document.getElementById("content").innerHTML = 'Clocking Out';
+                $('#con').val(content);
+                $('#con_name').val('Clocking Out')
+            }
+
+            if (content == 'ALP3F01CI') {
+                alert('Clocking In');
+                document.getElementById("content").innerHTML = 'Clocking In';
+                $('#con').val(content);
+                $('#con_name').val('Clocking In')
+            }
+
+            if (content == 'ALP3F01CO') {
+                alert('Clocking Out');
+                document.getElementById("content").innerHTML = 'Clocking Out';
+                $('#con').val(content);
+                $('#con_name').val('Clocking Out')
+            }
+
+            if (content == 'ALP5F01CI') {
+                alert('Clocking In');
+                document.getElementById("content").innerHTML = 'Clocking In';
+                $('#con').val(content);
+                $('#con_name').val('Clocking In')
+            }
+
+            if (content == 'ALP5F01CO') {
+                alert('Clocking Out');
+                document.getElementById("content").innerHTML = 'Clocking Out';
+                $('#con').val(content);
+                $('#con_name').val('Clocking Out')
+            }
+
+            if (content == 'ALP5F02CI') {
+                alert('Clocking In');
+                document.getElementById("content").innerHTML = 'Clocking In';
+                $('#con').val(content);
+                $('#con_name').val('Clocking In')
+            }
+
+            if (content == 'ALP5F02CO') {
+                alert('Clocking Out');
+                document.getElementById("content").innerHTML = 'Clocking Out';
+                $('#con').val(content);
+                $('#con_name').val('Clocking Out')
+            }
             
           });
           Instascan.Camera.getCameras().then(function (cameras) {
