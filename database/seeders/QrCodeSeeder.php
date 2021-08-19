@@ -138,5 +138,55 @@ class QrCodeSeeder extends Seeder
             'name' => 'Clock Out - B',
             'code' => 'TCS00106',
         ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock In - Allimex Ground Floor',
+            'code' => 'ALPGF01CI',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out - Allimex Ground Floor',
+            'code' => 'ALPGF01CO',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock In - Allimex Second Floor',
+            'code' => 'ALP2F01CI',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out - Allimex Second Floor',
+            'code' => 'ALP2F01CO',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock In - Allimex Third Floor',
+            'code' => 'ALP3F01CI',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out - Allimex Third Floor',
+            'code' => 'ALP3F01CO',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock In - Allimex Fifth Floor',
+            'code' => 'ALP5F01CI',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out - Allimex Fifth Floor',
+            'code' => 'ALP5F01CO',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock In - Allimex Fifth Floor',
+            'code' => 'ALP5F02CI',
+        ]);
+
+        DB::table('qr_codes')->insert([
+            'name' => 'Clock Out - Allimex Fifth Floor',
+            'code' => 'ALP5F02CO',
+        ]);
     }
 }
