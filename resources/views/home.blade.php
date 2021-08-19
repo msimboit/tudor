@@ -44,7 +44,7 @@
                 </div>
                 @endif
 
-                @if (Auth::check() && Auth::user()->role !== 'admin')
+                @if (Auth::check() && Auth::user()->role !== 'admin' && Auth::user()->role !== 'guard')
                 <div class="my-3 ml-3">
                     <h5>Clock In To Work</h5>
                     <button class="btn btn-secondary">
