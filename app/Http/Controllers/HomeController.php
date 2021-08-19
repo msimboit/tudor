@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use DateTime;
 
 
@@ -74,6 +75,26 @@ class HomeController extends Controller
         }
 
         return view('home', ['current_time' => $current_time->toDateString()]);
+    }
+
+    public function registerUser()
+    {
+        return view ('registerUser');
+    }
+
+    public function confirmRegistration(Request $request)
+    {
+        //dd($request->all());
+        User::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return view('home');
     }
     
 }

@@ -46,8 +46,8 @@ class IssueController extends Controller
         $user = Auth::user();
 
         $issue = new Issue;
-        $issue->guard_id = $user->id_number;
-        $issue->guard_name = $user->firstname;
+        $issue->phone_number = $user->phone_number;
+        $issue->first_name = $user->firstname;
         $issue->title = $request->title;
         $issue->issueLocation = $request->issueLocation;
         $issue->details = $request->details;

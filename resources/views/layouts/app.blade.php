@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/scanner') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                 <img src=" {{ asset('/logo/msimbo.jpg') }} " class="img-fluid rounded" alt="logo" style="width: 40px;">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -43,17 +43,17 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            <!-- @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
-                            @endif
+                            @endif -->
 
-                            @if (Route::has('register'))
+                            <!-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif -->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -67,7 +67,7 @@
                                     </a>
                                     @endif
 
-                                    @if (Auth::check() && Auth::user()->role === 'guard')
+                                    @if (Auth::check() && Auth::user()->role !== 'admin')
                                     <a class="dropdown-item" href="{{ route('reportIssue') }}">
                                         {{ __('Report An Issue') }}
                                     </a>

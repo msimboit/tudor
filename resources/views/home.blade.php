@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header d-flex justify-content-between"><span>{{ __('Dashboard') }}</span>  <span>{{ $current_time }}</span></div>
+                <div class="card-header d-flex justify-content-between"><span>{{ __('Dashboard') }}</span>  <span>{{ \Carbon\Carbon::now() }}</span></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -42,6 +42,13 @@
                         <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Reports</a>
                     </button>
                 </div>
+
+                <div class="my-3 ml-3">
+                    <button class="btn btn-secondary">
+                        <a href="{{ route('registerUser') }} " style="text-decoration:none; color:#fff">Register User</a>
+                    </button>
+                </div>
+
                 @endif
 
                 @if (Auth::check() && Auth::user()->role !== 'admin' && Auth::user()->role !== 'guard')

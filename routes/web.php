@@ -42,5 +42,9 @@ Route::get('/issues', [App\Http\Controllers\IssueController::class, 'index'])->n
 Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show'])->name('issueInfo');
 Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'clearIssue'])->name('clearIssue');
 
+/**Routes for admins to register users */
+Route::get('/registerUser', [App\Http\Controllers\HomeController::class, 'registerUser'])->name('registerUser');
+Route::post('/registerUser', [App\Http\Controllers\HomeController::class, 'confirmRegistration'])->name('registered');
+
 /* Session Flushing Routes */
 Route::get('/last_interactions', [App\Http\Controllers\ScannerController::class, 'last_interactions'])->name('last_interactions');
