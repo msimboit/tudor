@@ -19,6 +19,8 @@ Route::view('welcome', 'welcome')->name('welcome');
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/changePassword', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('changePassword');
+Route::post('/passwordChanged', [App\Http\Controllers\HomeController::class, 'passwordChanged'])->name('passwordChanged');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::view('patrol', 'patrol')->name('patrol');
 

@@ -8,6 +8,7 @@ use Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use DateTime;
 
 
@@ -97,4 +98,44 @@ class HomeController extends Controller
         return view('home');
     }
     
+    /**
+     * Change the user password.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function changePassword()
+    {
+        $user = Auth::user();
+        return view('changePassword', [ 'user' => $user ]);
+    }
+
+    /**
+     * Store the users new password.
+     *
+     * @params \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function passwordChanged(Request $request)
+    {
+        //dd($request->all());
+        $request->validate([
+            'oldPassword' => 'required|max:255',
+            'newPassword' => 'required',
+        ]);
+
+        if (Hash::check($request->oldPassword, $request->userOldPassword)) 
+        {
+            $registeredUser = User::find($request->user);
+
+            $registeredUser->password = Hash::make($request->newPassword);
+
+            $registeredUser->save();
+
+            return redirect()->route('home')->with('success', 'Password change was successful!');;
+
+        }else {
+            return \Redirect::back()->withWarning( 'Old Password does not match!' );
+        }
+
+    }
 }
