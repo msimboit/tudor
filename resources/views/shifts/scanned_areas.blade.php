@@ -14,7 +14,7 @@
                     @if(!empty($scanned_areas[0]))
                         <br />
                         <br />
-                        {{ __('The following areas have been scanned recently by Guards:') }}
+                        {{ __('The following areas have been scanned recently:') }}
                         <br />
                         <br />
                         <table class="table table-hover">
