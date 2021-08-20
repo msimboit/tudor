@@ -37,22 +37,24 @@
                 @endif
 
                 @if (Auth::check() && Auth::user()->role === 'admin')
-                <div class="my-3 ml-3">
-                    <button class="btn btn-secondary">
-                        <a href="{{ route('employees') }} " style="text-decoration:none; color:#fff">Employees Reports</a>
-                    </button>
-                </div>
+                <div class="d-flex">
+                    <div class="my-3 ml-3">
+                        <button class="btn btn-secondary">
+                            <a href="{{ route('employees') }} " style="text-decoration:none; color:#fff">Employees Reports</a>
+                        </button>
+                    </div>
 
-                <div class="my-3 ml-3">
-                    <button class="btn btn-secondary">
-                        <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Guard Reports</a>
-                    </button>
-                </div>
+                    <div class="my-3 ml-3">
+                        <button class="btn btn-secondary">
+                            <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Guard Reports</a>
+                        </button>
+                    </div>
 
-                <div class="my-3 ml-3">
-                    <button class="btn btn-secondary">
-                        <a href="{{ route('registerUser') }} " style="text-decoration:none; color:#fff">Register User</a>
-                    </button>
+                    <div class="my-3 ml-3">
+                        <button class="btn btn-secondary">
+                            <a href="{{ route('registerUser') }} " style="text-decoration:none; color:#fff">Register User</a>
+                        </button>
+                    </div>
                 </div>
 
                 @endif
