@@ -47,6 +47,26 @@ class ShiftController extends Controller
     }
 
     /**
+     * Display a list of the registered employees.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function employees()
+    {
+
+        if(Auth::user()->role != 'admin')
+        {
+            return redirect()->route('home');
+        }
+        $employees = User::where('role', '!=', 'guard')
+                    ->where('role', '!=', 'admin')
+                    ->orderBy('firstname')
+                    ->get();
+
+        return view('employees.employees', ['employees' => $employees]);
+    }
+
+    /**
      * Search for a specific date range of shifts.
      *
      * @return \Illuminate\Http\Response

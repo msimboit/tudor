@@ -41,6 +41,8 @@ Route::get('/shifts-all_scanned_areas', [App\Http\Controllers\ShiftController::c
 Route::get('/issues', [App\Http\Controllers\IssueController::class, 'index'])->name('all_issues');
 Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show'])->name('issueInfo');
 Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'clearIssue'])->name('clearIssue');
+Route::get('/employees', [App\Http\Controllers\ShiftController::class, 'employees'])->name('employees');
+
 
 /**Routes for admins to register users */
 Route::get('/registerUser', [App\Http\Controllers\HomeController::class, 'registerUser'])->name('registerUser');

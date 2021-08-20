@@ -39,7 +39,13 @@
                 @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="my-3 ml-3">
                     <button class="btn btn-secondary">
-                        <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Reports</a>
+                        <a href="{{ route('employees') }} " style="text-decoration:none; color:#fff">Employees Reports</a>
+                    </button>
+                </div>
+
+                <div class="my-3 ml-3">
+                    <button class="btn btn-secondary">
+                        <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Guard Reports</a>
                     </button>
                 </div>
 
