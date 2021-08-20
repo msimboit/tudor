@@ -14,7 +14,7 @@
                     @if(!empty($scanned_areas[0]))
                         <br />
                         <br />
-                        {{ __('The following areas have been scanned recently:') }}
+                        {{ __('The following areas have been scanned recently by Guards:') }}
                         <br />
                         <br />
                         <table class="table table-hover">
@@ -29,7 +29,7 @@
                             <tbody>
                                 @foreach($scanned_areas as $scanned_area)
                                     <tr>
-                                        <td>{{ $scanned_area->guard_name }}</td>
+                                        <td>{{ $scanned_area->first_name }}</td>
                                         <td>{{ $scanned_area->sector_name }}</td>
                                         <td>{{ $scanned_area->time }}</td>
                                         <td>{{ Carbon\Carbon::parse($scanned_area->created_at)->format('d-m-Y')}}</td>
