@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header d-flex justify-content-between"><span>{{ __('Guards') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
+                <div class="card-header d-flex justify-content-between"><span>{{ __('Employees') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -14,13 +14,13 @@
                         <br />
                         <br />
 
-                        <button class="btn btn-secondary btn-sm">
+                        <!-- <button class="btn btn-secondary btn-sm">
                             <a href="{{ route('shiftExport') }} " style="text-decoration:none; color:#fff">Generate Excel Sheet</a>
-                        </button>
+                        </button> -->
 
                     </div>
 
-                    <div class="my-3">
+                    <!-- <div class="my-3">
                     <form action="{{ route('shiftSearch') }}" method="POST">
                         @csrf
                         <div class="">
@@ -34,7 +34,7 @@
                         
                     </form>
 
-                    </div>
+                    </div> -->
 
                     {{__('All Registered Employees:')}}
                     <br />
@@ -51,11 +51,11 @@
                         <tbody>
                             @foreach($employees as $employee)
                                 <tr>
-                                    <td>{{ $employee->firstname }} {{ $guard->lastname }}</td>
+                                    <td>{{ $employee->firstname }} {{ $employee->lastname }}</td>
                                     <td>{{ $employee->phone_number }}</td>
                                     <td>{{ $employee->email }}</td>
                                     <!-- <td>
-                                        <a href="{{ route('shiftInfo',$guard->id) }}" class="btn btn-info">Info</a> 
+                                        <a href="{{ route('shiftInfo',$employee->id) }}" class="btn btn-info">Info</a> 
                                     </td> -->
                                 </tr>
                             @endforeach
