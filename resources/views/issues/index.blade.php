@@ -27,8 +27,8 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            <th scope="col">Guard ID</th>
-                            <th scope="col">Guard Name</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone Number</th>
                             <th scope="col">Issue Title</th>
                             <th scope="col">Issue Location</th>
                             <th></th>
@@ -37,8 +37,8 @@
                         <tbody>
                             @foreach($issues as $issue)
                                 <tr>
-                                    <td>{{ $issue->guard_id }}</td>
-                                    <td>{{ $issue->guard_name }}</td>
+                                    <td>{{ $issue->first_name }}</td>
+                                    <td>{{ $issue->phone_number }}</td>
                                     <td>{{ $issue->title }}</td>
                                     <td>{{ $issue->issueLocation }}</td>
                                     <td>
