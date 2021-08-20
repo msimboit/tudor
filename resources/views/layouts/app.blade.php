@@ -85,9 +85,11 @@
                                     </a>
                                     @endif
 
+                                    @if (Auth::check() && Auth::user()->role !== 'admin')
                                     <a class="dropdown-item" href="{{ route('changePassword') }}">
                                         {{ __('Change Password') }}
                                     </a>
+                                    @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
