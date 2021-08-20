@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
 </head>
 <body onload="getLocation()">
@@ -192,7 +193,7 @@ function showError(error) {
 }
 
 
-let scanner = new Instascan.Scanner({ video: document.getElementById('preview') , mirror: false });
+let scanner = new Instascan.Scanner({ video: document.getElementById('preview') , mirror: false, facingMode: { exact: "environment" } });
           scanner.addListener('scan', function (content) {
             console.log(content);
             //Conditional Statements for Langata Codes
