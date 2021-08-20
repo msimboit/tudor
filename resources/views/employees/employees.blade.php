@@ -61,6 +61,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $employees->links() }}
                 </div> 
 
                 <div class="my-3 ml-3">

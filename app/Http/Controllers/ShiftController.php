@@ -61,7 +61,7 @@ class ShiftController extends Controller
         $employees = User::where('role', '!=', 'guard')
                     ->where('role', '!=', 'admin')
                     ->orderBy('firstname')
-                    ->get();
+                    ->paginate(10);
 
         return view('employees.employees', ['employees' => $employees]);
     }
