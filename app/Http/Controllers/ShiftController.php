@@ -39,10 +39,9 @@ class ShiftController extends Controller
         {
             return redirect()->route('home');
         }
-        $guards = User::where('role', 'guard')
-                    ->orderBy('firstname')
+        $guards = User::orderBy('firstname')
                     ->get();
-
+        
         return view('shifts.shifts', ['guards' => $guards]);
     }
 
