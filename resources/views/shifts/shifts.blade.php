@@ -36,7 +36,7 @@
 
                     </div>
 
-                    {{__('All Registered Guards:')}}
+                    {{__('All Registered Employees:')}}
                     <br />
                     <br />
                     <table class="table table-hover">
@@ -50,14 +50,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($guards as $guard)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $guard->firstname }} {{ $guard->lastname }}</td>
-                                    <td>{{ $guard->phone_number }}</td>
-                                    <td>{{ $guard->email }}</td>
-                                    <td>{{ $guard->role }}</td>
+                                    <td>{{ $user->firstname }} {{ $user->lastname }}</td>
+                                    <td>{{ $user->phone_number }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->role }}</td>
                                     <td>
-                                        <a href="{{ route('shiftInfo',$guard->id) }}" class="btn btn-info">Info</a> 
+                                        <a href="{{ route('shiftInfo',$user->id) }}" class="btn btn-info">Info</a> 
                                     </td>
                                 </tr>
                             @endforeach
