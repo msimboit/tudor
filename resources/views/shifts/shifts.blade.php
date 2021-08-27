@@ -29,6 +29,16 @@
 
                             <label for="to" class="ml-3">To:</label>
                             <input type="date" id="to" name="to">
+
+                            <label for="role" class="ml-3">Role:</label>
+                            <select name="role" id="role" required>
+                                    <option value="management">Management</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="control room">Control Room</option>
+                                    <option value="production">Production</option>
+                                    <option value="guard">Guard</option>
+                            </select>
+                            
                             <button class="btn btn-success ml-3" type="submit">Search</button>
                         </div>
                         

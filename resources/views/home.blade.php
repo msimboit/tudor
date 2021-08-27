@@ -40,13 +40,13 @@
                 <div class="d-flex">
                     <div class="my-3 ml-3">
                         <button class="btn btn-secondary">
-                            <a href="{{ route('employees') }} " style="text-decoration:none; color:#fff">Employees Reports</a>
+                            <a href="{{ route('employees') }} " style="text-decoration:none; color:#fff">Employees</a>
                         </button>
                     </div>
 
                     <div class="my-3 ml-3">
                         <button class="btn btn-secondary">
-                            <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Guard Reports</a>
+                            <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Reports</a>
                         </button>
                     </div>
 

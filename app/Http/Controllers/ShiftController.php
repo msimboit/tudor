@@ -39,9 +39,10 @@ class ShiftController extends Controller
         {
             return redirect()->route('home');
         }
-        $users = User::orderBy('firstname')
+        $users = User::where('role', '!=', 'admin')
+                    ->orderBy('firstname')
                     ->get();
-        
+
         return view('shifts.shifts', ['users' => $users]);
     }
 
@@ -74,6 +75,7 @@ class ShiftController extends Controller
     {   
         // dd($request->all());
         $shifts = Shift::whereBetween('created_at', [$request->get('from'), $request->get('to')])
+                        ->where('role', $request->role)
                         ->orderBy('created_at', 'desc')                
                         ->get();
 

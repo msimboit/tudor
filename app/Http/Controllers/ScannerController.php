@@ -141,16 +141,16 @@ class ScannerController extends Controller
         $scan->time = $request->scan_time;
         $success = $scan->save();
 
-        if($scan->sector_name == 'Clocking In' && $last_scanned_site->sector_name != 'Clocking Out') {
+        if($scan->sector_name == 'Clocking In' && $last_scanned_site->sector_name == 'Clocking In' ) {
             $in = new DateTime($last_clock_in->created_at);
-            $out = new DateTime($last_scanned_site->created_at);
+            $out = new DateTime($scan->created_at);
             $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
 
             $shift = DB::table('shifts')
                     ->where('phone_number', ($user->phone_number))
                     ->where('clockin', ($last_clock_in->created_at))
                     ->update([
-                        'clockout' => $last_scanned_site->created_at,
+                        'clockout' => $scan->created_at,
                         'shift_duration' => $duration
                         ]);
 
