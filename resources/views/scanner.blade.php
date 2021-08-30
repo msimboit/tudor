@@ -17,6 +17,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+
 
 </head>
 <body onload="getLocation()">
@@ -102,14 +104,23 @@
 
                         <form action="{{ route('scanned') }}" method="post">
                             @csrf
+                            @method("POST")
                             <input type="text" name="guard" value="{{ $user->id_number }}" hidden>
                             <input type="text" name="latitude" id="lat" hidden>
                             <input type="text" name="longitude" id="lon" hidden>
                             <input type="text" name="sector" id="con" hidden>
                             <input type="text" name="sector_name" id="con_name" hidden>
                             <input type="text" name="scan_time" id="scan_time" hidden>
+                            <div class="col-md-6">
+                <div id="my_camera" hidden></div>
+                <br/>
+                <input type="hidden"  name="image" class="image-tag">
+            </div>
+            <div class="col-md-6" hidden>
+                <div id="results">Your captured image will appear here...</div>
+            </div>
 
-                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN"> 
+                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN" onClick="take_snapshot()"> 
                         </form>
 
                         <small class="my-3">
@@ -191,6 +202,22 @@ function showError(error) {
             x.innerHTML = "An unknown error occurred."
             break;
     }
+}
+
+Webcam.set({
+    width: 240,
+    height: 240,
+    image_format: 'jpeg',
+    jpeg_quality: 90
+});
+
+Webcam.attach( '#my_camera' );
+
+function take_snapshot() {
+    Webcam.snap( function(data_uri) {
+        $(".image-tag").val(data_uri);
+        document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+    } );
 }
 
 

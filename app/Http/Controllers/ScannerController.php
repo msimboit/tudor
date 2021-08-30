@@ -67,6 +67,25 @@ class ScannerController extends Controller
             'sector_name' => 'required',
         ]);
 
+        $img =  $request->get('image');
+        $folderPath = "uploads/";
+        $image_parts = explode(";base64,", $img);
+
+        foreach ($image_parts as $key => $image){
+            $image_base64 = base64_decode($image);
+        }
+
+        $fileName = uniqid() . '.png';
+        $file = $folderPath . $fileName;
+        file_put_contents($file, $image_base64);
+
+        // Info::create([
+        //     'name' => request('name'),
+        //     'age' => request('age'),
+        //     'image' => $fileName,
+        // ]);
+
+
         $last_clock_in = DB::table('scans')
         ->select('created_at')
         ->where('phone_number', '=', $user->phone_number)
@@ -117,7 +136,7 @@ class ScannerController extends Controller
         if($diff > "0 days, 12 hours and 0 minutes" && ($request->sector_name) != 'Clocking In') {
 
             session()->flush();
-            return redirect()->route('home');
+            return redirect()->route('welcome');
         }
         
         if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In' && Auth::user()->role === 'guard') {
@@ -125,7 +144,7 @@ class ScannerController extends Controller
         }
 
         if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In' && Auth::user()->role !== 'guard') {
-            return redirect()->route('welcome');
+            return redirect()->route('home');
         }
         
 
@@ -141,7 +160,7 @@ class ScannerController extends Controller
         $scan->time = $request->scan_time;
         $success = $scan->save();
 
-        if($scan->sector_name == 'Clocking In' && $last_scanned_site->sector_name == 'Clocking In' ) {
+        if($scan->sector_name == 'Clocking In' && $last_scanned_site->sector_name != 'Clocking Out' ) {
             $in = new DateTime($last_clock_in->created_at);
             $out = new DateTime($scan->created_at);
             $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
