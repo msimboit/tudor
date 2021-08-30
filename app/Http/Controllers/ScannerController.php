@@ -144,7 +144,7 @@ class ScannerController extends Controller
         }
 
         if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In' && Auth::user()->role !== 'guard') {
-            return redirect()->route('home');
+            return redirect()->route('patrol');
         }
         
 
@@ -159,6 +159,21 @@ class ScannerController extends Controller
         $scan->sector_name = $request->sector_name;
         $scan->time = $request->scan_time;
         $success = $scan->save();
+
+        if($scan->sector_name == 'Clocking Out') {
+            $in = new DateTime($last_clock_in->created_at);
+            $out = new DateTime($scan->created_at);
+            $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
+
+            $shift = DB::table('shifts')
+                    ->where('phone_number', ($user->phone_number))
+                    ->where('clockin', ($last_clock_in->created_at))
+                    ->update([
+                        'clockout' => $scan->created_at,
+                        'shift_duration' => $duration
+                        ]);
+        }
+
 
         if($scan->sector_name == 'Clocking In' && $last_scanned_site->sector_name != 'Clocking Out' ) {
             $in = new DateTime($last_clock_in->created_at);
@@ -180,20 +195,6 @@ class ScannerController extends Controller
             $shift->role = $user->role;
             $shift->clockin = $scan->created_at;
             $success2 = $shift->save();
-        }
-
-        if($scan->sector_name == 'Clocking Out') {
-            $in = new DateTime($last_clock_in->created_at);
-            $out = new DateTime($scan->created_at);
-            $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
-
-            $shift = DB::table('shifts')
-                    ->where('phone_number', ($user->phone_number))
-                    ->where('clockin', ($last_clock_in->created_at))
-                    ->update([
-                        'clockout' => $scan->created_at,
-                        'shift_duration' => $duration
-                        ]);
         }
 
         if($scan->sector_name == 'Clocking Out') {

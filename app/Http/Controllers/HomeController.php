@@ -62,12 +62,12 @@ class HomeController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->first();
                     
-
-                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out' && Auth::user()->role === 'guard') {
+                    // dd($last_scan);
+                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out' && Auth::user()->role == 'guard') {
                         return redirect()->route('patrol');
                     }
 
-                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out' && Auth::user()->role !== 'guard') {
+                    if($diff < "0 days, 12 hours and 0 minutes" && $last_scan != 'Clocking Out' && Auth::user()->role != 'guard') {
                         return redirect()->route('patrol');
                     }
 
