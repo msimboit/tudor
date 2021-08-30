@@ -67,17 +67,17 @@ class ScannerController extends Controller
             'sector_name' => 'required',
         ]);
 
-        $img =  $request->get('image');
-        $folderPath = "uploads/";
-        $image_parts = explode(";base64,", $img);
+        // $img =  $request->get('image');
+        // $folderPath = "uploads/";
+        // $image_parts = explode(";base64,", $img);
 
-        foreach ($image_parts as $key => $image){
-            $image_base64 = base64_decode($image);
-        }
+        // foreach ($image_parts as $key => $image){
+        //     $image_base64 = base64_decode($image);
+        // }
 
-        $fileName = uniqid() . '.png';
-        $file = $folderPath . $fileName;
-        file_put_contents($file, $image_base64);
+        // $fileName = uniqid() . '.png';
+        // $file = $folderPath . $fileName;
+        // file_put_contents($file, $image_base64);
 
         // Info::create([
         //     'name' => request('name'),

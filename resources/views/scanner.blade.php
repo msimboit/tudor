@@ -120,7 +120,7 @@
                 <div id="results">Your captured image will appear here...</div>
             </div>
 
-                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN" onClick="take_snapshot()"> 
+                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN"> 
                         </form>
 
                         <small class="my-3">
@@ -204,21 +204,21 @@ function showError(error) {
     }
 }
 
-Webcam.set({
-    width: 240,
-    height: 240,
-    image_format: 'jpeg',
-    jpeg_quality: 90
-});
+// Webcam.set({
+//     width: 240,
+//     height: 240,
+//     image_format: 'jpeg',
+//     jpeg_quality: 90
+// });
 
-Webcam.attach( '#my_camera' );
+// Webcam.attach( '#my_camera' );
 
-function take_snapshot() {
-    Webcam.snap( function(data_uri) {
-        $(".image-tag").val(data_uri);
-        document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
-    } );
-}
+// function take_snapshot() {
+//     Webcam.snap( function(data_uri) {
+//         $(".image-tag").val(data_uri);
+//         document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+//     } );
+// }
 
 
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') , mirror: false, facingMode: { exact: "environment" } });
