@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header d-flex justify-content-between"><span>{{ __('Guards') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
+                <div class="card-header d-flex justify-content-between"><span>{{ __('Employees') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
