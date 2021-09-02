@@ -74,11 +74,20 @@ class ShiftController extends Controller
     public function searchDate(Request $request)
     {   
         // dd($request->all());
-        $shifts = Shift::whereBetween('created_at', [$request->get('from'), $request->get('to')])
+        if($request->role == 'all')
+        {
+            $shifts = Shift::whereBetween('created_at', [$request->get('from'), $request->get('to')])
+                        ->orderBy('created_at', 'desc')                
+                        ->get();
+        }
+        else{
+            
+            $shifts = Shift::whereBetween('created_at', [$request->get('from'), $request->get('to')])
                         ->where('role', $request->role)
                         ->orderBy('created_at', 'desc')                
                         ->get();
-
+        }
+        
         //dd($shifts);
 
         return view('shifts.shiftsSearch', ['shifts' => $shifts]);

@@ -32,6 +32,7 @@
 
                             <label for="role" class="ml-3">Role:</label>
                             <select name="role" id="role" required>
+                                    <option value="all">All Roles</option>
                                     <option value="management">Management</option>
                                     <option value="operations">Operations</option>
                                     <option value="control room">Control Room</option>

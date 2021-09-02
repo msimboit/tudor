@@ -97,12 +97,15 @@
                         <div id="time" class="m-2" hidden>
                             <!--Time information will be inserted here-->
                         </div>
-                        <p>Scanning The Code For:</p>
-                        <div id="content" class="m-2">
-                            <!--Content information will be inserted here-->
+                        <div hidden>
+                            <p>Scanning The Code For:</p>
+                            <div id="content" class="m-2">
+                                <!--Content information will be inserted here-->
+                            </div>
                         </div>
+                        
 
-                        <form action="{{ route('scanned') }}" method="post">
+                        <form action="{{ route('scanned') }}" method="post" id="scanForm">
                             @csrf
                             @method("POST")
                             <input type="text" name="guard" value="{{ $user->id_number }}" hidden>
@@ -120,7 +123,7 @@
                 <div id="results">Your captured image will appear here...</div>
             </div>
 
-                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN"> 
+                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN" hidden> 
                         </form>
 
                         <small class="my-3">
@@ -230,114 +233,134 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
                 $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000202') {
                 alert('Scanned Site Office');
                 document.getElementById("content").innerHTML = 'Site Office';
                 $('#con').val(content);
-                $('#con_name').val('Site Office')
+                $('#con_name').val('Site Office');
+                document.getElementById("scanForm").submit();
+
             }
             if (content == 'TCS000203') {
                 alert('Scanned Block A');
                 document.getElementById("content").innerHTML = 'Block A';
                 $('#con').val(content);
-                $('#con_name').val('Block A')
+                $('#con_name').val('Block A');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000204') {
                 alert('Scanned Block A Top');
                 document.getElementById("content").innerHTML = 'Block A Top';
                 $('#con').val(content);
-                $('#con_name').val('Block A Top')
+                $('#con_name').val('Block A Top');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000205') {
                 alert('Scanned Block A Front');
                 document.getElementById("content").innerHTML = 'Block A Front';
                 $('#con').val(content);
-                $('#con_name').val('Block A Front')
+                $('#con_name').val('Block A Front');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000206') {
                 alert('Scanned Block A Back');
                 document.getElementById("content").innerHTML = 'Block A Back';
                 $('#con').val(content);
-                $('#con_name').val('Site Office')
+                $('#con_name').val('Site Office');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000207') {
                 alert('Scanned Block B');
                 document.getElementById("content").innerHTML = 'Block B';
                 $('#con').val(content);
-                $('#con_name').val('Block B')
+                $('#con_name').val('Block B');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000208') {
                 alert('Scanned Block B Top');
                 document.getElementById("content").innerHTML = 'Block B Top';
                 $('#con').val(content);
-                $('#con_name').val('Block B Top')
+                $('#con_name').val('Block B Top');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000209') {
                 alert('Scanned Block B Front');
                 document.getElementById("content").innerHTML = 'Block B Front';
                 $('#con').val(content);
-                $('#con_name').val('Block B Front')
+                $('#con_name').val('Block B Front');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000210') {
                 alert('Scanned Block B Back');
                 document.getElementById("content").innerHTML = 'Block B Back';
                 $('#con').val(content);
-                $('#con_name').val('Block B Back')
+                $('#con_name').val('Block B Back');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000211') {
                 alert('Scanned Block C');
                 document.getElementById("content").innerHTML = 'Block C';
                 $('#con').val(content);
-                $('#con_name').val('Block C')
+                $('#con_name').val('Block C');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000212') {
                 alert('Scanned Block C-Top');
                 document.getElementById("content").innerHTML = 'Block C-Top';
                 $('#con').val(content);
-                $('#con_name').val('Block C-Top')
+                $('#con_name').val('Block C-Top');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000213') {
                 alert('Scanned Block C Front');
                 document.getElementById("content").innerHTML = 'Block C Front';
                 $('#con').val(content);
-                $('#con_name').val('Block C Front')
+                $('#con_name').val('Block C Front');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000214') {
                 alert('Scanned Block C Back');
                 document.getElementById("content").innerHTML = 'Blcok C Back';
                 $('#con').val(content);
-                $('#con_name').val('Block C Back')
+                $('#con_name').val('Block C Back');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000215') {
                 alert('Scanned Left');
                 document.getElementById("content").innerHTML = 'Left';
                 $('#con').val(content);
-                $('#con_name').val('Left')
+                $('#con_name').val('Left');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000216') {
                 alert('Scanned Right');
                 document.getElementById("content").innerHTML = 'Right';
                 $('#con').val(content);
-                $('#con_name').val('Right')
+                $('#con_name').val('Right');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000217') {
                 alert('Scanned Back');
                 document.getElementById("content").innerHTML = 'Back';
                 $('#con').val(content);
-                $('#con_name').val('Back')
+                $('#con_name').val('Back');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000218') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000219') {
                 alert('Security Office');
                 document.getElementById("content").innerHTML = 'Security Office';
                 $('#con').val(content);
-                $('#con_name').val('Security Office')
+                $('#con_name').val('Security Office');
+                document.getElementById("scanForm").submit();
             }
 
             // Conditional Statements for Baraka Codes
@@ -345,107 +368,123 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
-                $('#con_name').val('Clocking In')
+                $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS00102') {
                 alert('Scanned Security Office');
                 document.getElementById("content").innerHTML = 'Security Office';
                 $('#con').val(content);
-                $('#con_name').val('Security Office')
+                $('#con_name').val('Security Office');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS00103') {
                 alert('Scanned Block 1');
                 document.getElementById("content").innerHTML = 'Block 1';
                 $('#con').val(content);
-                $('#con_name').val('Block 1')
+                $('#con_name').val('Block 1');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS00104') {
                 alert('Scanned Block 2');
                 document.getElementById("content").innerHTML = 'Block 2';
                 $('#con').val(content);
-                $('#con_name').val('Block 2')
+                $('#con_name').val('Block 2');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS00105') {
                 alert('Scanned Open Area');
                 document.getElementById("content").innerHTML = 'Open Area';
                 $('#con').val(content);
-                $('#con_name').val('Open Area')
+                $('#con_name').val('Open Area');
+                document.getElementById("scanForm").submit();
             }
             if (content == 'TCS00106') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALPGF01CI') {
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
-                $('#con_name').val('Clocking In')
+                $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALPGF01CO') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP2F01CI') {
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
-                $('#con_name').val('Clocking In')
+                $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP2F01CO') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP3F01CI') {
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
-                $('#con_name').val('Clocking In')
+                $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP3F01CO') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP5F01CI') {
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
-                $('#con_name').val('Clocking In')
+                $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP5F01CO') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP5F02CI') {
                 alert('Clocking In');
                 document.getElementById("content").innerHTML = 'Clocking In';
                 $('#con').val(content);
-                $('#con_name').val('Clocking In')
+                $('#con_name').val('Clocking In');
+                document.getElementById("scanForm").submit();
             }
 
             if (content == 'ALP5F02CO') {
                 alert('Clocking Out');
                 document.getElementById("content").innerHTML = 'Clocking Out';
                 $('#con').val(content);
-                $('#con_name').val('Clocking Out')
+                $('#con_name').val('Clocking Out');
+                document.getElementById("scanForm").submit();
             }
             
           });
