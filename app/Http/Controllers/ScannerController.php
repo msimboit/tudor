@@ -133,15 +133,15 @@ class ScannerController extends Controller
         
         $diff = $date->diff($now)->format("%d days, %h hours and %i minutes");
 
-        if($diff > "0 days, 12 hours and 0 minutes" && ($request->sector_name) != 'Clocking In') {
-            session()->flush();
-            return redirect()->route('welcome');
-        }
+        // if($diff > "0 days, 12 hours and 0 minutes" && ($request->sector_name) != 'Clocking In') {
+        //     session()->flush();
+        //     return redirect()->route('welcome');
+        // }
         
-        if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In')
-        {
-            return redirect()->route('patrol');
-        }
+        // if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In')
+        // {
+        //     return redirect()->route('patrol');
+        // }
 
         $current_time = Carbon::now();
 
@@ -198,7 +198,7 @@ class ScannerController extends Controller
         }
 
         return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Scan Successful!');
-        
+
     }
 
     /**
@@ -242,7 +242,13 @@ class ScannerController extends Controller
         $diff = $last_scan->diff($last_clock_in);
         //$hours_worked = explode( '.', $diff );
         
-        dd ($diff);
+        // dd ($diff);
+
+        $macAddr = exec('getmac');
+
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+        dd($user_agent);
     }
 
     /**

@@ -45,6 +45,9 @@ Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show']
 Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'clearIssue'])->name('clearIssue');
 Route::get('/employees', [App\Http\Controllers\ShiftController::class, 'employees'])->name('employees');
 
+/**Routes For Chats */
+Route::view('/chats', 'chats.index')->name('chats');
+
 
 /**Routes for admins to register users */
 Route::get('/registerUser', [App\Http\Controllers\HomeController::class, 'registerUser'])->name('registerUser');

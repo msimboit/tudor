@@ -2,6 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\ScannersController;
+use App\Http\Controllers\Api\ShiftsController;
+use App\Http\Controllers\Api\IssuesController;
+use App\Http\Controllers\ChatController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function() {
+    Route::apiResource('/users', UsersController::class);
+
+    Route::apiResource('/shifts', ShiftsController::class);
+    Route::apiResource('/scans', ScannersController::class);
+    Route::apiResource('/issues', IssuesController::class);
+    Route::apiResource('/chats', ChatController::class);
+
 });
