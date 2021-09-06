@@ -55,7 +55,7 @@ class UsersController extends Controller
             return response( ['message' => 'Not Found'], 401);
         }
 
-        $response = new UsersResource($issue);
+        $response = new UsersResource($user);
 
         return response($response, 200);
     }
