@@ -15,7 +15,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return UsersResource::collection(User::all());
+        dd('reached');
+        $response = UsersResource::collection(User::all());
+        return response($response, 200);
     }
 
     /**
@@ -47,7 +49,15 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        if($user === null || $user === ''){
+            return response( ['message' => 'Not Found'], 401);
+        }
+
+        $response = new UsersResource($issue);
+
+        return response($response, 200);
     }
 
     /**

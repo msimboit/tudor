@@ -22,10 +22,15 @@ use App\Http\Controllers\ChatController;
 
 Route::prefix('v1')->group(function() {
     Route::apiResource('/users', UsersController::class);
-
     Route::apiResource('/shifts', ShiftsController::class);
     Route::apiResource('/scans', ScannersController::class);
     Route::apiResource('/issues', IssuesController::class);
     Route::apiResource('/chats', ChatController::class);
+
+});
+
+Route::prefix('v1')->group(['middleware' => ['auth:sanctum']], function() {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
 
 });
