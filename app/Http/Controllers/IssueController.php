@@ -119,4 +119,16 @@ class IssueController extends Controller
     {
         //
     }
+
+    /**
+     * Panic Button has been clicked.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function panic($id)
+    {
+        $user = User::where('id', $id)->first();
+        dd($user);
+    }
 }

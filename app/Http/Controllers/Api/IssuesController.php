@@ -42,7 +42,13 @@ class IssuesController extends Controller
      */
     public function store(Request $request)
     {
-        // print_r($request->all());
+        $fields = $request->validate([
+            'phone_number' => 'required',
+            'title' => 'required|string',
+            'issueLocation' => 'required|string',
+            'details' => 'required|string',
+        ]);
+
         $user = User::where('phone_number', $request->phone_number)->first();
 
         $issue = new Issue;

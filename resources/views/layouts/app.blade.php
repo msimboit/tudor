@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/chat.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Fonts -->
@@ -93,6 +92,11 @@
                                     </a>
                                     @endif
 
+                                    
+                                    <a class="dropdown-item" href="{{ route('chats', Auth::user()->id) }}">
+                                        {{ __('Chat') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -102,6 +106,12 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+
+                                    @if (Auth::check() && Auth::user()->role === 'guard')
+                                    <a class="btn btn-danger ml-3 mt-2" href="{{ route('panic', Auth::user()->id) }}">
+                                        {{ __('Panic Button!') }}
+                                    </a>
+                                    @endif
                                 </div>
                             </li>
                         @endguest

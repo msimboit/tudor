@@ -1,85 +1,100 @@
-var $messages = $('.messages-content'),
-    d, h, m,
-    i = 0;
+(function(){
+  
+  var chat = {
+    messageToSend: '',
+    messageResponses: [
+      'Why did the web developer leave the restaurant? Because of the table layout.',
+      'How do you comfort a JavaScript bug? You console it.',
+      'An SQL query enters a bar, approaches two tables and asks: "May I join you?"',
+      'What is the most used language in programming? Profanity.',
+      'What is the object-oriented way to become wealthy? Inheritance.',
+      'An SEO expert walks into a bar, bars, pub, tavern, public house, Irish pub, drinks, beer, alcohol'
+    ],
+    init: function() {
+      this.cacheDOM();
+      this.bindEvents();
+      this.render();
+    },
+    cacheDOM: function() {
+      this.$chatHistory = $('.chat-history');
+      this.$button = $('button');
+      this.$textarea = $('#message-to-send');
+      this.$chatHistoryList =  this.$chatHistory.find('ul');
+    },
+    bindEvents: function() {
+      this.$button.on('click', this.addMessage.bind(this));
+      this.$textarea.on('keyup', this.addMessageEnter.bind(this));
+    },
+    render: function() {
+      this.scrollToBottom();
+      if (this.messageToSend.trim() !== '') {
+        var template = Handlebars.compile( $("#message-template").html());
+        var context = { 
+          messageOutput: this.messageToSend,
+          time: this.getCurrentTime()
+        };
 
-// $(window).on('load', function() {
-//   $messages.mCustomScrollbar();
-//   setTimeout(function() {
-//     fakeMessage();
-//   }, 100);
-// });
-
-// function updateScrollbar() {
-//   $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
-//     scrollInertia: 10,
-//     timeout: 0
-//   });
-// }
-
-function setDate(){
-  d = new Date()
-  if (m != d.getMinutes()) {
-    m = d.getMinutes();
-    $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
-  }
-}
-
-function insertMessage() {
-  msg = $('.message-input').val();
-  if ($.trim(msg) == '') {
-    return false;
-  }
-  $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
-  setDate();
-  $('.message-input').val(null);
-  updateScrollbar();
-  setTimeout(function() {
-    fakeMessage();
-  }, 1000 + (Math.random() * 20) * 100);
-}
-
-$('.message-submit').click(function() {
-  insertMessage();
-});
-
-$(window).on('keydown', function(e) {
-  if (e.which == 13) {
-    insertMessage();
-    return false;
-  }
-})
-
-var Fake = [
-  'Hi there, I\'m Fabio and you?',
-  'Nice to meet you',
-  'How are you?',
-  'Not too bad, thanks',
-  'What do you do?',
-  'That\'s awesome',
-  'Codepen is a nice place to stay',
-  'I think you\'re a nice person',
-  'Why do you think that?',
-  'Can you explain?',
-  'Anyway I\'ve gotta go now',
-  'It was a pleasure chat with you',
-  'Time to make a new codepen',
-  'Bye',
-  ':)'
-]
-
-function fakeMessage() {
-  if ($('.message-input').val() != '') {
-    return false;
-  }
-  $('<div class="message loading new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
-  updateScrollbar();
-
-  setTimeout(function() {
-    $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
-    setDate();
-    updateScrollbar();
-    i++;
-  }, 1000 + (Math.random() * 20) * 100);
-
-}
+        this.$chatHistoryList.append(template(context));
+        this.scrollToBottom();
+        this.$textarea.val('');
+        
+        // responses
+        var templateResponse = Handlebars.compile( $("#message-response-template").html());
+        var contextResponse = { 
+          response: this.getRandomItem(this.messageResponses),
+          time: this.getCurrentTime()
+        };
+        
+        setTimeout(function() {
+          this.$chatHistoryList.append(templateResponse(contextResponse));
+          this.scrollToBottom();
+        }.bind(this), 1500);
+        
+      }
+      
+    },
+    
+    addMessage: function() {
+      this.messageToSend = this.$textarea.val()
+      this.render();         
+    },
+    addMessageEnter: function(event) {
+        // enter was pressed
+        if (event.keyCode === 13) {
+          this.addMessage();
+        }
+    },
+    scrollToBottom: function() {
+       this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
+    },
+    getCurrentTime: function() {
+      return new Date().toLocaleTimeString().
+              replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    },
+    getRandomItem: function(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+    
+  };
+  
+  chat.init();
+  
+  var searchFilter = {
+    options: { valueNames: ['name'] },
+    init: function() {
+      var userList = new List('people-list', this.options);
+      var noItems = $('<li id="no-items-found">No items found</li>');
+      
+      userList.on('updated', function(list) {
+        if (list.matchingItems.length === 0) {
+          $(list.list).append(noItems);
+        } else {
+          noItems.detach();
+        }
+      });
+    }
+  };
+  
+  searchFilter.init();
+  
+})();

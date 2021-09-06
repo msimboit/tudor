@@ -20,9 +20,11 @@
                     <h4>Created At: {{ $issue->created_at }}</h5>
                     <p>{{ $issue->details }}</p>
 
+                    @if (Auth::check() && Auth::user()->role === 'admin')
                     <button class="btn btn-success sm">
                         <a href=" {{ route('clearIssue', $issue->id) }} " style="text-decoration:none; color:#fff">Clear The Issue</a>
                     </button>
+                    @endif
                 </div> 
 
                 <div class="my-3 ml-3">

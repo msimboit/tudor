@@ -23,6 +23,7 @@ Route::get('/changePassword', [App\Http\Controllers\HomeController::class, 'chan
 Route::post('/passwordChanged', [App\Http\Controllers\HomeController::class, 'passwordChanged'])->name('passwordChanged');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::view('patrol', 'patrol')->name('patrol');
+Route::get('/panic/{id}', [App\Http\Controllers\IssueController::class, 'panic'])->name('panic');
 
 /* Scan routes */
 Route::get('/scanner', [App\Http\Controllers\ScannerController::class, 'index'])->name('scan');
@@ -46,7 +47,9 @@ Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'cl
 Route::get('/employees', [App\Http\Controllers\ShiftController::class, 'employees'])->name('employees');
 
 /**Routes For Chats */
-Route::view('/chats', 'chats.index')->name('chats');
+Route::get('/chats/{id}', [App\Http\Controllers\ChatController::class, 'chats'])->name('chats');
+Route::get('/chat/{id}', [App\Http\Controllers\ChatController::class, 'chat'])->name('chat');
+Route::post('/chat/store', [App\Http\Controllers\ChatController::class, 'chatStore'])->name('chatStore');
 
 
 /**Routes for admins to register users */

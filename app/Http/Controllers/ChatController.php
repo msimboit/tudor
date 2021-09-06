@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Chat;
 use App\Http\Resources\ChatsResource;
+use Auth;
+use DB;
+use Carbon;
 
 class ChatController extends Controller
 {
@@ -38,19 +41,15 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        // print_r($request->all());
-        // $sender = User::where('email', $request->sender_email)->first();
-        // $receiver = User::where('email', $request->receiver_email)->first();
-
-        // $chat = new Chat;
-        // $chat->sender_email = $request->sender_email;
-        // $chat->receiver_email = $request->receiver_email;
-        // $chat->message = $request->message;
-        // $success = $chat->save();
+        $fields = $request->validate([
+            'sender_email' => 'required|string',
+            'receiver_email' => 'required|string',
+            'message' => 'required|string',
+        ]);
 
         $chat = Chat::create([
             'sender_email' => $request->sender_email,
-            'receiver_email' => $request->sender_email,
+            'receiver_email' => $request->receiver_email,
             'message' => $request->message,
         ]);
 
@@ -110,5 +109,67 @@ class ChatController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource on the web.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function chats($id)
+    {
+        $user = User::find($id);
+        $chats = Chat::where('sender_email', $user->email)
+                        ->orWhere('receiver_email', $user->email)
+                        ->get();
+
+        $all_users = User::get();
+        return view('chats.index', compact('user', 'all_users', 'chats'));
+    }
+
+    /**
+     * Display a listing of the resource on the web.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function chat($id)
+    {
+        $user = Auth::user();
+        $chatWith = User::where('id', $id)->first();
+        $chats = Chat::where('sender_email', $user->email)
+                        ->orWhere('receiver_email', $user->email)
+                        ->latest()
+                        ->limit(5)
+                        ->get();
+
+        $chats = $chats->reverse();
+        // dd($chatWith);
+
+        return view('chats.create', compact('user', 'chatWith', 'chats'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function chatStore(Request $request)
+    {
+        $fields = $request->validate([
+            'receiver_email' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
+        $receiver = User::where('email', $request->receiver_email)->first();
+        $chat = Chat::create([
+            'sender_email' => Auth::user()->email,
+            'receiver_email' => $request->receiver_email,
+            'message' => $request->message,
+        ]);
+
+        $response = new ChatsResource($chat);
+
+        return redirect()->route('chat', $receiver->id)->with('status', 'Message Sent');
     }
 }
