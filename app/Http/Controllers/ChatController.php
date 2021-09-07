@@ -123,7 +123,10 @@ class ChatController extends Controller
                         ->orWhere('receiver_email', $user->email)
                         ->get();
 
-        $all_users = User::get();
+        $all_users = User::where('role', '!=', 'admin')
+                    ->where('role', $user->role)
+                    ->where('id', '!=', $user->id)
+                    ->get();
         return view('chats.index', compact('user', 'all_users', 'chats'));
     }
 
