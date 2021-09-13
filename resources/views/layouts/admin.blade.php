@@ -43,6 +43,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Documentation styles -->
     <link href="/static/site/css/documentation-styles-4.css" rel="stylesheet">
+    <!-- Axios Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
@@ -192,7 +195,7 @@
                                 <main>
                                     @yield('content')
                                 </main>
-                            
+                                <audio id="alarm" src="{{ asset('audio/alarm/alarm.wav')}}" preload="auto"></audio>
                         </div>
                         <div class="content">
                             <div class="fake-content"></div>
@@ -260,7 +263,37 @@
         }
     </script>
 
-    <!-- Axios -->
+    <script>
+        async function getUser() {
+            try {
+                const response = await axios.get('/api/v1/panic');
+                // console.log(response.data[0]['attributes']);
+                var name = response.data[0]['attributes']['first_name'];
+                var phone = response.data[0]['attributes']['phone_number'];
+                var title = response.data[0]['attributes']['title'];
+
+                var mp3_url = '../audio/alarm/alarm.wav';
+                (new Audio(mp3_url)).play();
+
+                alert(`${name} has pressed the Panic Button. Help required!!`);
+
+                (new Audio(mp3_url)).play();
+
+                // setInterval(function(){ 
+                //     document.getElementById('alarm').play();
+                //     alert(`${name} has pressed the Panic Button. Help required!!`); 
+                    
+                // }, 30000);
+                
+            } catch (error) {
+                //Do nothing
+            }
+        }
+
+        setInterval(() => {
+            getUser();
+        }, 5000);
+    </script>
 </body>
 
 </html>

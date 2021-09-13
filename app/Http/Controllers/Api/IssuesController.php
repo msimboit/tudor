@@ -121,4 +121,16 @@ class IssuesController extends Controller
     {
         //
     }
+
+    /**
+     * Keep alert for panic buttons pressed.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function panicAlert()
+    {
+        $response = IssuesResource::collection(Issue::where('title', 'Panic Button Pressed')->where('cleared', 0)->get());
+        return response($response, 200);
+    }
 }

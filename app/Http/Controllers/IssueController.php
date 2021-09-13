@@ -12,6 +12,16 @@ use Auth;
 class IssueController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -123,12 +133,23 @@ class IssueController extends Controller
     /**
      * Panic Button has been clicked.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function panic($id)
+    public function panic(Request $request)
     {
-        $user = User::where('id', $id)->first();
-        dd($user);
+        // dd($request->all());
+
+        $user = User::where('id', $request->guard_id)->first();
+
+        $issue = new Issue;
+        $issue->phone_number = $user->phone_number;
+        $issue->first_name = $user->firstname;
+        $issue->title = 'Panic Button Pressed';
+        $issue->issueLocation = $request->latitude.' - '.$request->longitude;
+        $issue->details = 'Panic Button has been pressed. Help Required!!!';
+        $success = $issue->save();
+
+        return redirect()->back()->with('success', 'Help is on the way');
     }
 }

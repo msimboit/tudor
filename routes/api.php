@@ -25,6 +25,7 @@ use App\Http\Controllers\ChatController;
 Route::prefix('v1')->group(function() {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
+        Route::get('/panic', [IssuesController::class, 'panicAlert']);
     });
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function() {
@@ -32,6 +33,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function() {
     Route::apiResource('/shifts', ShiftsController::class);
     Route::apiResource('/scans', ScannersController::class);
     Route::apiResource('/issues', IssuesController::class);
+
     Route::apiResource('/chats', ChatController::class);
     Route::apiResource('/leaves', LeavesController::class);
     Route::post('/logout', [AuthController::class, 'logout']);

@@ -24,7 +24,6 @@ Route::get('/changePassword', [App\Http\Controllers\HomeController::class, 'chan
 Route::post('/passwordChanged', [App\Http\Controllers\HomeController::class, 'passwordChanged'])->name('passwordChanged');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::view('patrol', 'patrol')->name('patrol');
-Route::get('/panic/{id}', [App\Http\Controllers\IssueController::class, 'panic'])->name('panic');
 
 /* Scan routes */
 Route::get('/scanner', [App\Http\Controllers\ScannerController::class, 'index'])->name('scan');
@@ -36,6 +35,7 @@ Route::get('/clockin', [App\Http\Controllers\ScannerController::class, 'clockin'
 Route::get('/scanned_areas', [App\Http\Controllers\ScannerController::class, 'scanned_areas'])->name('scanned_areas');
 Route::get('/reportIssue', [App\Http\Controllers\IssueController::class, 'create'])->name('reportIssue');
 Route::post('/storeIssue', [App\Http\Controllers\IssueController::class, 'store'])->name('storeIssue');
+Route::post('/panic/{id}', [App\Http\Controllers\IssueController::class, 'panic'])->name('panic');
 
 /* Report routes for the admins*/
 Route::get('shifts/export/', [App\Http\Controllers\ShiftController::class, 'export'])->name('shiftExport');
