@@ -40,8 +40,9 @@ class ShiftController extends Controller
             return redirect()->route('home');
         }
         $users = User::where('role', '!=', 'admin')
+                    ->where('role', '!=', 'guard')
                     ->orderBy('firstname')
-                    ->get();
+                    ->paginate(10);
 
         return view('shifts.shifts', ['users' => $users]);
     }
@@ -87,10 +88,13 @@ class ShiftController extends Controller
                         ->orderBy('created_at', 'desc')                
                         ->get();
         }
-        
-        //dd($shifts);
 
-        return view('shifts.shiftsSearch', ['shifts' => $shifts]);
+        $from = $request->get('from');
+        $to = $request->get('to');
+        
+        // dd($shifts);
+
+        return view('shifts.shiftsSearch', ['shifts' => $shifts, 'from' => $from, 'to' => $to]);
     }
 
     /**
@@ -128,6 +132,29 @@ class ShiftController extends Controller
         ->paginate(5);
         
         return view('shifts.scanned_areas', ['current_time' => $current_time], ['scanned_areas' => $scanned_areas]);
+
+    }
+
+    /**
+     * Display daily guard scanned areas during that day
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function daily()
+    {
+        // dd(Auth::user());
+        $user = Auth::user();
+        $current_time = Carbon::now();
+
+        $scanned_areas = DB::table('scans')
+        // ->where('created_at', '<', $current_time)
+        ->where('created_at', '>', $current_time->subHours(24))
+        ->where('role', 'guard')
+        ->orderByDesc('created_at')
+        ->get();
+        
+        // dd($scanned_areas);
+        return view('shifts.daily', ['current_time' => $current_time], ['scanned_areas' => $scanned_areas]);
 
     }
 

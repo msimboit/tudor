@@ -1,39 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between"><span>{{ __('Tudor') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
-
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        {{__('Hello')}}
-                        {{ Auth::user()->firstname }}.
-                        <br />
-                        <br />
-                    </div>
-                    <h3>{{ __('Issue Number:') }} {{ $issue->id }}</h3>
-                    <h4>Title: {{ $issue->title }}</h3>
-                    <h4>Location: {{ $issue->issueLocation }}</h5>
-                    <h4>Created At: {{ $issue->created_at }}</h5>
-                    <p>{{ $issue->details }}</p>
-
-                    @if (Auth::check() && Auth::user()->role === 'admin')
-                    <button class="btn btn-success sm">
-                        <a href=" {{ route('clearIssue', $issue->id) }} " style="text-decoration:none; color:#fff">Clear The Issue</a>
-                    </button>
-                    @endif
-                </div> 
-
-                <div class="my-3 ml-3">
-                    <button class="btn btn-secondary">
-                        <a href="{{ route('home') }} " style="text-decoration:none; color:#fff">Back To Dashboard</a>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="content">
+      <h2 class="content-title">
+        {{ __('Issue Number:') }} {{ $issue->id }}
+      </h2>
+      <div>
+        <span class="text-muted">
+          <i class="fa fa-clock-o mr-5" aria-hidden="true"></i> {{ $issue->created_at }} <!-- mr-5 = margin-right: 0.5rem (5px) -->
+        </span>
+      </div>
+      <div class="my-5 p-5">
+        <h5>{{ $issue->details }}</h5>
+      </div>
     </div>
-</div>
+    <hr />
+    <!-- Second content container nested inside card (comments) -->
+    <div>
+      <div class="text-center mt-20"> <!-- text-center = text-align: center, mt-20 = margin-top: 2rem (20px) -->
+        <button class="btn btn-primary">
+            <a href=" {{ route('clearIssue', $issue->id) }} " style="text-decoration:none; color:#fff">Clear The Issue</a>
+        </button>
+      </div>
+    </div>
 @endsection

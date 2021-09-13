@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::view('welcome', 'welcome')->name('welcome');
+Route::view('admin', 'layouts.admin')->name('admin');
 
 Auth::routes();
 
@@ -28,6 +29,7 @@ Route::get('/panic/{id}', [App\Http\Controllers\IssueController::class, 'panic']
 /* Scan routes */
 Route::get('/scanner', [App\Http\Controllers\ScannerController::class, 'index'])->name('scan');
 Route::post('/scanner', [App\Http\Controllers\ScannerController::class, 'store'])->name('scanned');
+Route::post('/officeScans', [App\Http\Controllers\ScannerController::class, 'scanManagement'])->name('scanManagement');
 Route::get('/clockin', [App\Http\Controllers\ScannerController::class, 'clockin'])->name('clockin');
 
 /* Report routes for the guards*/
@@ -38,6 +40,7 @@ Route::post('/storeIssue', [App\Http\Controllers\IssueController::class, 'store'
 /* Report routes for the admins*/
 Route::get('shifts/export/', [App\Http\Controllers\ShiftController::class, 'export'])->name('shiftExport');
 Route::get('/shifts', [App\Http\Controllers\ShiftController::class, 'index'])->name('shifts');
+Route::get('/dailyGuardReport', [App\Http\Controllers\ShiftController::class, 'daily'])->name('daily');
 Route::get('/shifts/{id}', [App\Http\Controllers\ShiftController::class, 'info'])->name('shiftInfo');
 Route::post('/shifts/search', [App\Http\Controllers\ShiftController::class, 'searchDate'])->name('shiftSearch');
 Route::get('/shifts-all_scanned_areas', [App\Http\Controllers\ShiftController::class, 'all_scanned_areas'])->name('all_scanned_areas');

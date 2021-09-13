@@ -31,12 +31,12 @@
 
                         <div class="form-group">
                             <label for="title">Issue Title:</label>
-                            <input type="text" name="title" value="{{ old('title') }}" class="form-control" placeholder="Title">
+                            <input type="text" name="title" value="{{ old('title') }}" class="form-control" placeholder="Title" required>
                         </div>
 
                         <div class="form-group">
                             <label for="issueLocation">Issue Location: (or closest)</label>
-                            <select class="form-control col-md-4" name="issueLocation">
+                            <select class="form-control col-md-4" name="issueLocation" required>
                                 <option>Select Location</option>
                                 @foreach ($sectors as $sector)
                                 <option value="{{ $sector->name }}" > 
@@ -48,7 +48,7 @@
 
                         <div class="form-group">
                             <label for="details">Issue details:</label>
-                            <textarea name="details" value="{{ old('details') }}" class="form-control" placeholder="Details"></textarea>
+                            <textarea name="details" value="{{ old('details') }}" class="form-control" placeholder="Details" required></textarea>
                         </div>
 
                         <div class="form-group">

@@ -75,7 +75,7 @@ class HomeController extends Controller
                 }
         }
 
-        return view('home', ['current_time' => $current_time->toDateString()]);
+        return redirect()->route('employees', ['current_time' => $current_time->toDateString()]);
     }
 
     public function registerUser()
@@ -95,7 +95,7 @@ class HomeController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return view('home');
+        return view('admin');
     }
     
     /**

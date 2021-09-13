@@ -103,7 +103,12 @@ class IssuesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $issue = Issue::find($id);
+        $issue->cleared = 1;
+        $issue->save();
+        $response = new IssuesResource($issue);
+
+        return response($response, 200);
     }
 
     /**

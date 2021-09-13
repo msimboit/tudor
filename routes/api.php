@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ScannersController;
 use App\Http\Controllers\Api\ShiftsController;
 use App\Http\Controllers\Api\IssuesController;
+use App\Http\Controllers\Api\LeavesController;
 use App\Http\Controllers\ChatController;
 
 
@@ -21,17 +22,6 @@ use App\Http\Controllers\ChatController;
 |
 */
 
-// Route::prefix('v1')->group(function() {
-//     Route::post('/register', [AuthController::class, 'register']);
-//     Route::post('/login', [AuthController::class, 'login']);
-//     Route::apiResource('/users', UsersController::class);
-//     Route::apiResource('/shifts', ShiftsController::class);
-//     Route::apiResource('/scans', ScannersController::class);
-//     Route::apiResource('/issues', IssuesController::class);
-//     Route::apiResource('/chats', ChatController::class);
-
-// });
-
 Route::prefix('v1')->group(function() {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
@@ -43,5 +33,6 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function() {
     Route::apiResource('/scans', ScannersController::class);
     Route::apiResource('/issues', IssuesController::class);
     Route::apiResource('/chats', ChatController::class);
+    Route::apiResource('/leaves', LeavesController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
 });

@@ -61,6 +61,11 @@ class ScannerController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        // dd($request->all());
+        if(($request->latitude) == '' || ($request->longitude) == '')
+        {
+            return redirect()->back()->with('alert', 'Please Enable Your Location!');
+        }
 
         $validated = $request->validate([
             'sector' => 'required',
@@ -105,6 +110,7 @@ class ScannerController extends Controller
             $scan= new Scan;
             $scan->phone_number = $user->phone_number;
             $scan->first_name = $user->firstname;
+            $scan->role = $user->role;
             $scan->latitude = $request->latitude;
             $scan->longitude = $request->longitude;
             $scan->sector = $request->sector;
@@ -148,12 +154,25 @@ class ScannerController extends Controller
         $scan= new Scan;
         $scan->phone_number = $user->phone_number;
         $scan->first_name = $user->firstname;
+        $scan->role = $user->role;
         $scan->latitude = $request->latitude;
         $scan->longitude = $request->longitude;
         $scan->sector = $request->sector;
         $scan->sector_name = $request->sector_name;
         $scan->time = $request->scan_time;
         $success = $scan->save();
+
+        if($scan->sector_name == 'Clocking In')
+        {
+            $shift = new Shift;
+            $shift->phone_number = $user->phone_number;
+            $shift->first_name = $user->firstname;
+            $shift->last_name = $user->lastname;
+            $shift->role = $user->role;
+            $shift->clockin = $scan->created_at;
+            $success2 = $shift->save();
+        }
+        
 
         if($scan->sector_name == 'Clocking Out') {
             $in = new DateTime($last_clock_in->created_at);
@@ -194,12 +213,171 @@ class ScannerController extends Controller
 
         if($scan->sector_name == 'Clocking Out') {
             session()->flush();
+            $state = 'Clock Out Successful! Log back in when you come back to work';
             return redirect()->route('welcome');
         }
 
         return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Scan Successful!');
 
     }
+
+    // /**
+    //  * Refining the scan store
+    //  * 
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function scanManagement(Request $request)
+    // {
+    //     $user = Auth::user();
+
+    //     $validated = $request->validate([
+    //         'sector' => 'required',
+    //         'sector_name' => 'required',
+    //     ]);
+
+    //     $last_clock_in = DB::table('scans')
+    //     ->select('created_at')
+    //     ->where('phone_number', '=', $user->phone_number)
+    //     ->where('sector_name', '=', 'Clocking In')
+    //     ->orderBy('created_at', 'desc')
+    //     ->first();
+
+    //     $last_shift = DB::table('shifts')
+    //     ->where('first_name', '=', $user->firstname)
+    //     ->orderBy('created_at', 'asc')
+    //     ->first();
+
+    //     // dd($last_clock_in);
+
+    //     if($last_clock_in == null){
+    //         $user = Auth::user();
+    //         $current_time = Carbon::now();
+
+    //         $scan= new Scan;
+    //         $scan->phone_number = $user->phone_number;
+    //         $scan->first_name = $user->firstname;
+    //         $scan->latitude = $request->latitude;
+    //         $scan->longitude = $request->longitude;
+    //         $scan->sector = $request->sector;
+    //         $scan->sector_name = $request->sector_name;
+    //         $scan->time = $request->scan_time;
+    //         $success = $scan->save();
+
+    //         $shift = new Shift;
+    //         $shift->phone_number = $user->phone_number;
+    //         $shift->first_name = $user->firstname;
+    //         $shift->last_name = $user->lastname;
+    //         $shift->role = $user->role;
+    //         $shift->clockin = $scan->created_at;
+    //         $success2 = $shift->save();
+
+    //         return redirect()->route('home');
+
+    //     }
+
+    //     $date = new DateTime($last_clock_in->created_at);
+    //     $now = new DateTime();
+    //     $diff = $date->diff($now)->format("%d days, %h hours and %i minutes");
+
+    //     // dd('diff');
+
+    //     if($request->sector_name == 'Clocking Out') {
+    //         $in = new DateTime($last_clock_in->created_at);
+    //         $out = new DateTime($request->created_at);
+    //         $duration = $out->diff($in)->format("%d days, %h hours and %i minutes");
+
+    //         $shift = DB::table('shifts')
+    //                 ->where('phone_number', ($user->phone_number))
+    //                 ->where('clockin', ($last_clock_in->created_at))
+    //                 ->update([
+    //                     'clockout' => $request->created_at,
+    //                     'shift_duration' => $duration
+    //                     ]);
+
+    //         Auth::logout();
+    //         $request->session()->invalidate();
+    //         $request->session()->regenerateToken();
+            
+    //         return redirect()->route('welcome');
+    //     }
+
+    //     //Determine if User clocked out
+    //     if($diff > "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In' && $last_shift->clockout == null) 
+    //     {
+    //         dd('check');
+    //         $shift = DB::table('shifts')
+    //         ->where('phone_number', ($user->phone_number))
+    //         ->where('clockin', ($last_clock_in->created_at))
+    //         ->update([
+    //             'clockout' => 'Did not clock out',
+    //             'shift_duration' => 'Undeterminable'
+    //             ]);
+
+    //         Auth::logout();
+    //         $request->session()->invalidate();
+    //         $request->session()->regenerateToken();
+
+    //         return redirect()->route('login');
+
+    //     } else{
+    //         $user = Auth::user();
+    //         $current_time = Carbon::now();
+
+    //         $scan= new Scan;
+    //         $scan->phone_number = $user->phone_number;
+    //         $scan->first_name = $user->firstname;
+    //         $scan->latitude = $request->latitude;
+    //         $scan->longitude = $request->longitude;
+    //         $scan->sector = $request->sector;
+    //         $scan->sector_name = $request->sector_name;
+    //         $scan->time = $request->scan_time;
+    //         $success = $scan->save();
+
+    //         $shift = new Shift;
+    //         $shift->phone_number = $user->phone_number;
+    //         $shift->first_name = $user->firstname;
+    //         $shift->last_name = $user->lastname;
+    //         $shift->role = $user->role;
+    //         $shift->clockin = $scan->created_at;
+    //         $success2 = $shift->save();
+
+    //         return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Successful Clock In');
+    //     }
+        
+    //     if($diff < "0 days, 12 hours and 0 minutes" && ($request->sector_name) == 'Clocking In') 
+    //     {
+    //         return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Already Clocked in today');
+    //     }
+
+    //     if(($request->sector_name) == 'Clocking in')
+    //     {
+    //         // dd('reacched');
+    //         $user = Auth::user();
+    //         $current_time = Carbon::now();
+
+    //         $scan= new Scan;
+    //         $scan->phone_number = $user->phone_number;
+    //         $scan->first_name = $user->firstname;
+    //         $scan->latitude = $request->latitude;
+    //         $scan->longitude = $request->longitude;
+    //         $scan->sector = $request->sector;
+    //         $scan->sector_name = $request->sector_name;
+    //         $scan->time = $request->scan_time;
+    //         $success = $scan->save();
+
+    //         $shift = new Shift;
+    //         $shift->phone_number = $user->phone_number;
+    //         $shift->first_name = $user->firstname;
+    //         $shift->last_name = $user->lastname;
+    //         $shift->role = $user->role;
+    //         $shift->clockin = $scan->created_at;
+    //         $success2 = $shift->save();
+
+    //         return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Successful Clock In');
+    //     }
+        
+    // }
 
     /**
      * Find Last System Interactions i.e, when was the last clock in prior to last scan
@@ -236,6 +414,12 @@ class ScannerController extends Controller
             ->orderBy('created_at', 'asc')
             ->first();
 
+
+        $last_shift = DB::table('shifts')
+        ->where('first_name', '=', $user->firstname)
+        ->latest()
+        ->first();
+
         $last_scan = new DateTime($last_scan->created_at);
         $last_clock_in = new DateTime($last_clock_in->created_at);
 
@@ -248,7 +432,18 @@ class ScannerController extends Controller
 
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-        dd($user_agent);
+
+        // $absolute_path = realpath("C:\wamp64\www\security_guards\security_guards\cert\ProductionCertificate.cer");
+
+        // print_r("Absolute path is: " . $absolute_path);
+
+        $g2PublicKey ="file://cert/ProductionCertificate.cer";
+
+        $file = file_get_contents('../cert/ProductionCertificate.cer', true);
+
+        dd($file);
+
+        // dd($last_shift);
     }
 
     /**
@@ -279,6 +474,7 @@ class ScannerController extends Controller
             $scan= new Scan;
             $scan->phone_number = $user->phone_number;
             $scan->first_name = $user->firstname;
+            $scan->role = $user->role;
             $scan->latitude = $last_scanned_site->latitude;
             $scan->longitude = $last_scanned_site->longitude;
             $scan->sector_name = 'Clocking Out';

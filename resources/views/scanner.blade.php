@@ -85,6 +85,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+                    
+                @if (session('alert'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('alert') }}
+                    </div>
+                @endif
+
                     <div class="card-header d-flex justify-content-between"><span>{{ __('Scanner') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
                     <video id="preview" playsinline></video>
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
@@ -104,7 +111,7 @@
                             </div>
                         </div>
                         
-
+                        @if(Auth::user()->role == 'guard')
                         <form action="{{ route('scanned') }}" method="post" id="scanForm">
                             @csrf
                             @method("POST")
@@ -125,6 +132,29 @@
 
                             <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN" hidden> 
                         </form>
+                        @endif
+
+                        @if(Auth::user()->role !== 'guard')
+                        <form action="{{ route('scanManagement') }}" method="post" id="scanForm">
+                            @csrf
+                            @method("POST")
+                            <input type="text" name="latitude" id="lat" hidden>
+                            <input type="text" name="longitude" id="lon" hidden>
+                            <input type="text" name="sector" id="con" hidden>
+                            <input type="text" name="sector_name" id="con_name" hidden>
+                            <input type="text" name="scan_time" id="scan_time" hidden>
+                            <div class="col-md-6">
+                                <div id="my_camera" hidden></div>
+                                <br/>
+                                <input type="hidden"  name="image" class="image-tag">
+                            </div>
+                            <div class="col-md-6" hidden>
+                                <div id="results">Your captured image will appear here...</div>
+                            </div>
+
+                            <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN" hidden> 
+                        </form>
+                        @endif
 
                         <small class="my-3">
                             <button class="btn btn-secondary">

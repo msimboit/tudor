@@ -1,36 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between"><span>{{ __('Employees') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
 
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        {{__('Hello')}}
-                        {{ Auth::user()->firstname }}.
-                        <br />
-                        <br />
-
-                        <button class="btn btn-secondary btn-sm">
-                            <a href="{{ route('shiftExport') }} " style="text-decoration:none; color:#fff">Generate Excel Sheet</a>
-                        </button>
-
-                    </div>
-
-                    <div class="my-3">
+                <div class="mb-5">
                     <form action="{{ route('shiftSearch') }}" method="POST">
                         @csrf
-                        <div class="">
-                            <label for="from">From:</label>
-                            <input type="date" id="from" name="from">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">From</span>
+                                </div>
+                                <input type="date" class="form-control" id="from" name="from">
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">To</span>
+                                </div>
+                                <input type="date" class="form-control" id="to" name="to">
+                            </div>
 
-                            <label for="to" class="ml-3">To:</label>
-                            <input type="date" id="to" name="to">
+                            <div class="d-flex justify-content-between">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">Role</span>
+                                </div>
+                                <select class="form-control" id="select-3" name="role">
+                                    <option value="" selected="selected" disabled="disabled">Select a role</option>
+                                    <option value="all">All Roles</option>
+                                    <option value="management">Management</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="control room">Control Room</option>
+                                    <option value="production">Production</option>
+                                    <option value="guard">Guard</option>
 
-                            <label for="role" class="ml-3">Role:</label>
+                                </select>
+                            </div>
+
+                            <!-- <label for="role" class="ml-3">Role:</label>
                             <select name="role" id="role" required>
                                     <option value="all">All Roles</option>
                                     <option value="management">Management</option>
@@ -38,51 +44,40 @@
                                     <option value="control room">Control Room</option>
                                     <option value="production">Production</option>
                                     <option value="guard">Guard</option>
-                            </select>
+                            </select> -->
                             
                             <button class="btn btn-success ml-3" type="submit">Search</button>
                         </div>
                         
                     </form>
 
-                    </div>
-
-                    {{__('All Registered Employees:')}}
-                    <br />
-                    <br />
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($users as $user)
-                                <tr>
-                                    <td>{{ $user->firstname }} {{ $user->lastname }}</td>
-                                    <td>{{ $user->phone_number }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->role }}</td>
-                                    <td>
-                                        <a href="{{ route('shiftInfo',$user->id) }}" class="btn btn-info">Info</a> 
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div> 
-
-                <div class="my-3 ml-3">
-                    <button class="btn btn-secondary">
-                        <a href="{{ route('home') }} " style="text-decoration:none; color:#fff">Back To Dashboard</a>
-                    </button>
                 </div>
-            </div>
+                <!-- <div class="my-5">
+        {{__('Check on specific employee shift:')}}
+        </div> -->
+
+        <div class="mb-5">
+        <table class="table">
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($users as $user)
+            <tr class="table-primary">
+                <td>{{ $user->firstname }} {{ $user->lastname }}</td>
+                <td>{{ $user->phone_number }}</td>
+                <td>{{ $user->role }}</td>
+                <td>
+                    <a href="{{ route('shiftInfo',$user->id) }}" class="btn btn-primary">Info</a> 
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
         </div>
-    </div>
-</div>
+        {{ $users->links() }}
 @endsection
