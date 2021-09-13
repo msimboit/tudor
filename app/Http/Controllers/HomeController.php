@@ -86,6 +86,8 @@ class HomeController extends Controller
     public function confirmRegistration(Request $request)
     {
         //dd($request->all());
+        
+        $current_time = Carbon\Carbon::now();
         User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
