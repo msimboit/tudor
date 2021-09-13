@@ -95,7 +95,7 @@ class HomeController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return view('admin');
+        return view('employees.employees');
     }
     
     /**
