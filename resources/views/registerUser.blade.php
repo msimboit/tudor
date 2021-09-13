@@ -69,6 +69,7 @@
                     <option value="operations">Operations</option>
                     <option value="control room">Control Room</option>
                     <option value="production">Production</option>
+                    <option value="production">Guard</option>
                 </select>
             </div>
         </div>
