@@ -48,6 +48,7 @@ Route::get('/issues', [App\Http\Controllers\IssueController::class, 'index'])->n
 Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show'])->name('issueInfo');
 Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'clearIssue'])->name('clearIssue');
 Route::get('/employees', [App\Http\Controllers\ShiftController::class, 'employees'])->name('employees');
+Route::get('/guards', [App\Http\Controllers\ShiftController::class, 'guards'])->name('guards');
 
 /**Routes For Chats */
 Route::get('/chats/{id}', [App\Http\Controllers\ChatController::class, 'chats'])->name('chats');

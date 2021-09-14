@@ -135,7 +135,7 @@
                         @endif
 
                         @if(Auth::user()->role !== 'guard')
-                        <form action="{{ route('scanManagement') }}" method="post" id="scanForm">
+                        <form action="{{ route('scanned') }}" method="post" id="scanForm">
                             @csrf
                             @method("POST")
                             <input type="text" name="latitude" id="lat" hidden>
@@ -143,7 +143,7 @@
                             <input type="text" name="sector" id="con" hidden>
                             <input type="text" name="sector_name" id="con_name" hidden>
                             <input type="text" name="scan_time" id="scan_time" hidden>
-                            <div class="col-md-6">
+                            <div class="col-md-6" hidden>
                                 <div id="my_camera" hidden></div>
                                 <br/>
                                 <input type="hidden"  name="image" class="image-tag">

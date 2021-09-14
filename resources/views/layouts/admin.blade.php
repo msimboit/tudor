@@ -116,17 +116,23 @@
                     </span>
                    Daily Guard Reports
                 </a>
-                <a href="{{ route('shifts') }}" class="sidebar-link sidebar-link-with-icon">
+                <a href="{{ route('guards') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
-                        <i class="fa fa-table" aria-hidden="true"></i>
+                        <i class="fa fa-user" aria-hidden="true"></i>
                     </span>
-                    Employee Shift Reports
+                    Guards List
                 </a>
                 <a href="{{ route('employees') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </span>
                     Employee List
+                </a>
+                <a href="{{ route('shifts') }}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </span>
+                    Employee Shift Reports
                 </a>
                 <a href="{{ route('registerUser') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">

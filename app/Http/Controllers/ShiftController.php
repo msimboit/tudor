@@ -68,6 +68,25 @@ class ShiftController extends Controller
     }
 
     /**
+     * Display a list of the registered guards.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function guards()
+    {
+
+        if(Auth::user()->role != 'admin')
+        {
+            return redirect()->route('home');
+        }
+        $guards = User::where('role','guard')
+                    ->orderBy('firstname')
+                    ->get();
+
+        return view('employees.guards', ['guards' => $guards]);
+    }
+
+    /**
      * Search for a specific date range of shifts.
      *
      * @return \Illuminate\Http\Response
