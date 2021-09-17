@@ -60,6 +60,7 @@ class AuthController extends Controller
 
         $user = collect($user);
         $user->put('token', $token);
+        
         $response = [
             'user' => $user,
         ];
