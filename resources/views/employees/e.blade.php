@@ -1,61 +1,56 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between"><span>{{ __('Scanned Areas') }}</span>  <span>{{ \Carbon\Carbon::now()->toDateString() }}</span></div>
 
-            <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                <div class="card-body">
+                    {{__('Hello')}}
+                    {{ Auth::user()->firstname }}
+            
+                    @if(!empty($scanned_areas[0]))
+                        <br />
+                        <br />
+                        {{ __('You have scanned the following areas recently:') }}
+                        <br />
+                        <br />
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Sector</th>
+                                <th scope="col">Scanned Times</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($scanned_areas as $scanned_area)
+                                    <tr>
+                                        <td>{{ $scanned_area->sector_name }}</td>
+                                        <td>{{ $scanned_area->time }}</td>
+                                        <td>{{ Carbon\Carbon::parse($scanned_area->created_at)->format('d-m-Y')}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
 
-                <div class="col-md-6">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        {{ $scanned_areas->links() }}
 
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
+                    @else
+                    <br />
+                    <br />
+                    <strong><p>No Areas Scanned!</p></strong>
+                    @endif
+                </div> 
 
-            <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                <div class="col-md-6">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6 offset-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                        <label class="form-check-label" for="remember">
-                            {{ __('Remember Me') }}
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row mb-0">
-                <div class="col-md-8 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Login') }}
+                <div class="my-3 ml-3">
+                    <button class="btn btn-secondary">
+                        <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Back To Reports</a>
                     </button>
                 </div>
             </div>
-
-            <!-- <div class="form-group row mb-0">
-                <div">
-                    <a href="{{ route('register') }}"> {{ __('New To Tudor? Sign Up') }}</a>
-                </div>
-            </div> -->
-        </form>
+        </div>
+    </div>
+</div>
 @endsection

@@ -131,7 +131,7 @@ class ScannerController extends Controller
                 return view('patrol', ['current_time' => $current_time->toDateString()])->with('success', 'Scan Successful!');
             }
 
-            return redirect()->route('home');
+            return redirect()->route('home')->with('success', 'Scan Successful!');
         }
 
         $date = new DateTime($last_clock_in->created_at);
@@ -202,13 +202,13 @@ class ScannerController extends Controller
                         'shift_duration' => $duration
                         ]);
 
-            $shift = new Shift;
-            $shift->phone_number = $user->phone_number;
-            $shift->first_name = $user->firstname;
-            $shift->last_name = $user->lastname;
-            $shift->role = $user->role;
-            $shift->clockin = $scan->created_at;
-            $success2 = $shift->save();
+            // $shift = new Shift;
+            // $shift->phone_number = $user->phone_number;
+            // $shift->first_name = $user->firstname;
+            // $shift->last_name = $user->lastname;
+            // $shift->role = $user->role;
+            // $shift->clockin = $scan->created_at;
+            // $success2 = $shift->save();
         }
 
         if($scan->sector_name == 'Clocking Out') {
@@ -519,8 +519,16 @@ class ScannerController extends Controller
             ->where('created_at', '>', $last_clock_in)
             ->orderBy('created_at', 'desc')
             ->get();
+
+            $areas = [];
+            foreach ($scanned_areas as $scanned_area)
+            {
+                array_push($areas, $scanned_area->sector_name);
+            }
+
+            $collection = collect($areas);
             
-            return view('scanned_areas', ['current_time' => $current_time], compact('scanned_areas'));
+            return view('scanned_areas', ['current_time' => $current_time], compact('scanned_areas', 'collection'));
         }
 
     }

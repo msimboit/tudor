@@ -17,9 +17,22 @@
                     {{ __('You have scanned the following areas this shift:') }}
                     <br />
                     <br />
-                    @foreach ($scanned_areas as $scanned_area)
-                        <strong><p>{{ $scanned_area->sector_name }}</p></strong>
-                    @endforeach
+                    <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col" class="text-center">Sector</th>
+                                <th scope="col" class="text-center">Total Scanned Times</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($collection->countBy() as $key => $c)
+                                    <tr>
+                                        <td class="text-center">{{ $key }}</td>
+                                        <td class="text-center">{{ $c }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     @else
                     <br />
                     <br />

@@ -116,6 +116,12 @@
                     </span>
                    Daily Guard Reports
                 </a>
+                <a href="{{ route('shifts') }}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </span>
+                    Guard Shift Reports
+                </a>
                 <a href="{{ route('guards') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-user" aria-hidden="true"></i>
