@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\ScannersController;
 use App\Http\Controllers\Api\ShiftsController;
 use App\Http\Controllers\Api\IssuesController;
 use App\Http\Controllers\Api\LeavesController;
-use App\Http\Controllers\Api\QrcodeController;
+use App\Http\Controllers\Api\QrCodeController;
 use App\Http\Controllers\ChatController;
 
 
