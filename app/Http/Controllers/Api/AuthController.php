@@ -53,9 +53,15 @@ class AuthController extends Controller
 
         $token =$user->createToken('tudorToken')->plainTextToken;
 
+        // $response = [
+        //     'user' => $user,
+        //     'token' => $token
+        // ];
+
+        $user = collect($user);
+        $user->push($token);
         $response = [
             'user' => $user,
-            'token' => $token
         ];
 
         return response($response, 201);
