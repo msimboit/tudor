@@ -146,6 +146,12 @@
                     </span>
                     Register A User
                 </a>
+                <a href="{{ route('registerClient') }}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </span>
+                    Register A Client
+                </a>
                 <a href="{{ route('all_issues') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-flag" aria-hidden="true"></i>

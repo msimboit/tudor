@@ -20,6 +20,8 @@ Route::view('admin', 'layouts.admin')->name('admin');
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/editUser/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('editUser');
+Route::post('/updateUser/{id}', [App\Http\Controllers\HomeController::class, 'updateUser'])->name('updateUser');
 Route::get('/changePassword', [App\Http\Controllers\HomeController::class, 'changePassword'])->name('changePassword');
 Route::post('/passwordChanged', [App\Http\Controllers\HomeController::class, 'passwordChanged'])->name('passwordChanged');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
@@ -49,6 +51,7 @@ Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show']
 Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'clearIssue'])->name('clearIssue');
 Route::get('/employees', [App\Http\Controllers\ShiftController::class, 'employees'])->name('employees');
 Route::get('/guards', [App\Http\Controllers\ShiftController::class, 'guards'])->name('guards');
+Route::get('/clients', [App\Http\Controllers\ShiftController::class, 'clients'])->name('clients');
 
 /**Routes For Chats */
 Route::get('/chats/{id}', [App\Http\Controllers\ChatController::class, 'chats'])->name('chats');
@@ -58,7 +61,9 @@ Route::post('/chat/store', [App\Http\Controllers\ChatController::class, 'chatSto
 
 /**Routes for admins to register users */
 Route::get('/registerUser', [App\Http\Controllers\HomeController::class, 'registerUser'])->name('registerUser');
+Route::get('/registerClient', [App\Http\Controllers\HomeController::class, 'registerClient'])->name('registerClient');
 Route::post('/registerUser', [App\Http\Controllers\HomeController::class, 'confirmRegistration'])->name('registered');
+Route::post('/registerClient', [App\Http\Controllers\HomeController::class, 'confirmClientRegistration'])->name('registeredClient');
 
 /* Session Flushing Routes */
 Route::get('/last_interactions', [App\Http\Controllers\ScannerController::class, 'last_interactions'])->name('last_interactions');

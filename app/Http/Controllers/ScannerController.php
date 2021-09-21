@@ -60,8 +60,17 @@ class ScannerController extends Controller
      */
     public function store(Request $request)
     {
+        //Check if they came from the clockin route and whether they are scanning clockin codes
+        $url = url()->previous();
+        if (str_contains($url, 'clockin')) {
+            $scanning_of = $request->sector_name;
+            if($scanning_of != 'Clocking In')
+            {
+                return redirect()->back()->with('alert', 'Please scan the right code!');
+            }
+        }
+
         $user = Auth::user();
-        // dd($request->all());
         if(($request->latitude) == '' || ($request->longitude) == '')
         {
             return redirect()->back()->with('alert', 'Please Enable Your Location!');

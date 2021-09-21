@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-    <form method="POST" action="{{ route('registered') }}" class="w-400 mw-full">
+    <form method="POST" action="{{ route('updateUser',$user->id) }}" class="w-400 mw-full">
         @csrf
 
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label text-md-right mr-5 pt-5">{{ __('First Name') }}</label>
 
             <div class="col-md-6">
-                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus>
+                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ $user->firstname }}" required autocomplete="firstname" autofocus>
 
                 @error('firstname')
                     <span class="invalid-feedback" role="alert">
@@ -22,7 +22,7 @@
             <label for="lastname" class="col-md-4 col-form-label text-md-right mr-5 pt-5">{{ __('Last Name') }}</label>
 
             <div class="col-md-6">
-                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
+                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $user->lastname }}" required autocomplete="lastname" autofocus>
 
                 @error('lastname')
                     <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
             <label for="id_number" class="col-md-4 col-form-label text-md-right mr-5 pt-5">{{ __('Phone Number') }}</label>
 
             <div class="col-md-6">
-                <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus>
+                <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ $user->phone_number }}" required autocomplete="phone_number" autofocus>
 
                 @error('phone_number')
                     <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
             <label for="email" class="col-md-4 col-form-label text-md-right mr-5 pt-5">{{ __('E-Mail Address') }}</label>
 
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
 
                 @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -64,13 +64,13 @@
             <label for="role" class="col-md-4 col-form-label text-md-right mr-5 pt-5">{{ __('Role') }}</label>
 
             <div class="col-md-6">
-            <input id="text" type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="client" disabled>
-
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+                <select class="form-control" name="role" id="role" value="{{ $user->role }}" required>
+                    <option value="management">Management</option>
+                    <option value="operations">Operations</option>
+                    <option value="control room">Control Room</option>
+                    <option value="production">Production</option>
+                    <option value="guard">Guard</option>
+                </select>
             </div>
         </div>
 
@@ -91,7 +91,7 @@
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Register') }}
+                    {{ __('Update User') }}
                 </button>
             </div>
         </div>

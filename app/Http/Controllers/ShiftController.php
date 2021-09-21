@@ -68,6 +68,25 @@ class ShiftController extends Controller
     }
 
     /**
+     * Display a list of the registered clients.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clients()
+    {
+
+        if(Auth::user()->role != 'admin')
+        {
+            return redirect()->route('home');
+        }
+        $clients = User::where('role','client')
+                    ->orderBy('firstname')
+                    ->paginate(10);
+
+        return view('clients.clients', ['clients' => $clients]);
+    }
+
+    /**
      * Display a list of the registered guards.
      *
      * @return \Illuminate\Http\Response

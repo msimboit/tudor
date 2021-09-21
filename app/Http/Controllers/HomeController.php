@@ -78,9 +78,41 @@ class HomeController extends Controller
         return redirect()->route('employees', ['current_time' => $current_time->toDateString()]);
     }
 
+    /**
+     * Register a User.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function registerUser()
     {
         return view ('registerUser');
+    }
+
+    /**
+     * Register a Client.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function registerClient()
+    {
+        return view ('registerClient');
+    }
+
+    public function confirmClientRegistration(Request $request)
+    {
+        // dd($request->all());
+        
+        $current_time = Carbon\Carbon::now();
+        User::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'role' => 'client',
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('clients');
     }
 
     public function confirmRegistration(Request $request)
@@ -140,4 +172,39 @@ class HomeController extends Controller
         }
 
     }
+
+    /**
+     * Edit the user profile.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('editUser', [ 'user' => $user ]);
+    }
+
+    /**
+     * Update the users profile.
+     *
+     * @params \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUser(Request $request, $id)
+    {
+        User::where('id', $id)
+            ->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('guards')->with('status', 'User profile updated successfully!');
+
+    }
+
 }

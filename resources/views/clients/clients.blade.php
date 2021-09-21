@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="d-flex justify-content-between">
-        {{__('All Registered Guards:')}}
+        {{__('All Registered Clients:')}}
                             <br />
                             <br />
         
@@ -12,11 +12,6 @@
                 </button>
             </div>
         </div>
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
                 <table class="table mb-3">
                 <thead>
                     <tr>
@@ -26,14 +21,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($guards as $guard)
+                    @foreach($clients as $client)
                         <tr class="table-primary">
-                            <td>{{ $guard->firstname }} {{ $guard->lastname }}</td>
-                            <td>{{ $guard->phone_number }}</td>
-                            <td>{{ $guard->email }}</td>
-                            <td>
-                                <a href="{{ route('editUser',$guard->id) }}" class="btn btn-info">Edit</a> 
-                            </td>
+                            <td>{{ $client->firstname }} {{ $client->lastname }}</td>
+                            <td>{{ $client->phone_number }}</td>
+                            <td>{{ $client->email }}</td>
+                            <!-- <td>
+                                <a href="{{ route('shiftInfo',$client->id) }}" class="btn btn-info">Info</a> 
+                            </td> -->
                         </tr>
                     @endforeach
                 </tbody>
