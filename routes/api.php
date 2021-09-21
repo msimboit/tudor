@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\IssuesController;
 use App\Http\Controllers\Api\LeavesController;
 use App\Http\Controllers\Api\QrCodeController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ShiftController;
 
 
 
@@ -28,6 +29,7 @@ Route::prefix('v1')->group(function() {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::get('/panic', [IssuesController::class, 'panicAlert']);
+        Route::get('/markers', [IssuesController::class, 'guardMarkers']);
     });
 
 Route::middleware('auth:sanctum')->prefix('v1')->group(function() {

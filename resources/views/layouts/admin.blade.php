@@ -46,9 +46,21 @@
     <!-- Axios Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <!-- map styles -->
+    <style>
+        #map{
+        height:300px;
+        width:600px;
+        }
+        .holder {
+        padding: 5rem;
+        margin:auto;
+        }
+    </style>
+
 </head>
 
-<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true" onload="getMarkers()">
 
     <!-- Page wrapper start -->
     <div id="page-wrapper" class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom" data-sidebar-type="default">
@@ -158,7 +170,7 @@
                     </span>
                     Reported Issues
                 </a>
-                <a href="#" class="sidebar-link sidebar-link-with-icon">
+                <a href="{{ route('map') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-map-o" aria-hidden="true"></i>
                     </span>
@@ -311,7 +323,72 @@
         setInterval(() => {
             getUser();
         }, 10000);
+
     </script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk&callback=initMap">
+    </script>
+
+    <script>
+        var map;
+        // Map Script
+            function initMap() {
+                for(let j = 0; j < markers.length; j++)
+                {
+                    console.log(markers[j].coords.lat);
+                    const myLatLng = {lat:Number(markers[j].coords.lat),lng:Number(markers[j].coords.lng)};
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: myLatLng,
+                    });
+
+                    new google.maps.Marker({
+                        position: myLatLng,
+                        map,
+                        title: "UlinziDigital",
+                    });
+                }
+                
+            }
+
+            var markers = [];
+            async function getMarkers() {
+                try {
+                    const response = await axios.get('/api/v1/markers');
+                    // console.log(response.data[0]['attributes']);
+                    // console.log(response.data);
+                    for(let i = 0; i < response.data.length; i++)
+                    {
+                        // console.log(response.data[i]['attributes']);
+                        markers.push({coords: {lat:Number(response.data[i]['attributes']['lat']),lng:Number(response.data[i]['attributes']['long'])}});
+                    }
+                    var name = response.data[0]['attributes']['first_name'];
+                    var lat = response.data[0]['attributes']['latitude'];
+                    var long = response.data[0]['attributes']['longitude'];
+                    console.log(markers);
+                    initMap();
+                    for(var i = 0; i < markers.length; i++){
+                        // Add marker
+                        addMarker(markers[i]);
+                    }
+                } catch (error) {
+                    //Do nothing
+                }
+            }
+
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                position:props.coords,
+                map:map,
+                icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                //icon:props.iconImage
+                });
+            }
+
+            
+    </script>
+
 </body>
 
 </html>

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Issue;
 use App\Models\User;
+use App\Models\Scan;
 use App\Http\Resources\IssuesResource;
+use App\Http\Resources\MarkersResource;
 use Carbon\Carbon;
 use DateTime;
 use DB;
@@ -133,4 +135,16 @@ class IssuesController extends Controller
         $response = IssuesResource::collection(Issue::where('title', 'Panic Button Pressed')->where('cleared', 0)->get());
         return response($response, 200);
     }
+
+    /**
+    * Send the daily guard markers during that day
+    * 
+    * @return \Illuminate\Http\Response
+    */
+   public function guardMarkers()
+   {
+        $current_time = Carbon::now(); 
+        $response = MarkersResource::collection(Scan::where('created_at', '>', $current_time->subHours(24))->where('role', 'guard')->get());
+        return response($response, 200);
+   }
 }

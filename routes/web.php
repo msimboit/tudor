@@ -52,6 +52,7 @@ Route::get('/clearIssue/{id}', [App\Http\Controllers\IssueController::class, 'cl
 Route::get('/employees', [App\Http\Controllers\ShiftController::class, 'employees'])->name('employees');
 Route::get('/guards', [App\Http\Controllers\ShiftController::class, 'guards'])->name('guards');
 Route::get('/clients', [App\Http\Controllers\ShiftController::class, 'clients'])->name('clients');
+Route::get('/map', [App\Http\Controllers\ShiftController::class, 'map'])->name('map');
 
 /**Routes For Chats */
 Route::get('/chats/{id}', [App\Http\Controllers\ChatController::class, 'chats'])->name('chats');

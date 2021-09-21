@@ -197,6 +197,16 @@ class ShiftController extends Controller
     }
 
     /**
+     * Display daily guard map
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function map()
+    {
+        return view('employees.e');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
