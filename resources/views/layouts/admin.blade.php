@@ -46,6 +46,10 @@
     <!-- Axios Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk">
+    </script>
+
     <!-- map styles -->
     <style>
         #map{
@@ -60,7 +64,7 @@
 
 </head>
 
-<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true" onload="getMarkers()">
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
 
     <!-- Page wrapper start -->
     <div id="page-wrapper" class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom" data-sidebar-type="default">
@@ -326,10 +330,7 @@
 
     </script>
 
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk&callback=initMap">
-    </script>
-
+<!-- 
     <script>
         var map;
         // Map Script
@@ -387,6 +388,72 @@
             }
 
             
+    </script> -->
+
+    <script type="text/javascript">
+function initMap(){
+        var markers = [];
+        var locations = [];
+            function getMarkers() {
+                try {
+                    const response = axios.get('/api/v1/markers');
+                    // console.log(response.data[0]['attributes']);
+                    // console.log(response.data);
+                    for(let i = 0; i < response.data.length; i++)
+                    {
+                        // console.log(response.data[i]['attributes']);
+                        markers.push({coords: {lat:Number(response.data[i]['attributes']['lat']),lng:Number(response.data[i]['attributes']['long'])}});
+                        locations.push([response.data[i]['attributes']['name'],Number(response.data[i]['attributes']['lat']),Number(response.data[i]['attributes']['long']),Number(response.data[i]['id'])])
+                    }
+                    var name = response.data[0]['attributes']['first_name'];
+                    var lat = response.data[0]['attributes']['latitude'];
+                    var long = response.data[0]['attributes']['longitude'];
+                    // console.log(locations);
+                    // initMap();
+                    // for(var i = 0; i < markers.length; i++){
+                    //     // Add marker
+                    //     addMarker(markers[i]);
+                    // }
+                } catch (error) {
+                    //Do nothing
+                }
+            }
+
+                // var locations = [
+                //   ['Bondi Beach', -33.890542, 151.274856, 4],
+                //   ['Coogee Beach', -33.923036, 151.259052, 5],
+                //   ['Cronulla Beach', -34.028249, 151.157507, 3],
+                //   ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+                //   ['Maroubra Beach', -33.950198, 151.259302, 1]
+                // ];
+                getMarkers();
+                var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: new google.maps.LatLng(-1.3264314, 36.8433517),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker, i;
+
+                console.log(locations);
+                for (i = 0; i < locations.length; i++) {  
+                // console.log(locations[i]);
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                }
+}
     </script>
 
 </body>
