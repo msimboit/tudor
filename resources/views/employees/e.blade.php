@@ -9,7 +9,7 @@
     // var points = JSON.parse("{{ json_encode($points) }}");
     // var points = {!! json_encode($points) !!};
     var points = @json($points);
-    console.log(points);
+    // console.log(points);
 
     var locations = []
 
@@ -38,7 +38,7 @@
 
     var marker, i;
     for (i = 0; i < locations.length; i++) {  
-        // console.log(locations[i]);
+        console.log(locations[i]);
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i][1], locations[i][2]),
             map: map
