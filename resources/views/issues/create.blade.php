@@ -52,6 +52,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="details">Issue Photo:</label>
+                            <input type="file" name="image" id="image">
+                        </div>
+
+                        <div class="form-group">
                             <input type="submit" value="{{ __('Report Issue') }}" class="btn btn-success">
                         </div>
 

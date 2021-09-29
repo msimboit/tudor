@@ -32,7 +32,7 @@
     <meta name="twitter:site" content="@halfmoonui">
 
     <!-- Fav and Title -->
-    <link rel="icon" href="{{ asset('/logo/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('/logo/ulinziTab.ico') }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Halfmoon -->
@@ -45,11 +45,6 @@
     <link href="/static/site/css/documentation-styles-4.css" rel="stylesheet">
     <!-- Axios Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk">
-    </script>
-
     <!-- map styles -->
     <style>
         #map{
@@ -61,6 +56,10 @@
         margin:auto;
         }
     </style>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk">
+    </script>
 
 </head>
 
@@ -88,8 +87,8 @@
             </div>
             @endif
             <a href="#" class="navbar-brand ml-10 ml-sm-20">
-                <!-- <img src="{{ asset('/logo/favicon.ico')}}" alt="fake-logo"> -->
-                <span class="d-none d-sm-flex">Tudor</span>
+                <img src="{{ asset('/logo/ulinzi.png')}}" alt="fake-logo" style="padding:0;">
+                <span class="d-none d-sm-flex">UlinziDigital</span>
             </a>
             <div class="navbar-content ml-auto">
                 <button class="btn btn-action mr-5" type="button" onclick="halfmoon.toggleDarkMode()">
@@ -132,7 +131,7 @@
                     </span>
                    Daily Guard Reports
                 </a>
-                <a href="{{ route('shifts') }}" class="sidebar-link sidebar-link-with-icon">
+                <a href="{{ route('guardshifts') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-table" aria-hidden="true"></i>
                     </span>
@@ -144,6 +143,7 @@
                     </span>
                     Guards List
                 </a>
+                @if(Auth::user()->role == 'admin')
                 <a href="{{ route('employees') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-user" aria-hidden="true"></i>
@@ -156,18 +156,21 @@
                     </span>
                     Employee Shift Reports
                 </a>
+                @endif
                 <a href="{{ route('registerUser') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                     </span>
                     Register A User
                 </a>
+                @if(Auth::user()->role == 'admin')
                 <a href="{{ route('registerClient') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                     </span>
                     Register A Client
                 </a>
+                @endif
                 <a href="{{ route('all_issues') }}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-flag" aria-hidden="true"></i>
@@ -180,12 +183,14 @@
                     </span>
                     Map
                 </a>
+                @if(Auth::user()->role == 'admin')
                 <a href="#" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-commenting-o" aria-hidden="true"></i>
                     </span>
                     Messenger
                 </a>
+                @endif
             </div>
            
         </div>
@@ -199,7 +204,7 @@
                         <div class="content">
                             @if(Auth::check())
                             <h1 class="content-title">
-                                <a class="btn btn-link" href="{{ route('employees') }} " style="text-decoration:none; color:teal;">Dashboard</a>
+                                <a class="btn btn-link" href="{{ route('guards') }} " style="text-decoration:none; color:teal;">Dashboard</a>
                             </h1>
                             <div class="fake-content"></div>
                             <div class="fake-content"></div>
@@ -390,7 +395,7 @@
             
     </script> -->
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
 function initMap(){
         var markers = [];
         var locations = [];
@@ -454,7 +459,10 @@ function initMap(){
 
                 }
 }
-    </script>
+    </script> -->
+    <!-- <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk&callback=initMap">
+    </script> -->
 
 </body>
 

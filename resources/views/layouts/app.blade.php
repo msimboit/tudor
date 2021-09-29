@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="icon" href="{{ asset('/logo/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('/logo/ulinziTab.ico') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/chat.css') }}" rel="stylesheet"> -->
 </head>
@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                <img src=" {{ asset('/logo/msimbo.jpg') }} " class="img-fluid rounded" alt="logo" style="width: 40px;">
+                <img src=" {{ asset('/logo/ulinzi.png') }} " class="img-fluid rounded" alt="logo" style="width: 40px;">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

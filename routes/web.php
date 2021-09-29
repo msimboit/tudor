@@ -42,9 +42,11 @@ Route::post('/panic/{id}', [App\Http\Controllers\IssueController::class, 'panic'
 /* Report routes for the admins*/
 Route::get('shifts/export/', [App\Http\Controllers\ShiftController::class, 'export'])->name('shiftExport');
 Route::get('/shifts', [App\Http\Controllers\ShiftController::class, 'index'])->name('shifts');
+Route::get('/guardshifts', [App\Http\Controllers\ShiftController::class, 'guardShiftsReport'])->name('guardshifts');
 Route::get('/dailyGuardReport', [App\Http\Controllers\ShiftController::class, 'daily'])->name('daily');
 Route::get('/shifts/{id}', [App\Http\Controllers\ShiftController::class, 'info'])->name('shiftInfo');
 Route::post('/shifts/search', [App\Http\Controllers\ShiftController::class, 'searchDate'])->name('shiftSearch');
+Route::post('/shifts/locationFilter', [App\Http\Controllers\ShiftController::class, 'locationFilter'])->name('locationFilter');
 Route::get('/shifts-all_scanned_areas', [App\Http\Controllers\ShiftController::class, 'all_scanned_areas'])->name('all_scanned_areas');
 Route::get('/issues', [App\Http\Controllers\IssueController::class, 'index'])->name('all_issues');
 Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show'])->name('issueInfo');
@@ -68,3 +70,4 @@ Route::post('/registerClient', [App\Http\Controllers\HomeController::class, 'con
 
 /* Session Flushing Routes */
 Route::get('/last_interactions', [App\Http\Controllers\ScannerController::class, 'last_interactions'])->name('last_interactions');
+Route::post('/adminLogout/{password}', [App\Http\Controllers\HomeController::class, 'adminLogout']);

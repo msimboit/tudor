@@ -75,7 +75,7 @@ class HomeController extends Controller
                 }
         }
 
-        return redirect()->route('employees', ['current_time' => $current_time->toDateString()]);
+        return redirect()->route('guards');
     }
 
     /**
@@ -204,6 +204,20 @@ class HomeController extends Controller
         ]);
 
         return redirect()->route('guards')->with('status', 'User profile updated successfully!');
+
+    }
+
+    /**
+     * Admin logout from all other devices.
+     *
+     * @params \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function adminLogout($password)
+    {
+        Auth::logoutOtherDevices($password);
+
+        return redirect()->route('guards')->with('status', 'All login sessions have been logged out!');
 
     }
 

@@ -55,12 +55,29 @@ class IssueController extends Controller
     {
         $user = Auth::user();
 
+        $request->validate([
+            'title' => 'required|max:255',
+            'issueLocation' => 'required',
+            'details' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+        ]);
+
+        $newImageName = 'None';
+        if($request->image != null || $request->image != ''){
+            $image = $request->image;
+            $newImageName = $image . '-' .time() . '-' . $request->title . '-' . $request->issueLocation . '.' . $image->extension();
+            $image->move(public_path('issues_images'), $newImageName);
+        }
+
         $issue = new Issue;
         $issue->phone_number = $user->phone_number;
         $issue->first_name = $user->firstname;
         $issue->title = $request->title;
         $issue->issueLocation = $request->issueLocation;
         $issue->details = $request->details;
+
+        /**Migrate the column in issues to store the image name first */
+        // $issue->image_name = $newImageName;
         $success = $issue->save();
 
         return view('patrol')->with('success', 'Issue Reported Successfully!');

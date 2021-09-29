@@ -35,7 +35,9 @@ class ShiftController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role == 'guard')
+        $roles = ['guard', 'management', 'operations', 'control', 'production'];
+
+        if(in_array( (Auth::user()->role), $roles ))
         {
             return redirect()->route('home');
         }
@@ -45,6 +47,30 @@ class ShiftController extends Controller
                     ->paginate(10);
 
         return view('shifts.shifts', ['users' => $users]);
+    }
+
+    /**
+     * Display a listing of the guards shift reports.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function guardShiftsReport()
+    {
+        $roles = ['guard', 'management', 'operations', 'control', 'production'];
+
+        if(in_array( (Auth::user()->role), $roles ))
+        {
+            return redirect()->route('home');
+        }
+
+        $guards = User::where('role', 'guard')->select('phone_number')->get();
+        $current_time = Carbon::now();
+        $shifts = Shift::where('created_at', '<', $current_time->subDays(7))
+                        ->where('role', 'guard')
+                        ->orderBy('created_at', 'desc')                
+                        ->get();
+
+        return view('shifts.guardShifts', ['shifts' => $shifts]);
     }
 
     /**
@@ -93,11 +119,13 @@ class ShiftController extends Controller
      */
     public function guards()
     {
+        $roles = ['guard', 'management', 'operations', 'control', 'production'];
 
-        if(Auth::user()->role != 'admin')
+        if(in_array( (Auth::user()->role), $roles ))
         {
             return redirect()->route('home');
         }
+        
         $guards = User::where('role','guard')
                     ->orderBy('firstname')
                     ->get();
@@ -133,6 +161,55 @@ class ShiftController extends Controller
         // dd($shifts);
 
         return view('shifts.shiftsSearch', ['shifts' => $shifts, 'from' => $from, 'to' => $to]);
+    }
+
+    /**
+     * Search for a specific location of shifts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locationFilter(Request $request)
+    {   
+        // dd($request->all());
+        $langata = 'TCS000';
+        $baraka = 'TCS00';
+        $allimex = 'ALP';
+
+        $location = $request->location;
+
+        if($request->location == 'langata')
+        {
+            $scanned_areas = Scan::where('sector', 'LIKE', "%{$langata}%")
+                    ->where('role', 'guard')
+                    ->orderBy('created_at', 'desc')                
+                    ->get();
+            $location = "Lang'ata";
+            return view('shifts.locationFilter', ['scanned_areas' => $scanned_areas, 'location' => $location]);
+        }
+
+        if($request->location == 'baraka')
+        {
+            $scanned_areas = Scan::where('sector', 'LIKE', "%{$baraka}%")
+                    ->where('role', 'guard')
+                    ->orderBy('created_at', 'desc')                
+                    ->get();
+
+            $location = "Baraka";
+            return view('shifts.locationFilter', ['scanned_areas' => $scanned_areas, 'location' => $location]);
+        }
+
+        if($request->location == 'allimex')
+        {
+            $scanned_areas = Scan::where('sector', 'LIKE', "%{$allimex}%")
+                    ->where('role', 'guard')
+                    ->orderBy('created_at', 'desc')                
+                    ->get();
+            
+            $location = "Allimex Plaza";
+            return view('shifts.locationFilter', ['scanned_areas' => $scanned_areas, 'location' => $location]);
+        }
+
+        return redirect()->route('daily')->with('succes', 'No such location!');
     }
 
     /**
@@ -186,8 +263,9 @@ class ShiftController extends Controller
 
         $scanned_areas = DB::table('scans')
         // ->where('created_at', '<', $current_time)
-        ->where('created_at', '>', $current_time->subHours(24))
+        // ->where('created_at', '>', $current_time->subHours(24))
         ->where('role', 'guard')
+        ->where('sector', '!=', null)
         ->orderByDesc('created_at')
         ->get();
         
@@ -204,8 +282,9 @@ class ShiftController extends Controller
     public function map()
     {
         $current_time = Carbon::now();
-        $points = Scan::where('created_at', '>', $current_time->subHours(72))->where('role', 'guard')->get();
-        return view('employees.e', ['points' => $points]);
+        // $points = Scan::where('created_at', '>', $current_time->subHours(72))->where('role', 'guard')->get();
+        $points = Scan::where('role', 'guard')->get();
+        return view('employees.map', ['points' => $points]);
     }
 
     /**
