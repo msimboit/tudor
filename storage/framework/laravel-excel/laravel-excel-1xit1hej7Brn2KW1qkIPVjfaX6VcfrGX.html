@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Chrome, Firefox OS and Opera mobile address bar theming -->
+    <meta name="theme-color" content="#000000">
+    <!-- Windows Phone mobile address bar theming -->
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <!-- iOS Safari mobile address bar theming -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+
+    <!-- SEO -->
+    <meta name="description" content="Halfmoon is a responsive front-end framework that is great for building dashboards and tools. Built-in dark mode, full customizability using CSS variables (around 1,500 variables), optional JavaScript library (no jQuery), Bootstrap like classes, and cross-browser compatibility (including IE11).">
+    <meta name="author" content="Halfmoon">
+    <meta name="keywords" content="Halfmoon, HTML, CSS, JavaScript, CSS Framework, dark mode, dark-mode, darkmode, dark theme, dark-theme, darktheme, Bootstrap, Foundation, Bulma, dashboard, UI, UI framework, user interface, design, design system">
+
+    <!-- Open graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.gethalfmoon.com/page-sections-demo/">
+    <meta property="og:title" content="Front-end framework with a built-in dark mode and full customizability using CSS variables; great for building dashboards and tools">
+    <meta property="og:description" content="Halfmoon is a responsive front-end framework that is great for building dashboards and tools. Built-in dark mode, full customizability using CSS variables (around 1,500 variables), optional JavaScript library (no jQuery), Bootstrap like classes, and cross-browser compatibility (including IE11).">
+    <meta property="og:image" content="https://res.cloudinary.com/halfmoon-ui/image/upload/v1599770364/halfmoon-og-image-1.1.0_uofgby.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta property="fb:app_id" content="2560228000973437">
+    <meta name="twitter:site" content="@halfmoonui">
+
+    <!-- Fav and Title -->
+    <link rel="icon" href="http://127.0.0.1:8001/logo/ulinziTab.ico">
+    <title>UlinziDigital</title>
+
+    <!-- Halfmoon -->
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon.min.css" rel="stylesheet" />
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <!-- Roboto font (Used when Apple system fonts are not available) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Documentation styles -->
+    <link href="/static/site/css/documentation-styles-4.css" rel="stylesheet">
+    <!-- Axios Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- map styles -->
+    <style>
+        #map{
+        height:300px;
+        width:600px;
+        }
+        .holder {
+        padding: 5rem;
+        margin:auto;
+        }
+    </style>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk">
+    </script>
+
+</head>
+
+<body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
+
+    <!-- Page wrapper start -->
+    <div id="page-wrapper" class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom" data-sidebar-type="default">
+
+        <!-- Sticky alerts -->
+        <div class="sticky-alerts"></div>
+
+        <!-- Navbar start -->
+        <nav class="navbar">
+                        <div class="navbar-content">
+                <button id="toggle-sidebar-btn" class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+                        <a href="#" class="navbar-brand ml-10 ml-sm-20">
+                <img src="http://127.0.0.1:8001/logo/ulinzi.png" alt="fake-logo" style="padding:0;">
+                <span class="d-none d-sm-flex">UlinziDigital</span>
+            </a>
+            <div class="navbar-content ml-auto">
+                <button class="btn btn-action mr-5" type="button" onclick="halfmoon.toggleDarkMode()">
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                    <span class="sr-only">Toggle dark mode</span>
+                </button>
+                                <a class="dropdown-item" class="btn btn-alert" role="button" href="http://127.0.0.1:8001/logout"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                <form id="logout-form" action="http://127.0.0.1:8001/logout" method="POST" class="d-none">
+                    <input type="hidden" name="_token" value="bWwQWCaDskVbezSti27FYRv4ByMIVJHd1aLC6jbC">                </form>
+                            </div>
+        </nav>
+        <!-- Navbar end -->
+                <!-- Sidebar overlay -->
+        <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+
+        <!-- Sidebar start -->
+        <div class="sidebar">
+            
+            <div class="sidebar-menu">
+                <div class="sidebar-content">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="mt-10 font-size-12">
+                        Press <kbd>/</kbd> to focus
+                    </div>
+                </div>
+                <h5 class="sidebar-title">Admin Panel</h5>
+                <div class="sidebar-divider"></div>
+                <a href="http://127.0.0.1:8001/dailyGuardReport" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </span>
+                   Daily Guard Reports
+                </a>
+                <a href="http://127.0.0.1:8001/guardshifts" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </span>
+                    Guard Shift Reports
+                </a>
+                <a href="http://127.0.0.1:8001/guards" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                    Guards List
+                </a>
+                                <a href="http://127.0.0.1:8001/registerUser" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </span>
+                    Register A User
+                </a>
+                                <a href="http://127.0.0.1:8001/issues" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-flag" aria-hidden="true"></i>
+                    </span>
+                    Reported Issues
+                </a>
+                <a href="http://127.0.0.1:8001/map" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-map-o" aria-hidden="true"></i>
+                    </span>
+                    Map
+                </a>
+                            </div>
+           
+        </div>
+        <!-- Sidebar end --> 
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <div class="row row-eq-spacing-lg">
+                    <div class="col-lg-9">
+                        <div class="content">
+                                                        <h1 class="content-title">
+                                <a class="btn btn-link" href="http://127.0.0.1:8001/guards " style="text-decoration:none; color:teal;">Dashboard</a>
+                            </h1>
+                            <div class="fake-content"></div>
+                            <div class="fake-content"></div>
+                                                    </div>
+                        <div class="card">
+                            <h2 class="card-title">
+                                                                Hello, Levi
+                                                            </h2>
+                            
+                            <!-- <div class="fake-content">wdvf</div>
+                            <div class="fake-content">cdsc </div>
+                            <div class="fake-content">cdsc z </div>
+                            
+                                <div class="fake-content w-100">dyfhgjh</div> -->
+                                <main>
+                                            <div class="d-flex justify-content-between">
+        Shifts conducted between the last 7 Days:
+                            <br />
+                            <br />
+
+            <div class="my-3 ml-3">
+                <button class="btn btn-primary">
+                    <a href="http://127.0.0.1:8001/shifts/guardExcel " style="text-decoration:none; color:#fff">See Excel Reports</a>
+                </button>
+            </div>
+        
+            <div class="my-3 ml-3">
+                <button class="btn btn-primary">
+                    <a href="http://127.0.0.1:8001/shifts " style="text-decoration:none; color:#fff">Back To Reports</a>
+                </button>
+            </div>
+        </div>
+                <div class="mb-5">
+                    <table class="table mb-3">
+                    <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Clock In</th>
+                        <th>Clock Out</th>
+                        <th>Shift Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-08-19 15:04:22</td>
+                                <td>2021-08-30 13:18:06</td>
+                                <td>10 days, 22 hours and 13 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-08-30 13:18:06</td>
+                                <td>2021-08-30 15:45:42</td>
+                                <td>0 days, 2 hours and 27 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-08-30 15:45:42</td>
+                                <td>2021-09-02 18:53:49</td>
+                                <td>3 days, 3 hours and 8 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Cheyenne</td>
+                                <td>985</td>
+                                <td>2021-08-30 15:52:53</td>
+                                <td>2021-08-30 16:23:01</td>
+                                <td>0 days, 0 hours and 30 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-09-02 18:53:49</td>
+                                <td>2021-09-02 19:00:32</td>
+                                <td>0 days, 0 hours and 6 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Philip</td>
+                                <td>0700682679</td>
+                                <td>2021-09-03 09:26:29</td>
+                                <td>Did Not Clock OUT</td>
+                                <td>Undeterminable</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Philip</td>
+                                <td>0700682679</td>
+                                <td>2021-09-07 10:07:12</td>
+                                <td></td>
+                                <td>0 days, 1 hours and 47 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Philip</td>
+                                <td>0700682679</td>
+                                <td>2021-09-07 10:09:45</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>John</td>
+                                <td>0011223344</td>
+                                <td>2021-09-07 10:55:02</td>
+                                <td>2021-09-07 10:58:45</td>
+                                <td>0 days, 0 hours and 3 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Jane</td>
+                                <td>1122334455</td>
+                                <td>2021-09-07 11:01:07</td>
+                                <td>2021-09-07 11:50:09</td>
+                                <td>0 days, 0 hours and 49 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Philip</td>
+                                <td>0700682679</td>
+                                <td>2021-09-07 16:22:45</td>
+                                <td>2021-09-14 09:38:34</td>
+                                <td>6 days, 17 hours and 15 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-09-13 10:52:55</td>
+                                <td>2021-09-17 09:13:12</td>
+                                <td>3 days, 22 hours and 20 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Philip</td>
+                                <td>0700682679</td>
+                                <td>2021-09-14 09:38:34</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Philip</td>
+                                <td>0700682679</td>
+                                <td>2021-09-14 09:38:34</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Matayo</td>
+                                <td>0700682798</td>
+                                <td>2021-09-14 09:44:03</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-09-17 09:13:12</td>
+                                <td>2021-09-21 10:59:02</td>
+                                <td>4 days, 1 hours and 45 minutes</td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Shaka</td>
+                                <td>2233445566</td>
+                                <td>2021-09-21 10:59:02</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                                    <tr class="table-primary">
+                                <td>Jane</td>
+                                <td>1122334455</td>
+                                <td>2021-09-21 11:11:36</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                                            </tbody>
+                    </table>
+                </div>
+
+                                </main>
+                                <audio id="alarm" src="http://127.0.0.1:8001/audio/alarm/alarm.wav" preload="auto"></audio>
+                        </div>
+                        <div class="content">
+                            <div class="fake-content"></div>
+                            <div class="fake-content w-150"></div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-3 d-none d-lg-block">
+                        <div class="content">
+                            <h2 class="content-title font-size-20">
+                                On this page
+                            </h2>
+                            <div class="fake-content">fgjhk</div>
+                            <div class="fake-content">gjhkjlkg</div>
+                            <div class="fake-content">jhmn</div>
+                            <div class="fake-content">khbjm</div>
+                            <div class="fake-content">hkbjln</div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- Content wrapper end -->
+
+        <!-- Navbar fixed bottom start -->
+        <nav class="navbar navbar-fixed-bottom">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-question-circle-o mr-5" aria-hidden="true"></i>
+                        Help
+                    </a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                &copy; Copyright 2021, Tudor Corporate Security
+            </span>
+        </nav>
+        <!-- Navbar fixed bottom end -->
+
+    </div>
+    <!-- Page wrapper end -->
+
+    <!-- Halfmoon JS -->
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+    <script type="text/javascript">
+        // Toasts a default alert
+        function toastAlert() {
+            var alertContent = "This is a default alert with <a href='#' class='alert-link'>a link</a> being toasted.";
+            // Built-in function
+            halfmoon.initStickyAlert({
+                content: alertContent,
+                title: "Toast!"
+            })
+        }
+
+        // Toggles the parent's dark mode (if this page is loaded in an iFrame) 
+        function parentToggleDarkmode() {
+            window.parent.toggleDarkModeFromChild();
+        }
+
+        // Override the dark mode toggle function to call the parent's one
+        // Again, this is for the case where the page is loaded in an iFrame
+        if (window !== window.parent) {
+            halfmoon.toggleDarkMode = parentToggleDarkmode;
+        }
+    </script>
+
+    <script>
+        async function getUser() {
+            try {
+                const response = await axios.get('/api/v1/panic');
+                // console.log(response.data[0]['attributes']);
+                var name = response.data[0]['attributes']['first_name'];
+                var phone = response.data[0]['attributes']['phone_number'];
+                var title = response.data[0]['attributes']['title'];
+
+                var mp3_url = '../audio/alarm/alarm.wav';
+                (new Audio(mp3_url)).play();
+
+                alert(`${name} has pressed the Panic Button. Help required!!`);
+
+                (new Audio(mp3_url)).play();
+
+                // setInterval(function(){ 
+                //     document.getElementById('alarm').play();
+                //     alert(`${name} has pressed the Panic Button. Help required!!`); 
+                    
+                // }, 30000);
+                
+            } catch (error) {
+                //Do nothing
+            }
+        }
+
+        setInterval(() => {
+            getUser();
+        }, 10000);
+
+    </script>
+
+<!-- 
+    <script>
+        var map;
+        // Map Script
+            function initMap() {
+                for(let j = 0; j < markers.length; j++)
+                {
+                    console.log(markers[j].coords.lat);
+                    const myLatLng = {lat:Number(markers[j].coords.lat),lng:Number(markers[j].coords.lng)};
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: myLatLng,
+                    });
+
+                    new google.maps.Marker({
+                        position: myLatLng,
+                        map,
+                        title: "UlinziDigital",
+                    });
+                }
+                
+            }
+
+            var markers = [];
+            async function getMarkers() {
+                try {
+                    const response = await axios.get('/api/v1/markers');
+                    // console.log(response.data[0]['attributes']);
+                    // console.log(response.data);
+                    for(let i = 0; i < response.data.length; i++)
+                    {
+                        // console.log(response.data[i]['attributes']);
+                        markers.push({coords: {lat:Number(response.data[i]['attributes']['lat']),lng:Number(response.data[i]['attributes']['long'])}});
+                    }
+                    var name = response.data[0]['attributes']['first_name'];
+                    var lat = response.data[0]['attributes']['latitude'];
+                    var long = response.data[0]['attributes']['longitude'];
+                    console.log(markers);
+                    initMap();
+                    for(var i = 0; i < markers.length; i++){
+                        // Add marker
+                        addMarker(markers[i]);
+                    }
+                } catch (error) {
+                    //Do nothing
+                }
+            }
+
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                position:props.coords,
+                map:map,
+                icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                //icon:props.iconImage
+                });
+            }
+
+            
+    </script> -->
+
+    <!-- <script type="text/javascript">
+function initMap(){
+        var markers = [];
+        var locations = [];
+            function getMarkers() {
+                try {
+                    const response = axios.get('/api/v1/markers');
+                    // console.log(response.data[0]['attributes']);
+                    // console.log(response.data);
+                    for(let i = 0; i < response.data.length; i++)
+                    {
+                        // console.log(response.data[i]['attributes']);
+                        markers.push({coords: {lat:Number(response.data[i]['attributes']['lat']),lng:Number(response.data[i]['attributes']['long'])}});
+                        locations.push([response.data[i]['attributes']['name'],Number(response.data[i]['attributes']['lat']),Number(response.data[i]['attributes']['long']),Number(response.data[i]['id'])])
+                    }
+                    var name = response.data[0]['attributes']['first_name'];
+                    var lat = response.data[0]['attributes']['latitude'];
+                    var long = response.data[0]['attributes']['longitude'];
+                    // console.log(locations);
+                    // initMap();
+                    // for(var i = 0; i < markers.length; i++){
+                    //     // Add marker
+                    //     addMarker(markers[i]);
+                    // }
+                } catch (error) {
+                    //Do nothing
+                }
+            }
+
+                // var locations = [
+                //   ['Bondi Beach', -33.890542, 151.274856, 4],
+                //   ['Coogee Beach', -33.923036, 151.259052, 5],
+                //   ['Cronulla Beach', -34.028249, 151.157507, 3],
+                //   ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+                //   ['Maroubra Beach', -33.950198, 151.259302, 1]
+                // ];
+                getMarkers();
+                var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: new google.maps.LatLng(-1.3264314, 36.8433517),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker, i;
+
+                console.log(locations);
+                for (i = 0; i < locations.length; i++) {  
+                // console.log(locations[i]);
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                }
+}
+    </script> -->
+    <!-- <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk&callback=initMap">
+    </script> -->
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\CustomAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ Route::view('welcome', 'welcome')->name('welcome');
 Route::view('admin', 'layouts.admin')->name('admin');
 
 Auth::routes();
+
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/editUser/{id}', [App\Http\Controllers\HomeController::class, 'editUser'])->name('editUser');
@@ -41,6 +43,8 @@ Route::post('/panic/{id}', [App\Http\Controllers\IssueController::class, 'panic'
 
 /* Report routes for the admins*/
 Route::get('shifts/export/', [App\Http\Controllers\ShiftController::class, 'export'])->name('shiftExport');
+Route::get('shifts/guardShiftexport', [App\Http\Controllers\ShiftController::class, 'guardShiftexport'])->name('guardShiftexport');
+Route::get('shifts/dailyGuardShiftexport/{location}', [App\Http\Controllers\ShiftController::class, 'dailyGuardShiftexport'])->name('dailyGuardShiftexport');
 Route::get('/shifts', [App\Http\Controllers\ShiftController::class, 'index'])->name('shifts');
 Route::get('/guardshifts', [App\Http\Controllers\ShiftController::class, 'guardShiftsReport'])->name('guardshifts');
 Route::get('/dailyGuardReport', [App\Http\Controllers\ShiftController::class, 'daily'])->name('daily');

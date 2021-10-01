@@ -5,6 +5,12 @@
         {{__('Shifts conducted between the last 7 Days:')}}
                             <br />
                             <br />
+
+            <div class="my-3 ml-3">
+                <button class="btn btn-primary">
+                    <a href="{{ route('guardShiftexport') }} " style="text-decoration:none; color:#fff">Get Reports</a>
+                </button>
+            </div>
         
             <div class="my-3 ml-3">
                 <button class="btn btn-primary">

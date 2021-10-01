@@ -8,6 +8,8 @@ use App\Models\Scan;
 use App\Models\Shift;
 use App\Models\Issue;
 use App\Exports\ShiftsExport;
+use App\Exports\GuardShiftExport;
+use App\Exports\DailyGuardShiftExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use DB;
@@ -263,7 +265,7 @@ class ShiftController extends Controller
 
         $scanned_areas = DB::table('scans')
         // ->where('created_at', '<', $current_time)
-        // ->where('created_at', '>', $current_time->subHours(24))
+        ->where('created_at', '>', $current_time->subHours(24))
         ->where('role', 'guard')
         ->where('sector', '!=', null)
         ->orderByDesc('created_at')
@@ -304,5 +306,15 @@ class ShiftController extends Controller
     public function export() 
     {
         return Excel::download(new ShiftsExport, 'shifts.xlsx');
+    }
+
+    public function guardShiftexport() 
+    {
+        return (new GuardShiftExport('guard'))->download('guard-shift.xlsx');
+    }
+
+    public function dailyGuardShiftexport($location) 
+    {
+        return (new DailyGuardShiftExport($location))->download('guard-shift.xlsx');
     }
 }

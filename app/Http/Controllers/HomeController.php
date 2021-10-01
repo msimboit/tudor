@@ -85,6 +85,7 @@ class HomeController extends Controller
      */
     public function registerUser()
     {
+
         return view ('registerUser');
     }
 
@@ -182,7 +183,7 @@ class HomeController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('editUser', [ 'user' => $user ]);
+        return view('edituser', [ 'user' => $user ]);
     }
 
     /**
