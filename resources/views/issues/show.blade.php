@@ -13,6 +13,12 @@
       <div class="my-5 p-5">
         <h5>{{ $issue->details }}</h5>
       </div>
+
+      @if($issue->image != null)
+      <div class="my-5 p-5" style="width: 100px; height: 100px;">
+        <img src="{{ asset('issues_images/' .$issue->image) }}" alt="Issue Image" class="img-fluid max-width: 100%; height: auto;">
+      </div>
+      @endif
     </div>
     <hr />
     <!-- Second content container nested inside card (comments) -->

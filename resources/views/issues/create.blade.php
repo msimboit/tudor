@@ -34,7 +34,7 @@
                             <input type="text" name="title" value="{{ old('title') }}" class="form-control" placeholder="Title" required>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="issueLocation">Issue Location: (or closest)</label>
                             <select class="form-control col-md-4" name="issueLocation" required>
                                 <option>Select Location</option>
@@ -44,6 +44,11 @@
                                 </option>
                                 @endforeach    
                             </select>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label for="title">Issue Location: (or closest scanning point)</label>
+                            <input type="text" name="issueLocation" value="{{ old('issueLocation') }}" class="form-control" placeholder="Issue Location" required>
                         </div>
 
                         <div class="form-group">

@@ -62,10 +62,11 @@ class IssueController extends Controller
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
+        // dd($request->all());
         $newImageName = 'None';
         if($request->image != null || $request->image != ''){
             $image = $request->image;
-            $newImageName = $image . '-' .time() . '-' . $request->title . '-' . $request->issueLocation . '.' . $image->extension();
+            $newImageName = time() . '-' . $request->title . '-' . $request->issueLocation . '.' . $image->extension();
             $image->move(public_path('issues_images'), $newImageName);
         }
 
@@ -76,8 +77,7 @@ class IssueController extends Controller
         $issue->issueLocation = $request->issueLocation;
         $issue->details = $request->details;
 
-        /**Migrate the column in issues to store the image name first */
-        // $issue->image_name = $newImageName;
+        $issue->image = $newImageName;
         $success = $issue->save();
 
         return view('patrol')->with('success', 'Issue Reported Successfully!');
