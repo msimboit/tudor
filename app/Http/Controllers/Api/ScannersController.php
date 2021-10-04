@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Scan;
 use App\Models\User;
+use App\Models\QrCode;
 use App\Http\Resources\ScannersResource;
 use Carbon\Carbon;
 use DateTime;
@@ -43,6 +44,8 @@ class ScannersController extends Controller
     {
         $user = User::where('phone_number', $request->phone_number)->first();
 
+        $sector_name = QrCode::where('code', $request->sector)->select('name')->first();
+
         $last_clock_in = DB::table('scans')
         ->select('created_at')
         ->where('phone_number', '=', $user->phone_number)
@@ -65,8 +68,8 @@ class ScannersController extends Controller
             $scan->latitude = $request->latitude;
             $scan->longitude = $request->longitude;
             $scan->sector = $request->sector;
-            $scan->sector_name = $request->sector_name;
-            $scan->time = $request->scan_time;
+            $scan->sector_name = $sector_name;
+            $scan->time = $current_time;
             $success = $scan->save();
 
             $shift = new Shift;
@@ -98,8 +101,8 @@ class ScannersController extends Controller
         $scan->latitude = $request->latitude;
         $scan->longitude = $request->longitude;
         $scan->sector = $request->sector;
-        $scan->sector_name = $request->sector_name;
-        $scan->time = $request->scan_time;
+        $scan->sector_name = $sector_name;
+        $scan->time = $current_time;
         $success = $scan->save();
 
         if($scan->sector_name == 'Clocking Out') {
