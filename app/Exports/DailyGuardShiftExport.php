@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Scan;
+use App\Models\Qrcode;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Carbon\Carbon;
@@ -26,21 +27,24 @@ class DailyGuardShiftExport implements FromQuery
 
         if($location == "Lang'ata")
         {
-            return Scan::query()->where('sector', 'LIKE', "%{$langata}%")
+            $sectors = (QrCode::where('location', 'langata')->select('code')->get())->toArray();
+            return Scan::query()->whereIn('sector', $sectors)
                             ->where('role', 'guard')
                             ->whereDate('created_at', '>', Carbon::now()->subDays(1));
         }
 
         if($location == 'Baraka')
         {
-            return Scan::query()->where('sector', 'LIKE', "%{$baraka}%")
+            $sectors = (QrCode::where('location', 'baraka')->select('code')->get())->toArray();
+            return Scan::query()->where('sector', $sectors)
                             ->where('role', 'guard')
                             ->whereDate('created_at', '>', Carbon::now()->subDays(1));
         }
 
         if($location == 'Allimex')
         {
-            return Scan::query()->where('sector', 'LIKE', "%{$allimex}%")
+            $sectors = (QrCode::where('location', 'allimex')->select('code')->get())->toArray();
+            return Scan::query()->where('sector', $sectors)
                             ->where('role', 'guard')
                             ->whereDate('created_at', '>', Carbon::now()->subDays(1));
         }

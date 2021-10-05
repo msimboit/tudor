@@ -62,6 +62,8 @@ class ScannersController extends Controller
         {
             $current_time = Carbon::now();
 
+            $location = (QrCode::where('code', $request->sector)->select('location')->first())->toArray();
+
             $scan= new Scan;
             $scan->phone_number = $user->phone_number;
             $scan->first_name = $user->firstname;
@@ -70,6 +72,7 @@ class ScannersController extends Controller
             $scan->sector = $request->sector;
             $scan->sector_name = $sector_name;
             $scan->time = $current_time;
+            $scan->location = $location['location'];
             $success = $scan->save();
 
             $shift = new Shift;
@@ -95,6 +98,8 @@ class ScannersController extends Controller
 
         $current_time = Carbon::now();
 
+        $location = (QrCode::where('code', $request->sector)->select('location')->first())->toArray();
+
         $scan= new Scan;
         $scan->phone_number = $user->phone_number;
         $scan->first_name = $user->firstname;
@@ -103,6 +108,7 @@ class ScannersController extends Controller
         $scan->sector = $request->sector;
         $scan->sector_name = $sector_name;
         $scan->time = $current_time;
+        $scan->location = $location['location'];
         $success = $scan->save();
 
         if($scan->sector_name == 'Clocking Out') {

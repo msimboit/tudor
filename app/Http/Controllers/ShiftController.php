@@ -178,12 +178,14 @@ class ShiftController extends Controller
         // $allimex = 'ALP';
 
         $location = $request->location;
+        $current_time = Carbon::now();
 
         if($request->location == 'langata')
         {
             $sectors = (QrCode::where('location', 'langata')->select('code')->get())->toArray();
             $scanned_areas = Scan::whereIn('sector', $sectors)
                     ->where('role', 'guard')
+                    ->where('created_at', '>', $current_time->subHours(24))
                     ->orderBy('created_at', 'desc')                
                     ->get();
             $location = "Lang'ata";
@@ -195,6 +197,7 @@ class ShiftController extends Controller
             $sectors = (QrCode::where('location', 'baraka')->select('code')->get())->toArray();
             $scanned_areas = Scan::whereIn('sector', $sectors)
                     ->where('role', 'guard')
+                    ->where('created_at', '>', $current_time->subHours(24))
                     ->orderBy('created_at', 'desc')                
                     ->get();
 
@@ -207,6 +210,7 @@ class ShiftController extends Controller
             $sectors = (QrCode::where('location', 'allimex')->select('code')->get())->toArray();
             $scanned_areas = Scan::whereIn('sector', $sectors)
                     ->where('role', 'guard')
+                    ->where('created_at', '>', $current_time->subHours(24))
                     ->orderBy('created_at', 'desc')                
                     ->get();
             

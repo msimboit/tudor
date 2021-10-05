@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Scan;
 use App\Models\Shift;
+use App\Models\QrCode;
 use Carbon\Carbon;
 use DateTime;
 
@@ -115,6 +116,7 @@ class ScannerController extends Controller
         if($last_clock_in == null){
             $user = Auth::user();
             $current_time = Carbon::now();
+            $location = (QrCode::where('code', $request->sector)->select('location')->first())->toArray();
 
             $scan= new Scan;
             $scan->phone_number = $user->phone_number;
@@ -125,6 +127,7 @@ class ScannerController extends Controller
             $scan->sector = $request->sector;
             $scan->sector_name = $request->sector_name;
             $scan->time = $request->scan_time;
+            $scan->location = $location['location'];
             $success = $scan->save();
 
             $shift = new Shift;
@@ -160,6 +163,8 @@ class ScannerController extends Controller
 
         $current_time = Carbon::now();
 
+        $location = (QrCode::where('code', $request->sector)->select('location')->first())->toArray();
+
         $scan= new Scan;
         $scan->phone_number = $user->phone_number;
         $scan->first_name = $user->firstname;
@@ -169,6 +174,7 @@ class ScannerController extends Controller
         $scan->sector = $request->sector;
         $scan->sector_name = $request->sector_name;
         $scan->time = $request->scan_time;
+        $scan->location = $location['location'];
         $success = $scan->save();
 
         if($scan->sector_name == 'Clocking In')
@@ -480,6 +486,9 @@ class ScannerController extends Controller
             
             /*Check if the usual user had clocked out before */ 
             if($last_scanned_site->sector_name != 'Clocking Out') {
+
+                $location = (QrCode::where('code', $last_scanned_site->sector)->select('location')->first())->toArray();
+
             $scan= new Scan;
             $scan->phone_number = $user->phone_number;
             $scan->first_name = $user->firstname;
@@ -488,6 +497,7 @@ class ScannerController extends Controller
             $scan->longitude = $last_scanned_site->longitude;
             $scan->sector_name = 'Clocking Out';
             $scan->time = $last_scanned_site->time;
+            $scan->location = $location['location'];
             $scan->created_at = $last_scanned_site->created_at;
             $scan->updated_at = $last_scanned_site->updated_at;
             $scan->save();
