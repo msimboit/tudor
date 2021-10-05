@@ -13,9 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            QrCodeSeeder::class,
-            UserSeeder::class,
-        ]);
+        // $this->call([
+        //     QrCodeSeeder::class,
+        //     UserSeeder::class,
+        // ]);
+        $this->call(UserSeeder::class);
+        $this->call(QrCodeSeeder::class);
     }
 }

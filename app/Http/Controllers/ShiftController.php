@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Scan;
 use App\Models\Shift;
 use App\Models\Issue;
+use App\Models\QrCode;
 use App\Exports\ShiftsExport;
 use App\Exports\GuardShiftExport;
 use App\Exports\DailyGuardShiftExport;
@@ -172,16 +173,16 @@ class ShiftController extends Controller
      */
     public function locationFilter(Request $request)
     {   
-        // dd($request->all());
-        $langata = 'TCS000';
-        $baraka = 'TCS00';
-        $allimex = 'ALP';
+        // $langata = 'TCS000';
+        // $baraka = 'TCS00';
+        // $allimex = 'ALP';
 
         $location = $request->location;
 
         if($request->location == 'langata')
         {
-            $scanned_areas = Scan::where('sector', 'LIKE', "%{$langata}%")
+            $sectors = (QrCode::where('location', 'langata')->select('code')->get())->toArray();
+            $scanned_areas = Scan::whereIn('sector', $sectors)
                     ->where('role', 'guard')
                     ->orderBy('created_at', 'desc')                
                     ->get();
@@ -191,7 +192,8 @@ class ShiftController extends Controller
 
         if($request->location == 'baraka')
         {
-            $scanned_areas = Scan::where('sector', 'LIKE', "%{$baraka}%")
+            $sectors = (QrCode::where('location', 'baraka')->select('code')->get())->toArray();
+            $scanned_areas = Scan::whereIn('sector', $sectors)
                     ->where('role', 'guard')
                     ->orderBy('created_at', 'desc')                
                     ->get();
@@ -202,7 +204,8 @@ class ShiftController extends Controller
 
         if($request->location == 'allimex')
         {
-            $scanned_areas = Scan::where('sector', 'LIKE', "%{$allimex}%")
+            $sectors = (QrCode::where('location', 'allimex')->select('code')->get())->toArray();
+            $scanned_areas = Scan::whereIn('sector', $sectors)
                     ->where('role', 'guard')
                     ->orderBy('created_at', 'desc')                
                     ->get();
