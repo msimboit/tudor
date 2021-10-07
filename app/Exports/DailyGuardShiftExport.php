@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Scan;
-use App\Models\Qrcode;
+use App\Models\QrCode;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Carbon\Carbon;
