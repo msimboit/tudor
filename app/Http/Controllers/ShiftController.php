@@ -68,7 +68,7 @@ class ShiftController extends Controller
 
         $guards = User::where('role', 'guard')->select('phone_number')->get();
         $current_time = Carbon::now();
-        $shifts = Shift::where('created_at', '<', $current_time->subDays(7))
+        $shifts = Shift::where('created_at', '>', $current_time->subDays(7))
                         ->where('role', 'guard')
                         ->orderBy('created_at', 'desc')                
                         ->get();
