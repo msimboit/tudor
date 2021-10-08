@@ -272,7 +272,8 @@ class ShiftController extends Controller
 
         $scanned_areas = DB::table('scans')
         // ->where('created_at', '<', $current_time)
-        ->where('created_at', '>', $current_time->subHours(24))
+        // ->where('created_at', '>', $current_time->subHours(24))
+        ->whereDate('created_at', Carbon::today())
         ->where('role', 'guard')
         ->where('sector', '!=', null)
         ->orderByDesc('created_at')
