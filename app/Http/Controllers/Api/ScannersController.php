@@ -42,6 +42,13 @@ class ScannersController extends Controller
      */
     public function store(Request $request)
     {
+        $fields = $request->validate([
+            'phone_number' => 'required|string',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+            'sector' => 'required|string',
+        ]);
+
         $user = User::where('phone_number', $request->phone_number)->first();
 
         $sector_name = QrCode::where('code', $request->sector)->select('name')->first();
