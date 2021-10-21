@@ -157,7 +157,7 @@ class ScannersController extends Controller
             $success2 = $shift->save();
         }
 
-        return new ScannersResource($success2);
+        return new ScannersResource($success);
     }
 
     /**
