@@ -80,6 +80,7 @@ class ScannersController extends Controller
             $scan->sector_name = $sector_name;
             $scan->time = $current_time;
             $scan->location = $location['location'];
+            $scan->role = $user->role;
             $success = $scan->save();
 
             $shift = new Shift;
