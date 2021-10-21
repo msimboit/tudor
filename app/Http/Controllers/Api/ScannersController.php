@@ -116,6 +116,7 @@ class ScannersController extends Controller
         $scan->sector = $request->sector;
         $scan->sector_name = $sector_name;
         $scan->time = $current_time;
+        $scan->role = $user->role;
         $scan->location = $location['location'];
         $success = $scan->save();
 
