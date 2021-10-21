@@ -157,7 +157,7 @@ class ScannersController extends Controller
             $success2 = $shift->save();
         }
 
-        return response($response, 200);
+        return response($success, 200);
     }
 
     /**
