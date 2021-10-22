@@ -93,11 +93,25 @@ class ScannersController extends Controller
             
             if($user->role === 'guard')
             {
-                $response =  new ScannersResource($success2);
+                $response = [
+                    'phone_number' => $user->phone_number,
+                    'first_name' => $user->first_name,
+                    'latitude' => $scan->latitude,
+                    'longitude' => $scan->longitude,
+                    'sector' => $scan->sector,
+                    'sector_name' => $scan->sector_name
+                ];
                 return response($response, 200);
             }
 
-            $response = new ScannersResource($success);
+            $response = [
+                'phone_number' => $user->phone_number,
+                'first_name' => $user->first_name,
+                'latitude' => $scan->latitude,
+                'longitude' => $scan->longitude,
+                'sector' => $scan->sector,
+                'sector_name' => $scan->sector_name
+            ];
             return response($response, 200);
         }
 
@@ -159,7 +173,15 @@ class ScannersController extends Controller
             $success2 = $shift->save();
         }
 
-        $response = new ScannersResource($success);
+        $response = [
+            'phone_number' => $user->phone_number,
+            'first_name' => $user->first_name,
+            'latitude' => $scan->latitude,
+            'longitude' => $scan->longitude,
+            'sector' => $scan->sector,
+            'sector_name' => $scan->sector_name
+        ];
+
         return response($response, 200);
     }
 
