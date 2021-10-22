@@ -74,4 +74,4 @@ Route::post('/registerClient', [App\Http\Controllers\HomeController::class, 'con
 
 /* Session Flushing Routes */
 Route::get('/last_interactions', [App\Http\Controllers\ScannerController::class, 'last_interactions'])->name('last_interactions');
-Route::post('/adminLogout/{password}', [App\Http\Controllers\HomeController::class, 'adminLogout']);
+Route::get('/adminLogout/{password}', [App\Http\Controllers\HomeController::class, 'adminLogout']);
