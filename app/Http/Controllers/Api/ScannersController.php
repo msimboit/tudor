@@ -77,7 +77,7 @@ class ScannersController extends Controller
             $scan->latitude = $request->latitude;
             $scan->longitude = $request->longitude;
             $scan->sector = $request->sector;
-            $scan->sector_name = $sector_name;
+            $scan->sector_name = $sector_name->name;
             $scan->time = $current_time;
             $scan->location = $location['location'];
             $scan->role = $user->role;
@@ -95,7 +95,7 @@ class ScannersController extends Controller
             {
                 $response = [
                     'phone_number' => $user->phone_number,
-                    'first_name' => $user->first_name,
+                    'first_name' => $user->firstname,
                     'latitude' => $scan->latitude,
                     'longitude' => $scan->longitude,
                     'sector' => $scan->sector,
@@ -106,7 +106,7 @@ class ScannersController extends Controller
 
             $response = [
                 'phone_number' => $user->phone_number,
-                'first_name' => $user->first_name,
+                'first_name' => $user->firstname,
                 'latitude' => $scan->latitude,
                 'longitude' => $scan->longitude,
                 'sector' => $scan->sector,
@@ -130,7 +130,7 @@ class ScannersController extends Controller
         $scan->latitude = $request->latitude;
         $scan->longitude = $request->longitude;
         $scan->sector = $request->sector;
-        $scan->sector_name = $sector_name;
+        $scan->sector_name = $sector_name->name;
         $scan->time = $current_time;
         $scan->role = $user->role;
         $scan->location = $location['location'];
