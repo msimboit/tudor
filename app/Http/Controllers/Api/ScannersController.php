@@ -101,9 +101,12 @@ class ScannersController extends Controller
                     'sector' => $scan->sector,
                     'sector_name' => $scan->sector_name
                 ];
+
+                $response = collect($response);
                 return response($response, 200);
             }
 
+            
             $response = [
                 'phone_number' => $user->phone_number,
                 'first_name' => $user->firstname,
@@ -112,6 +115,8 @@ class ScannersController extends Controller
                 'sector' => $scan->sector,
                 'sector_name' => $scan->sector_name
             ];
+
+            $response = collect($response);
             return response($response, 200);
         }
 
@@ -182,6 +187,7 @@ class ScannersController extends Controller
             'sector_name' => $scan->sector_name
         ];
 
+        $response = collect($response);
         return response($response, 200);
     }
 
