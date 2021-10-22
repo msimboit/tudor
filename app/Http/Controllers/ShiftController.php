@@ -46,6 +46,7 @@ class ShiftController extends Controller
         }
         $users = User::where('role', '!=', 'admin')
                     ->where('role', '!=', 'guard')
+                    ->where('role', '!=', 'guard_admin')
                     ->orderBy('firstname')
                     ->paginate(10);
 
@@ -90,6 +91,7 @@ class ShiftController extends Controller
         }
         $employees = User::where('role', '!=', 'guard')
                     ->where('role', '!=', 'admin')
+                    ->where('role', '!=', 'guard_admin')
                     ->orderBy('firstname')
                     ->paginate(10);
 
