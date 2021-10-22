@@ -175,7 +175,7 @@ class ScannersController extends Controller
 
         $response = [
             'phone_number' => $user->phone_number,
-            'first_name' => $user->first_name,
+            'first_name' => $user->firstname,
             'latitude' => $scan->latitude,
             'longitude' => $scan->longitude,
             'sector' => $scan->sector,
