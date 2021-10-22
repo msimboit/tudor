@@ -15,7 +15,6 @@ class ScannersResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
             'type' => 'Scans',
             'attributes' => [
                 'phone_number' => (string)$this->phone_number,
