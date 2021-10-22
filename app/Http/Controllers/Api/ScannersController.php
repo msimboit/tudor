@@ -105,7 +105,7 @@ class ScannersController extends Controller
                 // $response = collect($response);
                 // $response = [
                 //     'response' => $response_array,
-                ];
+                // ];
                 return response($response, 200);
             }
 
