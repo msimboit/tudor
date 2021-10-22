@@ -103,6 +103,9 @@ class ScannersController extends Controller
                 ];
 
                 $response = collect($response);
+                $response = [
+                    'response' => $response_array,
+                ];
                 return response($response, 200);
             }
 
@@ -116,7 +119,10 @@ class ScannersController extends Controller
                 'sector_name' => $scan->sector_name
             ];
 
-            $response = collect($response);
+            $response_array = collect($response);
+            $response = [
+                'response' => $response_array,
+            ];
             return response($response, 200);
         }
 
@@ -187,7 +193,10 @@ class ScannersController extends Controller
             'sector_name' => $scan->sector_name
         ];
 
-        $response = collect($response);
+        $response_array = collect($response);
+        $response = [
+            'response' => $response_array,
+        ];
         return response($response, 200);
     }
 
