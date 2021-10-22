@@ -97,7 +97,7 @@ class ScannersController extends Controller
                 return response($response, 200);
             }
 
-            $response = new ScannerResource($success);
+            $response = new ScannersResource($success);
             return response($response, 200);
         }
 
@@ -159,7 +159,7 @@ class ScannersController extends Controller
             $success2 = $shift->save();
         }
 
-        $response = new ScannerResource($success);
+        $response = new ScannersResource($success);
         return response($response, 200);
     }
 
