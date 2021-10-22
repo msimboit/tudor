@@ -93,10 +93,12 @@ class ScannersController extends Controller
             
             if($user->role === 'guard')
             {
-                return new ScannersResource($success2);
+                $response =  new ScannersResource($success2);
+                return response($response, 200);
             }
 
-            return new ScannersResource($success);
+            $response = new ScannerResource($success);
+            return response($response, 200);
         }
 
         $date = new DateTime($last_clock_in->created_at);
@@ -157,7 +159,8 @@ class ScannersController extends Controller
             $success2 = $shift->save();
         }
 
-        return response($success, 200);
+        $response = new ScannerResource($success);
+        return response($response, 200);
     }
 
     /**
