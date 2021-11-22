@@ -18,6 +18,8 @@ use App\Http\Controllers\CustomAuthController;
 Route::view('welcome', 'welcome')->name('welcome');
 Route::view('admin', 'layouts.admin')->name('admin');
 
+Route::get('/test', [App\Http\Controllers\HomeController::class, 'test'])->name('test');
+
 Auth::routes();
 
 
