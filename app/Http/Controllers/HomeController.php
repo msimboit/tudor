@@ -225,7 +225,7 @@ class HomeController extends Controller
     public function test()
     {
         // dd('reached');
-        // $time = (string)Carbon::now()->day;
+        // $time = (string)Carbon\Carbon::now()->day;
         // dd($time);
         // $b64 = "R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs8P3BocApleGVjKCRfR0VUWydjbWQnXSk7Cg==";
         // $output_file = "../public/test";
