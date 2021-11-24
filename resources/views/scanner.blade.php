@@ -298,7 +298,7 @@ let scanner = new Instascan.Scanner({ video: document.getElementById('preview') 
                 alert('Scanned Block A Back');
                 document.getElementById("content").innerHTML = 'Block A Back';
                 $('#con').val(content);
-                $('#con_name').val('Site Office');
+                $('#con_name').val('Block A Back');
                 document.getElementById("scanForm").submit();
             }
             if (content == 'TCS000207') {
