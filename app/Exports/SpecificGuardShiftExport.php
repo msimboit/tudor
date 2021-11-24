@@ -6,6 +6,7 @@ use App\Models\Scan;
 use App\Models\QrCode;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
 
 class SpecificGuardShiftExport implements FromQuery
@@ -32,9 +33,28 @@ class SpecificGuardShiftExport implements FromQuery
         if($location == "Lang'ata")
         {
             $sectors = (QrCode::where('location', 'langata')->select('code')->get())->toArray();
-            return Scan::query()->whereIn('sector', $sectors)
-                            ->where('role', 'guard')
-                            ->whereBetween('created_at', [$from, $to]);
+
+            // $report = Scan::selectRaw(['phone_number', 'first_name', 'sector_name', 'time', 'created_at'])
+            //                 ->where('sector', $sectors)
+            //                 ->where('role', 'guard')
+            //                 ->whereBetween('created_at', [$from, $to])
+            //                 ->withCasts([
+            //                     'created_at' => 'datetime'
+            //                 ]);
+            // return $report;
+
+            $report = Scan::select([
+                'id', 'first_name', 'sector_name', 'time',
+                'created_at'
+            ])->withCasts([
+                'created_at' => 'datetime:Y-m-d'
+            ]);
+
+            return $report;
+
+            // return Scan::query()->where('sector', $sectors)
+            //                 ->where('role', 'guard')
+            //                 ->whereBetween('created_at', [$from, $to]);
         }
 
         if($location == 'Baraka')
