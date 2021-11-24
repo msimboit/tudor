@@ -29,7 +29,7 @@ class Scan extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-    ];
+    // protected $casts = [
+    //     'created_at' => 'datetime:Y-m-d',
+    // ];
 }
