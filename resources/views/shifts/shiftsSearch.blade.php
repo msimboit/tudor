@@ -9,6 +9,11 @@
         
             <div class="my-3 ml-3">
                 <button class="btn btn-primary">
+                    <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Get Reports</a>
+                </button>
+            </div>
+            <div class="my-3 ml-3">
+                <button class="btn btn-primary">
                     <a href="{{ route('shifts') }} " style="text-decoration:none; color:#fff">Back To Reports</a>
                 </button>
             </div>

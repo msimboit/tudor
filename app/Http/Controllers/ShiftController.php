@@ -11,6 +11,7 @@ use App\Models\QrCode;
 use App\Exports\ShiftsExport;
 use App\Exports\GuardShiftExport;
 use App\Exports\DailyGuardShiftExport;
+use App\Exports\SpecificGuardShiftExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use DB;
@@ -326,5 +327,15 @@ class ShiftController extends Controller
     public function dailyGuardShiftexport($location) 
     {
         return (new DailyGuardShiftExport($location))->download('guard-shift.xlsx');
+    }
+
+    public function specificGuardShiftexport(Request $request)
+    {
+        // dd($request->all());
+        $from = $request->get('from'); 
+        $to = $request->get('to');
+        $location = $request->location;
+
+        return (new SpecificGuardShiftExport($location, $from, $to))->download('guard-shift.xlsx');
     }
 }

@@ -53,6 +53,7 @@ Route::get('/dailyGuardReport', [App\Http\Controllers\ShiftController::class, 'd
 Route::get('/shifts/{id}', [App\Http\Controllers\ShiftController::class, 'info'])->name('shiftInfo');
 Route::post('/shifts/search', [App\Http\Controllers\ShiftController::class, 'searchDate'])->name('shiftSearch');
 Route::post('/shifts/locationFilter', [App\Http\Controllers\ShiftController::class, 'locationFilter'])->name('locationFilter');
+Route::post('/shifts/specificDateReport', [App\Http\Controllers\ShiftController::class, 'specificGuardShiftexport'])->name('specificDateReport');
 Route::get('/shifts-all_scanned_areas', [App\Http\Controllers\ShiftController::class, 'all_scanned_areas'])->name('all_scanned_areas');
 Route::get('/issues', [App\Http\Controllers\IssueController::class, 'index'])->name('all_issues');
 Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show'])->name('issueInfo');
