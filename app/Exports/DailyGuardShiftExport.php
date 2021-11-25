@@ -41,7 +41,7 @@ class DailyGuardShiftExport implements FromQuery
         {
             $sectors = (QrCode::where('location', 'baraka')->select('code')->get())->toArray();
             return Scan::select(['id', 'first_name', 'sector_name', 'time', 'created_at'])
-                            ->where('sector', $sectors)
+                            ->whereIn('sector', $sectors)
                             ->where('role', 'guard')
                             ->whereDate('created_at', '>', Carbon::now()->subDays(1))
                             ->withCasts([
@@ -53,7 +53,7 @@ class DailyGuardShiftExport implements FromQuery
         {
             $sectors = (QrCode::where('location', 'allimex')->select('code')->get())->toArray();
             return Scan::select(['id', 'first_name', 'sector_name', 'time', 'created_at'])
-                            ->where('sector', $sectors)
+                            ->whereIn('sector', $sectors)
                             ->where('role', 'guard')
                             ->whereDate('created_at', '>', Carbon::now()->subDays(1))
                             ->withCasts([
