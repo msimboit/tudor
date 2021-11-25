@@ -35,7 +35,7 @@ class SpecificGuardShiftExport implements FromQuery
             $sectors = (QrCode::where('location', 'langata')->select('code')->get())->toArray();
 
             $report = Scan::select(['id', 'first_name', 'sector_name', 'time', 'created_at'])
-                            ->where('sector', $sectors)
+                            ->whereIn('sector', $sectors)
                             ->where('role', 'guard')
                             ->whereBetween('created_at', [$from, $to])
                             ->withCasts([
@@ -44,7 +44,7 @@ class SpecificGuardShiftExport implements FromQuery
 
             return $report;
 
-            // return Scan::query()->where('sector', $sectors)
+            // return Scan::query()->whereIn('sector', $sectors)
             //                 ->where('role', 'guard')
             //                 ->whereBetween('created_at', [$from, $to]);
         }

@@ -23,13 +23,4 @@ class Scan extends Model
         'sector_name',
         'time',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    // protected $casts = [
-    //     'created_at' => 'datetime:Y-m-d',
-    // ];
 }
