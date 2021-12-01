@@ -297,7 +297,8 @@ class ShiftController extends Controller
     {
         $current_time = Carbon::now();
         // $points = Scan::where('created_at', '>', $current_time->subHours(72))->where('role', 'guard')->get();
-        $points = Geolocation::select('first_name', 'latitude', 'longitude')->where('created_at', '>', $current_time->subHours(1))->get();
+        // $points = Geolocation::select('first_name', 'latitude', 'longitude')->where('created_at', '>', $current_time->subHours(1))->get();
+        $points = Geolocation::select('first_name', 'latitude', 'longitude')->get();
         return view('employees.map', ['points' => $points]);
     }
 
