@@ -36,7 +36,17 @@
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(map_latitude, map_longitude),
             map: map,
-            label: indicator[0],
+            // label: indicator[0],
+            icon: {
+        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 32),
+        fillColor: 'red',
+        fillOpacity: 1,
+        strokeColor: '#000',
+        strokeWeight: 0,
+        scale: 1
+    },
         });
 
         // // console.log(locations[i][0]);
