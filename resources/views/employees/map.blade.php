@@ -8,7 +8,7 @@
 <script>
     var points = @json($points);
 
-    console.log(points);
+    // console.log(points);
     var locations = []
 
     for(i = 0; i < points.length; i++){
@@ -26,13 +26,13 @@
 
     var marker, i;
     for (i = 0; i < locations.length; i++) {  
-        console.log(locations[i][1]);
+        // console.log(locations[i][1]);
         var indicator = Array.from(locations[i][0]);
-        console.log(indicator[0]);
-        console.log(locations[i][2]);
+        // console.log(indicator[0]);
+        // console.log(locations[i][2]);
         map_longitude = parseInt(locations[i][1]);
         map_latitude = parseInt(locations[i][2]);
-        console.log(typeof map_longitude);
+        // console.log(typeof map_longitude);
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(map_latitude, map_longitude),
             map: map,
