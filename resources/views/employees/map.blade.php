@@ -8,9 +8,11 @@
 <script>
     var points = @json($points);
 
+    console.log(points);
     var locations = []
 
     for(i = 0; i < points.length; i++){
+        console.log(points[i]);
         locations.push([points[i].first_name,Number(points[i].latitude),Number(points[i].longitude),Number(points[i].id)])
     }
 
@@ -24,7 +26,7 @@
 
     var marker, i;
     for (i = 0; i < locations.length; i++) {  
-        // console.log(locations[i]);
+        console.log(locations[i][1]);
 
         var indicator = Array.from(locations[i][0]);
         console.log(indicator);

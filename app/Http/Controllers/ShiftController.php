@@ -8,6 +8,7 @@ use App\Models\Scan;
 use App\Models\Shift;
 use App\Models\Issue;
 use App\Models\QrCode;
+use App\Models\Geolocation;
 use App\Exports\ShiftsExport;
 use App\Exports\GuardShiftExport;
 use App\Exports\DailyGuardShiftExport;
@@ -295,8 +296,8 @@ class ShiftController extends Controller
     public function map()
     {
         $current_time = Carbon::now();
-        $points = Scan::where('created_at', '>', $current_time->subHours(72))->where('role', 'guard')->get();
-        // $points = Scan::where('role', 'guard')->get();
+        // $points = Scan::where('created_at', '>', $current_time->subHours(72))->where('role', 'guard')->get();
+        $points = Geolocation::select('first_name', 'latitude', 'longitude')->where('created_at', '>', $current_time->subHours(72))->get();
         return view('employees.map', ['points' => $points]);
     }
 
