@@ -30,8 +30,8 @@
         var indicator = Array.from(locations[i][0]);
         console.log(indicator[0]);
         console.log(locations[i][2]);
-        map_latitude = parseInt(locations[i][1]);
-        map_longitude = parseInt(locations[i][2]);
+        map_longitude = parseInt(locations[i][1]);
+        map_latitude = parseInt(locations[i][2]);
         console.log(typeof map_longitude);
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(map_latitude, map_longitude),
