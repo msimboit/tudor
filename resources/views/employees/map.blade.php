@@ -34,7 +34,7 @@
         map_longitude = parseInt(locations[i][2]);
         console.log(typeof map_longitude);
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(map_latitude, map_longitude),
+            position: new google.maps.LatLng(map_longitude, map_latitude),
             map: map,
             label: indicator[0],
         });
