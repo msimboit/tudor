@@ -57,9 +57,71 @@
         }
     </style>
 
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZyyyE4puB-p2-3ZQk_B8DMgHanex12jo">
-    </script>
+    <!-- <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk">
+    </script> -->
+
+
+
+    <script>
+    let map, infoWindow;
+
+    function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -1.3264314, lng: 36.8433517 },
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+    });
+    infoWindow = new google.maps.InfoWindow();
+
+    const locationButton = document.createElement("button");
+
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("custom-map-control-button");
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+            const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent("Location found.");
+            infoWindow.open(map);
+            map.setCenter(pos);
+            },
+            () => {
+            handleLocationError(true, infoWindow, map.getCenter());
+            }
+        );
+        } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+    }
+</script>
+
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk&callback=initMap">
+</script>
+
+
+
 
 </head>
 
@@ -225,14 +287,11 @@
                                 Hello, {{ Auth::user()->firstname }}
                                 @endif
                             </h2>
-                            
-                            <!-- <div class="fake-content">wdvf</div>
-                            <div class="fake-content">cdsc </div>
-                            <div class="fake-content">cdsc z </div>
-                            
-                                <div class="fake-content w-100">dyfhgjh</div> -->
                                 <main>
-                                    @yield('content')
+                                    <h1>Guard Map</h1>
+                                    <div class="holder">
+                                        <div id="map"></div>
+                                    </div>
                                 </main>
                                 <audio id="alarm" src="{{ asset('audio/alarm/alarm.wav')}}" preload="auto"></audio>
                         </div>
@@ -241,18 +300,6 @@
                             <div class="fake-content w-150"></div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-3 d-none d-lg-block">
-                        <div class="content">
-                            <h2 class="content-title font-size-20">
-                                On this page
-                            </h2>
-                            <div class="fake-content">fgjhk</div>
-                            <div class="fake-content">gjhkjlkg</div>
-                            <div class="fake-content">jhmn</div>
-                            <div class="fake-content">khbjm</div>
-                            <div class="fake-content">hkbjln</div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -334,135 +381,6 @@
         }, 10000);
 
     </script>
-
-<!-- 
-    <script>
-        var map;
-        // Map Script
-            function initMap() {
-                for(let j = 0; j < markers.length; j++)
-                {
-                    console.log(markers[j].coords.lat);
-                    const myLatLng = {lat:Number(markers[j].coords.lat),lng:Number(markers[j].coords.lng)};
-                    const map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 15,
-                        center: myLatLng,
-                    });
-
-                    new google.maps.Marker({
-                        position: myLatLng,
-                        map,
-                        title: "UlinziDigital",
-                    });
-                }
-                
-            }
-
-            var markers = [];
-            async function getMarkers() {
-                try {
-                    const response = await axios.get('/api/v1/markers');
-                    // console.log(response.data[0]['attributes']);
-                    // console.log(response.data);
-                    for(let i = 0; i < response.data.length; i++)
-                    {
-                        // console.log(response.data[i]['attributes']);
-                        markers.push({coords: {lat:Number(response.data[i]['attributes']['lat']),lng:Number(response.data[i]['attributes']['long'])}});
-                    }
-                    var name = response.data[0]['attributes']['first_name'];
-                    var lat = response.data[0]['attributes']['latitude'];
-                    var long = response.data[0]['attributes']['longitude'];
-                    console.log(markers);
-                    initMap();
-                    for(var i = 0; i < markers.length; i++){
-                        // Add marker
-                        addMarker(markers[i]);
-                    }
-                } catch (error) {
-                    //Do nothing
-                }
-            }
-
-            function addMarker(props){
-                var marker = new google.maps.Marker({
-                position:props.coords,
-                map:map,
-                icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-                //icon:props.iconImage
-                });
-            }
-
-            
-    </script> -->
-
-    <!-- <script type="text/javascript">
-function initMap(){
-        var markers = [];
-        var locations = [];
-            function getMarkers() {
-                try {
-                    const response = axios.get('/api/v1/markers');
-                    // console.log(response.data[0]['attributes']);
-                    // console.log(response.data);
-                    for(let i = 0; i < response.data.length; i++)
-                    {
-                        // console.log(response.data[i]['attributes']);
-                        markers.push({coords: {lat:Number(response.data[i]['attributes']['lat']),lng:Number(response.data[i]['attributes']['long'])}});
-                        locations.push([response.data[i]['attributes']['name'],Number(response.data[i]['attributes']['lat']),Number(response.data[i]['attributes']['long']),Number(response.data[i]['id'])])
-                    }
-                    var name = response.data[0]['attributes']['first_name'];
-                    var lat = response.data[0]['attributes']['latitude'];
-                    var long = response.data[0]['attributes']['longitude'];
-                    // console.log(locations);
-                    // initMap();
-                    // for(var i = 0; i < markers.length; i++){
-                    //     // Add marker
-                    //     addMarker(markers[i]);
-                    // }
-                } catch (error) {
-                    //Do nothing
-                }
-            }
-
-                // var locations = [
-                //   ['Bondi Beach', -33.890542, 151.274856, 4],
-                //   ['Coogee Beach', -33.923036, 151.259052, 5],
-                //   ['Cronulla Beach', -34.028249, 151.157507, 3],
-                //   ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-                //   ['Maroubra Beach', -33.950198, 151.259302, 1]
-                // ];
-                getMarkers();
-                var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 10,
-                center: new google.maps.LatLng(-1.3264314, 36.8433517),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-
-                var infowindow = new google.maps.InfoWindow();
-
-                var marker, i;
-
-                console.log(locations);
-                for (i = 0; i < locations.length; i++) {  
-                // console.log(locations[i]);
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map
-                });
-
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                    }
-                })(marker, i));
-
-                }
-}
-    </script> -->
-    <!-- <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcnM0zMLs2NXM2hTQz-lQWi-9-s-FfRgk&callback=initMap">
-    </script> -->
 
 </body>
 

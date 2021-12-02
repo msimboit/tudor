@@ -3,7 +3,13 @@
 @section('content')
   <h1>Guard Map</h1>
   <div class="holder">
-    <div id="map"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
   </div>
 <script>
     var points = @json($points);
@@ -12,7 +18,7 @@
     var locations = []
 
     for(i = 0; i < points.length; i++){
-        console.log(points[i]);
+        // console.log(points[i]);
         locations.push([points[i].first_name,Number(points[i].latitude),Number(points[i].longitude),Number(points[i].id)])
     }
 
@@ -26,17 +32,18 @@
 
     var marker, i;
     for (i = 0; i < locations.length; i++) {  
-        // console.log(locations[i][1]);
+        console.log(locations[i][1]);
         var indicator = Array.from(locations[i][0]);
-        // console.log(indicator[0]);
-        // console.log(locations[i][2]);
-        map_longitude = parseInt(locations[i][1]);
-        map_latitude = parseInt(locations[i][2]);
-        // console.log(typeof map_longitude);
+        console.log(indicator[0]);
+        console.log(locations[i][2]);
+        map_longitude = Number(locations[i][1]);
+        map_latitude = Number(locations[i][2]);
+        console.log(typeof map_longitude);
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(map_latitude, map_longitude),
             map: map,
             label: indicator[0],
+            optimized: true
         });
 
         // // console.log(locations[i][0]);
