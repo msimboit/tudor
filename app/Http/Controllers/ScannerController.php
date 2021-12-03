@@ -77,10 +77,18 @@ class ScannerController extends Controller
             return redirect()->back()->with('alert', 'Please Enable Your Location!');
         }
 
-        // if(($request->sector_name) == 'Clocking In')
-        // {
-        //     return redirect()->back()->with('alert', 'Please scan the correct code!');
-        // }
+        $last_clock_in = DB::table('scans')
+        ->select('created_at')
+        ->where('phone_number', '=', $user->phone_number)
+        ->where('sector_name', '=', 'Clocking In')
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        $less_than_clockin = Carbon::now()->diffInHours($last_clock_in->created_at);
+        if(($request->sector_name) == 'Clocking In' && $less_than_clockin < 12 )
+        {
+            return redirect()->back()->with('alert', 'Please scan the correct code!');
+        }
 
         $validated = $request->validate([
             'sector' => 'required',
@@ -104,14 +112,6 @@ class ScannerController extends Controller
         //     'age' => request('age'),
         //     'image' => $fileName,
         // ]);
-
-
-        $last_clock_in = DB::table('scans')
-        ->select('created_at')
-        ->where('phone_number', '=', $user->phone_number)
-        ->where('sector_name', '=', 'Clocking In')
-        ->orderBy('created_at', 'desc')
-        ->first();
 
         $last_scanned_site = DB::table('scans')
             ->where('phone_number', '=', $user->phone_number)
