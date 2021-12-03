@@ -77,10 +77,10 @@ class ScannerController extends Controller
             return redirect()->back()->with('alert', 'Please Enable Your Location!');
         }
 
-        if(($request->sector_name) == 'Clocking In')
-        {
-            return redirect()->back()->with('alert', 'Please scan the correct code!');
-        }
+        // if(($request->sector_name) == 'Clocking In')
+        // {
+        //     return redirect()->back()->with('alert', 'Please scan the correct code!');
+        // }
 
         $validated = $request->validate([
             'sector' => 'required',
