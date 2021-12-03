@@ -122,13 +122,13 @@
                             <input type="text" name="sector_name" id="con_name" hidden>
                             <input type="text" name="scan_time" id="scan_time" hidden>
                             <div class="col-md-6">
-                <div id="my_camera" hidden></div>
-                <br/>
-                <input type="hidden"  name="image" class="image-tag">
-            </div>
-            <div class="col-md-6" hidden>
-                <div id="results">Your captured image will appear here...</div>
-            </div>
+                                <div id="my_camera" hidden></div>
+                                <br/>
+                                <input type="hidden"  name="image" class="image-tag">
+                            </div>
+                            <div class="col-md-6" hidden>
+                                <div id="results">Your captured image will appear here...</div>
+                            </div>
 
                             <input class="btn btn-success m-auto" type="submit" value="CONFIRM SCAN" hidden> 
                         </form>
