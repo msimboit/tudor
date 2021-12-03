@@ -77,19 +77,6 @@ class ScannerController extends Controller
             return redirect()->back()->with('alert', 'Please Enable Your Location!');
         }
 
-        $last_clock_in = DB::table('scans')
-        ->select('created_at')
-        ->where('phone_number', '=', $user->phone_number)
-        ->where('sector_name', '=', 'Clocking In')
-        ->orderBy('created_at', 'desc')
-        ->first();
-
-        $less_than_clockin = Carbon::now()->diffInHours($last_clock_in->created_at);
-        if(($request->sector_name) == 'Clocking In' && $less_than_clockin < 12 )
-        {
-            return redirect()->back()->with('alert', 'Please scan the correct code!');
-        }
-
         $validated = $request->validate([
             'sector' => 'required',
             'sector_name' => 'required',
@@ -117,6 +104,13 @@ class ScannerController extends Controller
             ->where('phone_number', '=', $user->phone_number)
             ->orderBy('created_at', 'desc')
             ->first();
+
+        $last_clock_in = DB::table('scans')
+        ->select('created_at')
+        ->where('phone_number', '=', $user->phone_number)
+        ->where('sector_name', '=', 'Clocking In')
+        ->orderBy('created_at', 'desc')
+        ->first();
         
         if($last_clock_in == null){
             $user = Auth::user();
@@ -151,6 +145,12 @@ class ScannerController extends Controller
             return redirect()->route('home')->with('success', 'Scan Successful!');
         }
 
+        $less_than_clockin = Carbon::now()->diffInHours($last_clock_in->created_at);
+        if(($request->sector_name) == 'Clocking In' && $less_than_clockin < 12 )
+        {
+            return redirect()->back()->with('alert', 'Please scan the correct code!');
+        }
+        
         $date = new DateTime($last_clock_in->created_at);
         $now = new DateTime();
         
