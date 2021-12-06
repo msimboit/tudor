@@ -42,7 +42,7 @@ class VisitorLogController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         /**
          * Request should include the logger_id/phone together with the
          * visitor details

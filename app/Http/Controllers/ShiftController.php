@@ -9,6 +9,7 @@ use App\Models\Shift;
 use App\Models\Issue;
 use App\Models\QrCode;
 use App\Models\Geolocation;
+use App\Models\VisitorLog;
 use App\Exports\ShiftsExport;
 use App\Exports\GuardShiftExport;
 use App\Exports\DailyGuardShiftExport;
@@ -312,6 +313,19 @@ class ShiftController extends Controller
     {
         //
     }
+
+    /**
+     * Display the visitor logs for the day
+     */
+
+     public function visitors()
+     {
+        if(Auth::user()->role != 'admin')
+        {
+            return redirect()->route('home');
+        }
+        dd(VisitorLog::all());
+     }
 
     /**
      * Generate An Excel Form.
