@@ -16,17 +16,17 @@
             <th>Phone Number</th>
             <th>ID Number</th>
             <th>Destination</th>
-            <th>Host</th>
+            <!-- <th>Host</th> -->
             </tr>
         </thead>
         <tbody>
         @foreach($visitor_log as $v)
             <tr class="table-primary">
-                <td>{{ $v->first_name }} {{ $v->last_name }}</td>}</td>
+                <td>{{ $v->first_name }} {{ $v->last_name }}</td>
                 <td>{{ $v->phone_number }}</td>
                 <td>{{ $v->id_number }}</td>
                 <td>{{ $v->destination }}</td>
-                <td>{{ $v->host }}</td>
+                <!-- <td>{{ $v->host }}</td> -->
             </tr>
         @endforeach
         </tbody>
