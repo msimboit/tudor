@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function() {
     Route::apiResource('/shifts', ShiftsController::class);
     Route::apiResource('/scans', ScannersController::class);
     Route::apiResource('/issues', IssuesController::class);
-    Route::apiResource('/panic', IssuesController::class, 'panic');
+    Route::post('/panic', IssuesController::class, 'panic');
 
     Route::apiResource('/chats', ChatController::class);
     Route::apiResource('/codes', QrCodeController::class);
