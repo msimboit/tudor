@@ -44,16 +44,11 @@ class VisitorLogController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('request:');
-        Log::info($request->all());
-        //dd($request->all());
         /**
          * Request should include the logger_id/phone together with the
          * visitor details
          */
         $logger_id = User::select('id')->where('id', $request->guard_id)->first();
-
-        Log::info($logger_id);
         
         //Save to DB
         $v_log = new VisitorLog();
@@ -153,9 +148,8 @@ class VisitorLogController extends Controller
 
         $success = $v_log->save();
 
-        Log::info($v_log->id);
-        // $response = VisitorLogsResource::collection(VisitorLog::find($v_log->id));
-        $response = VisitorLog::find($v_log->id);
+        $response = VisitorLogsResource::collection(VisitorLog::find($v_log->id));
+        // $response = VisitorLog::find($v_log->id);
         return response($response, 200);
     }
 
