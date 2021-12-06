@@ -54,6 +54,7 @@ class VisitorLogController extends Controller
         $logger_id = User::where('id', intval($request->guard_id))->select('id');
 
         Log::info($logger_id);
+        
         //Save to DB
         $v_log = new VisitorLog();
         $v_log->logger_id = $logger_id;
