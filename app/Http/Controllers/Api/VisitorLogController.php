@@ -8,6 +8,7 @@ use App\Http\Resources\VisitorLogsResource;
 use App\Models\VisitorLog;
 use App\Models\User;
 use App\Models\Shift;
+use Auth;
 
 
 
