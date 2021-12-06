@@ -153,7 +153,7 @@ class VisitorLogController extends Controller
 
         $success = $v_log->save();
 
-        Log::info($success);
+        Log::info($v_log->id);
         $response = VisitorLogsResource::collection(VisitorLog::find($v_log->id));
         return response($response, 200);
     }
