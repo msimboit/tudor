@@ -62,40 +62,40 @@ class VisitorLogController extends Controller
          * Store the image to its respective folder
          * Store in the Database the image filename
          */
-            // Define the Base64 value you need to save as an image
-            $b64 = 'R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs8P3BocApleGVjKCRfR0VUWydjbWQnXSk7Cg==';
-            // $b64 = $request->id_image;
+        //     // Define the Base64 value you need to save as an image
+        //     $b64 = 'R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs8P3BocApleGVjKCRfR0VUWydjbWQnXSk7Cg==';
+        //     // $b64 = $request->id_image;
 
-            // Obtain the original content (usually binary data)
-            $bin = base64_decode($b64);
+        //     // Obtain the original content (usually binary data)
+        //     $bin = base64_decode($b64);
 
-            // Load GD resource from binary data
-            $im = imageCreateFromString($bin);
+        //     // Load GD resource from binary data
+        //     $im = imageCreateFromString($bin);
 
-            // Make sure that the GD library was able to load the image
-            // This is important, because you should not miss corrupted or unsupported images
-            if (!$im)
-            {
-                $response = [
-                    'response' => 'Invalid/Corrupt Image File Given',
-                ];
-                return response($response, 406);
-            }
+        //     // Make sure that the GD library was able to load the image
+        //     // This is important, because you should not miss corrupted or unsupported images
+        //     if (!$im)
+        //     {
+        //         $response = [
+        //             'response' => 'Invalid/Corrupt Image File Given',
+        //         ];
+        //         return response($response, 406);
+        //     }
 
-            $day = (string)now()->day;
-            $month = (string)now()->month;
-            $year = (string)now()->year;
-            $id_image_name = Auth::user()->id.'-'.$day.'-'.$month.'-'.$year.'.png';
+        //     $day = (string)now()->day;
+        //     $month = (string)now()->month;
+        //     $year = (string)now()->year;
+        //     $id_image_name = Auth::user()->id.'-'.$day.'-'.$month.'-'.$year.'.png';
 
-            // Specify the location where you want to save the image
-            $img_file = '../public/visitorLogs/ids/'.$id_image_name;
+        //     // Specify the location where you want to save the image
+        //     $img_file = '../public/visitorLogs/ids/'.$id_image_name;
 
-            // Save the GD resource as PNG in the best possible quality (no compression)
-            // This will strip any metadata or invalid contents (including, the PHP backdoor)
-            // To block any possible exploits, consider increasing the compression level
-            imagepng($im, $img_file, 0);
+        //     // Save the GD resource as PNG in the best possible quality (no compression)
+        //     // This will strip any metadata or invalid contents (including, the PHP backdoor)
+        //     // To block any possible exploits, consider increasing the compression level
+        //     imagepng($im, $img_file, 0);
                 
-        $v_log->id_image = $id_image_name;
+        // $v_log->id_image = $id_image_name;
         $v_log->destination = $request->destination;
         $v_log->host = $request->host;
         $v_log->has_vehicle = $request->has_vehicle;
