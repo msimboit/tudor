@@ -9,6 +9,7 @@ use App\Models\VisitorLog;
 use App\Models\User;
 use App\Models\Shift;
 use Auth;
+use Log;
 
 
 
@@ -43,6 +44,8 @@ class VisitorLogController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('request:');
+        Log::info($request->all());
         //dd($request->all());
         /**
          * Request should include the logger_id/phone together with the
