@@ -51,13 +51,13 @@ class VisitorLogController extends Controller
          * Request should include the logger_id/phone together with the
          * visitor details
          */
-        // $logger_id = User::select('id')->where('id', $request->guard_id)->first();
+        $logger_id = User::select('id')->where('id', $request->guard_id)->first();
 
-        // Log::info($logger_id);
+        Log::info($logger_id);
         
         //Save to DB
         $v_log = new VisitorLog();
-        $v_log->logger_id = 5;
+        $v_log->logger_id = $logger_id;
         $v_log->first_name = $request->first_name;
         $v_log->last_name = $request->last_name;
         $v_log->id_number = $request->id_number;
