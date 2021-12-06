@@ -62,8 +62,8 @@ class VisitorLogController extends Controller
          * Store in the Database the image filename
          */
             // Define the Base64 value you need to save as an image
-            // $b64 = 'R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs8P3BocApleGVjKCRfR0VUWydjbWQnXSk7Cg==';
-            $b64 = $request->id_image;
+            $b64 = 'R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs8P3BocApleGVjKCRfR0VUWydjbWQnXSk7Cg==';
+            // $b64 = $request->id_image;
 
             // Obtain the original content (usually binary data)
             $bin = base64_decode($b64);
