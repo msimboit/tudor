@@ -57,7 +57,7 @@ class VisitorLogController extends Controller
         
         //Save to DB
         $v_log = new VisitorLog();
-        $v_log->logger_id = $logger_id;
+        $v_log->logger_id = $logger_id->id;
         $v_log->first_name = $request->first_name;
         $v_log->last_name = $request->last_name;
         $v_log->id_number = $request->id_number;
