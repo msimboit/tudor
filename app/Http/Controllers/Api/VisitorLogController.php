@@ -53,7 +53,7 @@ class VisitorLogController extends Controller
          */
         // $logger_id = User::select('id')->where('id', $request->guard_id)->first();
 
-        Log::info($logger_id);
+        // Log::info($logger_id);
         
         //Save to DB
         $v_log = new VisitorLog();
