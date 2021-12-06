@@ -183,12 +183,20 @@
                     </span>
                     Map
                 </a>
-                @if(Auth::user()->role == 'admin')
+                <!-- @if(Auth::user()->role == 'admin')
                 <a href="#" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
                         <i class="fa fa-commenting-o" aria-hidden="true"></i>
                     </span>
                     Messenger
+                </a>
+                @endif -->
+                @if(Auth::user()->role == 'admin')
+                <a href="{{ route('visitors') }}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </span>
+                    Visitors Log
                 </a>
                 @endif
             </div>

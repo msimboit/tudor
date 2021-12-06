@@ -324,7 +324,12 @@ class ShiftController extends Controller
         {
             return redirect()->route('home');
         }
-        dd(VisitorLog::all());
+        // dd(VisitorLog::all());
+
+        $visitor_log = VisitorLog::all();
+
+        return view('visitors.visitorlogs', compact('visitor_log'));
+
      }
 
     /**
