@@ -125,6 +125,31 @@ class IssuesController extends Controller
     }
 
     /**
+     * Panic Button has been clicked.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function panic(Request $request)
+    {
+        // dd($request->all());
+
+        $user = User::where('id', $request->guard_id)->first();
+
+        $issue = new Issue;
+        $issue->phone_number = $user->phone_number;
+        $issue->first_name = $user->firstname;
+        $issue->title = 'Panic Button Pressed';
+        $issue->issueLocation = $request->latitude.' - '.$request->longitude;
+        $issue->details = 'Panic Button has been pressed. Help Required!!!';
+        $success = $issue->save();
+
+        $response = new IssuesResource($issue);
+
+        return response($response, 200);
+    }
+
+    /**
      * Keep alert for panic buttons pressed.
      *
      * @param  \Illuminate\Http\Request  $request
