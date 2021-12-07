@@ -148,12 +148,9 @@ class VisitorLogController extends Controller
 
         $success = $v_log->save();
 
-        /**
-         * FIX THIS RESPONSE DATA!!!!!
-         */
-        // $response = VisitorLogsResource::collection(VisitorLog::find($v_log->id));
+        $return_log = VisitorLog::find(($v_log->id));
+        $response = new VisitorLogsResource($return_log);
 
-        $response = VisitorLog::find($v_log->id);
         return response($response, 200);
     }
 
