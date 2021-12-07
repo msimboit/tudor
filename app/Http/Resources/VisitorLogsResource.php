@@ -22,6 +22,7 @@ class VisitorLogsResource extends JsonResource
                 'last_name' => $this->last_name,
                 'logger_id' => (string)$this->logger_id,
                 'id_number'=> (string)$this->id_number,
+                'phone_number' => (string)$this->phone_number,
                 // 'id_image'=> $this->id_image,
                 'destination'=> (string)$this->destination,
                 'host'=> (string)$this->host,
