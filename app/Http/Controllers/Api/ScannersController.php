@@ -67,7 +67,8 @@ class ScannersController extends Controller
 
         if($last_clock_in == null)
         {
-            $current_time = Carbon::now();
+            $time = Carbon::now();
+            $current_time = date("g:i a", strtotime($time));
 
             $location = (QrCode::where('code', $request->sector)->select('location')->first())->toArray();
 
@@ -142,7 +143,7 @@ class ScannersController extends Controller
         $scan->longitude = $request->longitude;
         $scan->sector = $request->sector;
         $scan->sector_name = $sector_name->name;
-        $scan->time = $current_time;
+        $scan->time = date("g:i a", strtotime($current_time));
         $scan->role = $user->role;
         $scan->location = $location['location'];
         $success = $scan->save();

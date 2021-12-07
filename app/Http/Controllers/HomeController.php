@@ -224,6 +224,10 @@ class HomeController extends Controller
 
     public function test()
     {
+        $c = Carbon\Carbon::now();
+        $c = date("g:i a", strtotime(Carbon\Carbon::now()));
+        echo($c);
+        dd($c);
         // dd('reached');
         // $time = (string)Carbon\Carbon::now()->day;
         // dd($time);
