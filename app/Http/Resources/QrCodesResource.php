@@ -20,7 +20,8 @@ class QrCodesResource extends JsonResource
             'attributes' => [
                 'name' => $this->name,
                 'code' => $this->code,
-                'user_id' => (string)$this->user_id,
+                // 'user_id' => (string)$this->user_id,
+                'location' => (string)$this->location,
             ]
         ];
     }
