@@ -51,7 +51,7 @@ class IssuesController extends Controller
             'details' => 'required|string',
         ]);
 
-        $user = User::where('phone_number', $request->phone_number)->first();
+        $user = User::where('id', $request->guard_id)->first();
 
         $issue = new Issue;
         $issue->phone_number = $user->phone_number;
