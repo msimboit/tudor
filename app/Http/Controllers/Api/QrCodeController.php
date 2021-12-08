@@ -20,7 +20,8 @@ class QrCodeController extends Controller
      */
     public function index()
     {
-        $response = QrCodesResource::collection(QrCode::all());
+        // $response = QrCodesResource::collection(QrCode::all());
+        $response = QrCode::select('id','name','code','location')->get();
         return response($response, 200);
     }
 
