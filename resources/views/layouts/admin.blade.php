@@ -341,6 +341,54 @@
             getUser();
         }, 10000);
 
+        async function fireStatus() {
+            try {
+                const response = await axios.get('/api/v1/fire');
+                // console.log(response.data[0]['attributes']);
+                var name = response.data[0]['attributes']['first_name'];
+                var phone = response.data[0]['attributes']['phone_number'];
+                var title = response.data[0]['attributes']['title'];
+
+                var mp3_url = '../audio/alarm/alarm.wav';
+                (new Audio(mp3_url)).play();
+
+                alert(`${name} has raised a fire alarm. Help required!!`);
+
+                (new Audio(mp3_url)).play();
+                
+            } catch (error) {
+                //Do nothing
+            }
+        }
+
+        setInterval(() => {
+            fireStatus();
+        }, 10000);
+
+        async function ambulanceStatus() {
+            try {
+                const response = await axios.get('/api/v1/ambulance');
+                // console.log(response.data[0]['attributes']);
+                var name = response.data[0]['attributes']['first_name'];
+                var phone = response.data[0]['attributes']['phone_number'];
+                var title = response.data[0]['attributes']['title'];
+
+                var mp3_url = '../audio/alarm/alarm.wav';
+                (new Audio(mp3_url)).play();
+
+                alert(`${name} has requested for an ambulance. Help is urgently required!!`);
+
+                (new Audio(mp3_url)).play();
+                
+            } catch (error) {
+                //Do nothing
+            }
+        }
+
+        setInterval(() => {
+            ambulanceStatus();
+        }, 10000);
+
     </script>
 
 <!-- 

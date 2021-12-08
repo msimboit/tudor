@@ -162,6 +162,80 @@ class IssuesController extends Controller
     }
 
     /**
+     * Fire Alarm Button has been clicked.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function fireAlarm(Request $request)
+    {
+        // dd($request->all());
+
+        $user = User::where('id', $request->guard_id)->first();
+
+        $issue = new Issue;
+        $issue->phone_number = $user->phone_number;
+        $issue->first_name = $user->firstname;
+        $issue->title = 'Fire Alarm Raised';
+        $issue->issueLocation = $request->latitude.' - '.$request->longitude;
+        $issue->details = 'A fire alarm has been raised. Help Required!!!';
+        $success = $issue->save();
+
+        $response = new IssuesResource($issue);
+
+        return response($response, 200);
+    }
+
+    /**
+     * Keep alert for fire alarm status.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function fireAlert()
+    {
+        $response = IssuesResource::collection(Issue::where('title', 'Fire Alarm Raised')->where('cleared', 0)->get());
+        return response($response, 200);
+    }
+
+    /**
+     * Ambulance Button has been clicked.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function ambulance(Request $request)
+    {
+        // dd($request->all());
+
+        $user = User::where('id', $request->guard_id)->first();
+
+        $issue = new Issue;
+        $issue->phone_number = $user->phone_number;
+        $issue->first_name = $user->firstname;
+        $issue->title = 'Ambulance Requested';
+        $issue->issueLocation = $request->latitude.' - '.$request->longitude;
+        $issue->details = 'An Ambulance has been requested. Help Required!!!';
+        $success = $issue->save();
+
+        $response = new IssuesResource($issue);
+
+        return response($response, 200);
+    }
+
+    /**
+     * Keep alert for fire alarm status.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function ambulanceAlert()
+    {
+        $response = IssuesResource::collection(Issue::where('title', 'Ambulance Requested')->where('cleared', 0)->get());
+        return response($response, 200);
+    }
+
+    /**
     * Send the daily guard markers during that day
     * 
     * @return \Illuminate\Http\Response

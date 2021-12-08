@@ -34,6 +34,8 @@ Route::prefix('v1')->group(function() {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::get('/panic', [IssuesController::class, 'panicAlert']);
+        Route::get('/fire', [IssuesController::class, 'fireAlert']);
+        Route::get('/ambulance', [IssuesController::class, 'ambulanceAlert']);
         Route::get('/markers', [IssuesController::class, 'guardMarkers']);
     });
 
@@ -43,6 +45,9 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function() {
     Route::apiResource('/scans', ScannersController::class);
     Route::apiResource('/issues', IssuesController::class);
     Route::post('/panicPost', [IssuesController::class, 'panic']);
+    Route::post('/firePost', [IssuesController::class, 'fireAlarm']);
+    Route::post('/ambulancePost', [IssuesController::class, 'ambulance']);
+
 
     Route::apiResource('/chats', ChatController::class);
     Route::apiResource('/codes', QrCodeController::class);
