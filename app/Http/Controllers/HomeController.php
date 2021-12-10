@@ -225,11 +225,12 @@ class HomeController extends Controller
 
     public function test()
     {
-        $start = Carbon\Carbon::now()->subMinutes(15);
+        $start = Carbon\Carbon::now()->subDays(365);
+        echo($start);
         $now = Carbon\Carbon::now();
-        $shift = Scan::where('sector', 'TCS000201')->whereBetween('created_at', [$now, $start])->get();
+        $shift = count(Scan::where('location', 'langata')->whereBetween('created_at', [$start, $now])->get());
         // dd($shift->isEmpty());
-        $shift = count(Scan::where('location', 'langata')->get());
+        // $shift = count(Scan::where('location', 'langata')->get());
         dd($shift);
     }
 

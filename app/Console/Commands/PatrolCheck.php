@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Carbon\Carbon;
 
 class PatrolCheck extends Command
 {
@@ -43,7 +44,7 @@ class PatrolCheck extends Command
         /**
          * Check if all points in Langata were scanned within the hour
          */
-        $langata_patrol_count = count(Scan::where('location', 'langata')->whereBetween('created_at', [$now, $start])->get());
+        $langata_patrol_count = count(Scan::where('location', 'langata')->whereBetween('created_at', [$start, $now])->get());
         $this->info($langata_patrol_count);
         if($langata_patrol_count < 17)
         {
@@ -60,7 +61,7 @@ class PatrolCheck extends Command
         /**
          * Check if all points in Baraka were scanned within the hour
          */
-        $baraka_patrol_count = count(Scan::where('location', 'baraka')->whereBetween('created_at', [$now, $start])->get());
+        $baraka_patrol_count = count(Scan::where('location', 'baraka')->whereBetween('created_at', [$start, $now])->get());
         if($baraka_patrol_count < 4)
         {
             $issue = new Issue;
