@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\ShiftCheck::class
     ];
 
     /**
@@ -24,7 +24,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('shift:check')->dailyAt('06:15')->appendOutputTo('shift.log');
+        $schedule->command('shift:check')->dailyAt('18:15')->appendOutputTo('shift.log');
+        $schedule->command('patrol:check')->everyHour()->appendOutputTo('shift.log');
+
+    }
+
+    public function scheduleTimezone()
+    {
+        return 'Africa/Nairobi';
     }
 
     /**

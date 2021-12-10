@@ -63,6 +63,8 @@ Route::get('/guards', [App\Http\Controllers\ShiftController::class, 'guards'])->
 Route::get('/clients', [App\Http\Controllers\ShiftController::class, 'clients'])->name('clients');
 Route::get('/map', [App\Http\Controllers\ShiftController::class, 'map'])->name('map');
 Route::get('/visitors', [App\Http\Controllers\ShiftController::class, 'visitors'])->name('visitors');
+Route::get('/visitors/{id}', [App\Http\Controllers\ShiftController::class, 'visitorInfo'])->name('visitorInfo');
+
 /**Routes For Chats */
 Route::get('/chats/{id}', [App\Http\Controllers\ChatController::class, 'chats'])->name('chats');
 Route::get('/chat/{id}', [App\Http\Controllers\ChatController::class, 'chat'])->name('chat');

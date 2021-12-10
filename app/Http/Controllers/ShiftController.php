@@ -324,13 +324,29 @@ class ShiftController extends Controller
         {
             return redirect()->route('home');
         }
-        // dd(VisitorLog::all());
 
-        $visitor_log = VisitorLog::all();
+        $visitor_log = VisitorLog::where('created_at', '>', Carbon::today() )->get();
 
         return view('visitors.visitorlogs', compact('visitor_log'));
 
      }
+
+    /**
+     * Display the visitor logs for the day
+     */
+    public function visitorInfo($id)
+    {
+       if(Auth::user()->role != 'admin')
+       {
+           return redirect()->route('home');
+       }
+
+       $visitor_log = VisitorLog::find($id);
+    //    dd($visitor_log->exists);
+
+       return view('visitors.visitorInfo', compact('visitor_log'));
+
+    }
 
     /**
      * Generate An Excel Form.

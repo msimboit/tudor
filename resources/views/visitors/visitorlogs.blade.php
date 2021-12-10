@@ -7,7 +7,7 @@
 
         <div class="mb-5">
         @if($visitor_log->isEmpty())
-            <h3>No Visitors Today Today</h3>
+            <h3>No Visitors Today</h3>
         @else
         <table class="table">
         <thead>
@@ -16,7 +16,7 @@
             <th>Phone Number</th>
             <th>ID Number</th>
             <th>Destination</th>
-            <!-- <th>Host</th> -->
+            <th></th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,9 @@
                 <td>{{ $v->phone_number }}</td>
                 <td>{{ $v->id_number }}</td>
                 <td>{{ $v->destination }}</td>
-                <!-- <td>{{ $v->host }}</td> -->
+                <td>
+                    <a href="{{ route('visitorInfo',$v->id) }}" class="btn btn-info">More Info</a> 
+                </td>
             </tr>
         @endforeach
         </tbody>
