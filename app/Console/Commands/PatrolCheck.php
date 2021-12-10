@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Carbon\Carbon;
+use App\Models\Scan;
+use App\Models\Issue;
+use Log;
 
 class PatrolCheck extends Command
 {
