@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ShiftCheck::class
+        Commands\ShiftCheck::class,
+        Commands\PatrolCheck::class
     ];
 
     /**
