@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            $this->info("Working");
+            \Log::info("Working");
         })->everyMinute();
         $schedule->command('shift:check')->dailyAt('06:15')->appendOutputTo('shift.log');
         $schedule->command('shift:check')->dailyAt('18:15')->appendOutputTo('shift.log');
