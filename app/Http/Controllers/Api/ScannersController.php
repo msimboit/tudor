@@ -69,7 +69,7 @@ class ScannersController extends Controller
         Log::info('  ');
         $confirm = ($request->sector == 'TCS000201') || ($request->sector == 'TCS00101');
         Log::info($confirm);
-        if($diff > 12 && ( ($request->sector != 'TCS000201') || ($request->sector != 'TCS00101') )){
+        if(!($diff > 12 && ( ($request->sector == 'TCS000201') || ($request->sector == 'TCS00101') ))){
             $response = [
                 'message' => 'Clock In First',
             ];
