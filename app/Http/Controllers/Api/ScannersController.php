@@ -68,7 +68,12 @@ class ScannersController extends Controller
          * If not return a 404 code
          */
         $actual_scan_time = Carbon::now();
-        $diff = (Carbon::parse($last_clock_in->created_at))->diffInHours($actual_scan_time);
+        if($last_clock_in->created_at == null)
+        {
+            $diff = 144;
+        }else {
+            $diff = (Carbon::parse($last_clock_in->created_at))->diffInHours($actual_scan_time);
+        }       
         Log::info($diff);
         Log::info('  ');
         $confirm = ($request->sector == 'TCS000201') || ($request->sector == 'TCS00101');
