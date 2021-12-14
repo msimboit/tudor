@@ -65,6 +65,10 @@ class ScannersController extends Controller
 
         $actual_scan_time = Carbon::now();
         $diff = (Carbon::parse($last_clock_in->created_at))->diffInHours($actual_scan_time);
+        Log::info($diff);
+        Log::info('  ');
+        $confirm = ($request->sector != 'TCS000201') || ($request->sector != 'TCS00101');
+        Log::info($confirm);
         if($diff > 12 && ( ($request->sector != 'TCS000201') || ($request->sector != 'TCS00101') )){
             $response = [
                 'message' => 'Clock In First',
