@@ -12,6 +12,7 @@ use App\Http\Resources\ScannersResource;
 use Carbon\Carbon;
 use DateTime;
 use DB;
+use Log;
 
 class ScannersController extends Controller
 {
@@ -50,6 +51,7 @@ class ScannersController extends Controller
             'sector' => 'required|string',
         ]);
 
+        Log::info($request->all());
         $user = User::where('phone_number', $request->phone_number)->first();
 
         $sector_name = QrCode::where('code', $request->sector)->select('name')->first();
