@@ -63,6 +63,15 @@ class ScannersController extends Controller
         ->orderBy('created_at', 'desc')
         ->first();
 
+        $actual_scan_time = Carbon::now();
+        $diff = ($last_clock_in->created_at)->diffInHours($actual_scan_time);
+        if($diff > 12 && ( ($request->sector !== 'TCS000201') || ($request->sector !== 'TCS00101') )){
+            $response = [
+                'message' => 'Clock In First',
+            ];
+            return response($response, 404);
+        }
+
         $last_scanned_site = DB::table('scans')
             ->where('phone_number', '=', $user->phone_number)
             ->orderBy('created_at', 'desc')
