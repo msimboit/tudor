@@ -43,6 +43,7 @@ class ShiftCheck extends Command
     {
         $start = Carbon::now()->subMinutes(15);
         $now = Carbon::now();
+
         $shift = Scan::where('sector', 'TCS000201')->whereBetween('created_at', [$now, $start])->first();
         // $shift = Scan::where('sector', 'TCS000201')->first();
         $this->info($shift);
@@ -53,7 +54,22 @@ class ShiftCheck extends Command
             $issue->first_name = "Admin";
             $issue->title = "Delayed Clock In";
             $issue->issueLocation = 'Clock In';
-            $issue->details = "No clock in was performed";
+            $issue->details = "No clock in was performed by a guard at Langata at the shift start";
+            $success = $issue->save();
+            $this->info($success);
+        }
+
+        $shift = Scan::where('sector', 'TCS00101')->whereBetween('created_at', [$now, $start])->first();
+        // $shift = Scan::where('sector', 'TCS00101')->first();
+        $this->info($shift);
+        if($shift == null)
+        {
+            $issue = new Issue;
+            $issue->phone_number = 000;
+            $issue->first_name = "Admin";
+            $issue->title = "Delayed Clock In";
+            $issue->issueLocation = 'Clock In';
+            $issue->details = "No clock in was performed by a guard at Baraka at the shift start";
             $success = $issue->save();
             $this->info($success);
         }

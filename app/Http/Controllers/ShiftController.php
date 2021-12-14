@@ -342,7 +342,7 @@ class ShiftController extends Controller
        }
 
        $visitor_log = VisitorLog::find($id);
-    //    dd($visitor_log->exists);
+    //    dd($visitor_log);
 
        return view('visitors.visitorInfo', compact('visitor_log'));
 
