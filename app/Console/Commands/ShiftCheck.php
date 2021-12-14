@@ -54,7 +54,7 @@ class ShiftCheck extends Command
             $issue->first_name = "Admin";
             $issue->title = "Delayed Clock In";
             $issue->issueLocation = 'Clock In';
-            $issue->details = "No clock in was performed by a guard at Langata at the shift start";
+            $issue->details = "No clock in was performed by a guard at Langata at the correct shift start";
             $success = $issue->save();
             $this->info($success);
         }
@@ -69,7 +69,7 @@ class ShiftCheck extends Command
             $issue->first_name = "Admin";
             $issue->title = "Delayed Clock In";
             $issue->issueLocation = 'Clock In';
-            $issue->details = "No clock in was performed by a guard at Baraka at the shift start";
+            $issue->details = "No clock in was performed by a guard at Baraka at the correct shift start";
             $success = $issue->save();
             $this->info($success);
         }
