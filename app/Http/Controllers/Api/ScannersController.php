@@ -68,7 +68,7 @@ class ScannersController extends Controller
          * If not return a 404 code
          */
         $actual_scan_time = Carbon::now();
-        if($last_clock_in->created_at == null)
+        if($last_clock_in == null)
         {
             $diff = 144;
         }else {
