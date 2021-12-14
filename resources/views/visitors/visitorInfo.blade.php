@@ -18,6 +18,12 @@
         <p>Phone Number: {{ $visitor_log->phone_number }}</p>
         <p>ID Number: {{ $visitor_log->id_number }}</p>
         <img src=" {{ asset('visitorLogs/ids/' .$visitor_log->id_image) }} " alt="ID image">
+
+        @if($visitor_log->has_vehicle == true)
+          <p>Vehicle Type: {{ $visitor_log->vehicle_type }}</p>
+          <p>Vehicle Number: {{ $visitor_log->vehicle_number }}</p>
+          <img src=" {{ asset('visitorLogs/ids/' .$visitor_log->vehicle_image) }} " alt="ID image">
+        @endif
       </div>
     </div>
     <hr />
