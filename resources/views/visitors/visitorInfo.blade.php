@@ -15,8 +15,9 @@
         <p>Visitor by the name {{ $visitor_log->first_name }} {{ $visitor_log->last_name }} came by to see {{ $visitor_log->host}}
             at the location {{ $visitor_log->destination }}.
         </p>
-        <p>ID Number: {{ $visitor_log->id_number }}</p>
         <p>Phone Number: {{ $visitor_log->phone_number }}</p>
+        <p>ID Number: {{ $visitor_log->id_number }}</p>
+        <img src=" {{ asset('visitorLogs/ids/' .$visitor_log->id_image) }} " alt="ID image">
       </div>
     </div>
     <hr />
