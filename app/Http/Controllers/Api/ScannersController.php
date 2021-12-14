@@ -104,7 +104,7 @@ class ScannersController extends Controller
                     'sector_name' => $scan->sector_name
                 ];
 
-                $response = collect($response);
+                $response_array = collect($response);
                 $response = [
                     'response' => $response_array,
                 ];
