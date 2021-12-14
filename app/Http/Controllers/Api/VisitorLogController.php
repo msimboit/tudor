@@ -101,8 +101,9 @@ class VisitorLogController extends Controller
         $v_log->host = $request->host;
         $v_log->has_vehicle = $request->has_vehicle;
 
-        if($request->has_vehicle)
+        if($request->vehicle_number)
         {
+            $v_log->has_vehicle = true;
             $v_log->vehicle_type = $request->vehicle_type;
             $v_log->vehicle_number = $request->vehicle_number;
             /**
