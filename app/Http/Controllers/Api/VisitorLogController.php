@@ -134,7 +134,7 @@ class VisitorLogController extends Controller
                 $day = (string)now()->day;
                 $month = (string)now()->month;
                 $year = (string)now()->year;
-                $vehicle_image_name = Auth::user()->id.'-'.$request->vehicle_type.$day.'-'.$request->vehicle_number.'-'.$month.'-'.$year.'.png';
+                $vehicle_image_name = Auth::user()->id.'-'.$request->vehicle_type.'-'.$day.'-'.$request->vehicle_number.'-'.$month.'-'.$year.'.png';
 
                 // Specify the location where you want to save the image
                 $img_file = '../public/visitorLogs/vehicles/'.$vehicle_image_name;

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Scan;
 use App\Models\User;
 use App\Models\QrCode;
+use App\Models\Shift;
 use App\Http\Resources\ScannersResource;
 use Carbon\Carbon;
 use DateTime;
